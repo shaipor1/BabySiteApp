@@ -6,6 +6,7 @@ namespace BabySiteApp
 {
     public partial class App : Application
     {
+        public bool IsDevEnv => true;
         public App()
         {
             InitializeComponent();
