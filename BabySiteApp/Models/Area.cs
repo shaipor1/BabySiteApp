@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
 
-namespace BabySiteServerBL.Models
+
+namespace BabySiteApp.Models
 {
     public partial class Area
     {
         public Area()
         {
-            Cities = new HashSet<City>();
+            Cities = new List<City>();
         }
 
         public int AreaId { get; set; }
         public int AreaName { get; set; }
 
-        public virtual ICollection<City> Cities { get; set; }
+        public virtual List<City> Cities { get; set; }
     }
 }

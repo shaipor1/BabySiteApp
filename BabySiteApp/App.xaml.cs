@@ -1,12 +1,13 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using BabySiteApp.Models;
 
 namespace BabySiteApp
 {
     public partial class App : Application
     {
-        public bool IsDevEnv => true;
+        public static bool IsDevEnv => true;
         public App()
         {
             InitializeComponent();
@@ -14,6 +15,7 @@ namespace BabySiteApp
             MainPage = new MainPage();
         }
 
+        public User CurrentUser { get; set; }
         protected override void OnStart()
         {
         }

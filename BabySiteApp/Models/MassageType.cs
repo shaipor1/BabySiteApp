@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
 
-namespace BabySiteServerBL.Models
+
+namespace BabySiteApp.Models
 {
     public partial class MassageType
     {
         public MassageType()
         {
-            Massages = new HashSet<Massage>();
+            Massages = new List<Massage>();
         }
 
         public int MassageTypeId { get; set; }
@@ -17,6 +17,6 @@ namespace BabySiteServerBL.Models
         public string MassageTypeName { get; set; }
 
         public virtual UserType UserType { get; set; }
-        public virtual ICollection<Massage> Massages { get; set; }
+        public virtual List<Massage> Massages { get; set; }
     }
 }

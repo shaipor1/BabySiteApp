@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
 
-namespace BabySiteServerBL.Models
+
+namespace BabySiteApp.Models
 {
     public partial class BabySitter
     {
         public BabySitter()
         {
-            Requests = new HashSet<Request>();
-            Reviews = new HashSet<Review>();
+            Requests = new List<Request>();
+            Reviews = new List<Review>();
         }
 
         public int BabySitterId { get; set; }
@@ -21,7 +21,7 @@ namespace BabySiteServerBL.Models
         public int Salary { get; set; }
 
         public virtual User User { get; set; }
-        public virtual ICollection<Request> Requests { get; set; }
-        public virtual ICollection<Review> Reviews { get; set; }
+        public virtual List<Request> Requests { get; set; }
+        public virtual List<Review> Reviews { get; set; }
     }
 }

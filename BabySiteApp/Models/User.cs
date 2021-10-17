@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
 
-namespace BabySiteServerBL.Models
+
+namespace BabySiteApp.Models
 {
     public partial class User
     {
         public User()
         {
-            BabySitters = new HashSet<BabySitter>();
-            Massages = new HashSet<Massage>();
-            Parents = new HashSet<Parent>();
+            BabySitters = new List<BabySitter>();
+            Massages = new List<Massage>();
+            Parents = new List<Parent>();
         }
 
         public int UserId { get; set; }
@@ -26,8 +26,8 @@ namespace BabySiteServerBL.Models
 
         public virtual Location Location { get; set; }
         public virtual UserType UserType { get; set; }
-        public virtual ICollection<BabySitter> BabySitters { get; set; }
-        public virtual ICollection<Massage> Massages { get; set; }
-        public virtual ICollection<Parent> Parents { get; set; }
+        public virtual List<BabySitter> BabySitters { get; set; }
+        public virtual List<Massage> Massages { get; set; }
+        public virtual List<Parent> Parents { get; set; }
     }
 }

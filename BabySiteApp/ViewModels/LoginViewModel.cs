@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
-using ContactsApp.Services;
-using ContactsApp.Models;
+using BabySiteApp.Services;
+using BabySiteApp.Models;
 using Xamarin.Essentials;
 using System.Linq;
 
@@ -58,7 +58,7 @@ namespace BabySiteApp.Models
         {
             ServerStatus = "מתחבר לשרת...";
             await App.Current.MainPage.Navigation.PushModalAsync(new Views.ServerStatusPage(this));
-            ContactsAPIProxy proxy = ContactsAPIProxy.CreateProxy();
+            BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
             User user = await proxy.LoginAsync(Email, Password);
             if (user == null)
             {
@@ -95,7 +95,7 @@ namespace BabySiteApp.Models
 
         private async Task<bool> LoadPhoneTypes(App theApp)
         {
-            ContactsAPIProxy proxy = ContactsAPIProxy.CreateProxy();
+            BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
             theApp.PhoneTypes = await proxy.GetPhoneTypesAsync();
             return theApp.PhoneTypes != null;
         }

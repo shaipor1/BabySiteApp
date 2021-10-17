@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
 
-namespace BabySiteServerBL.Models
+
+namespace BabySiteApp.Models
 {
     public partial class RequestStatus
     {
         public RequestStatus()
         {
-            Requests = new HashSet<Request>();
+            Requests = new List<Request>();
         }
 
         public int RequestStatusId { get; set; }
         public string RequestStatusName { get; set; }
 
-        public virtual ICollection<Request> Requests { get; set; }
+        public virtual List<Request> Requests { get; set; }
     }
 }

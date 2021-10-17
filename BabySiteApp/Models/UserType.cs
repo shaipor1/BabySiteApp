@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
 
-namespace BabySiteServerBL.Models
+
+namespace BabySiteApp.Models
 {
     public partial class UserType
     {
         public UserType()
         {
-            MassageTypes = new HashSet<MassageType>();
-            Users = new HashSet<User>();
+            MassageTypes = new List<MassageType>();
+            Users = new List<User>();
         }
 
         public int UserTypeId { get; set; }
         public string UserTypeName { get; set; }
 
-        public virtual ICollection<MassageType> MassageTypes { get; set; }
-        public virtual ICollection<User> Users { get; set; }
+        public virtual List<MassageType> MassageTypes { get; set; }
+        public virtual List<User> Users { get; set; }
     }
 }
