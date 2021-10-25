@@ -10,7 +10,7 @@ using BabySiteApp.Models;
 using Xamarin.Essentials;
 using System.Linq;
 
-namespace BabySiteApp.Models
+namespace BabySiteApp.ViewModels
 { 
     class LoginViewModel : BaseViewModels
 {
@@ -57,7 +57,7 @@ namespace BabySiteApp.Models
         public async void OnSubmit()
         {
             ServerStatus = "מתחבר לשרת...";
-            await App.Current.MainPage.Navigation.PushModalAsync(new Views.ServerStatusPage(this));
+            //await App.Current.MainPage.Navigation.PushModalAsync(new Views.ServerStatusPage(this));
             BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
             User user = await proxy.LoginAsync(Email, Password);
             if (user == null)
@@ -70,35 +70,18 @@ namespace BabySiteApp.Models
                 ServerStatus = "קורא נתונים...";
                 App theApp = (App)App.Current;
                 theApp.CurrentUser = user;
-                bool success = await LoadPhoneTypes(theApp);
-                if (!success)
-                {
-                    await App.Current.MainPage.Navigation.PopModalAsync();
-                    await App.Current.MainPage.DisplayAlert("שגיאה", "קריאת נתונים נכשלה. נסה שוב מאוחר יותר", "בסדר");
-                }
-                else
-                {
-                    //Initiate all phone types refrence to the same objects of PhoneTypes
-                    foreach (UserContact uc in user.UserContacts)
-                    {
-                        foreach (Models.ContactPhone cp in uc.ContactPhones)
-                            cp.PhoneType = theApp.PhoneTypes.Where(pt => pt.TypeId == cp.PhoneTypeId).FirstOrDefault();
-                    }
+                await App.Current.MainPage.DisplayAlert("שגיאה", "קריאת נתונים נכשלה. נסה שוב מאוחר יותר", "בסדר");
+              
 
-                    Page p = new NavigationPage(new Views.ContactsList());
-                    App.Current.MainPage = p;
+                    //Page p = new NavigationPage(new Views.ContactsList());
+                    //App.Current.MainPage = p;
                 }
 
 
             }
         }
 
-        private async Task<bool> LoadPhoneTypes(App theApp)
-        {
-            BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
-            theApp.PhoneTypes = await proxy.GetPhoneTypesAsync();
-            return theApp.PhoneTypes != null;
-        }
+        
     }
 }
 }

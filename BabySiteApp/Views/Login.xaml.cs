@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using BabySiteApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,7 +14,21 @@ namespace BabySiteApp.Views
     {
         public Login()
         {
-            InitializeComponent();
+           
+            
+                this.BindingContext = new LoginViewModel();
+                InitializeComponent();
+            }
+
+
+            private void Password_Focused(object sender, FocusEventArgs e)
+            {
+                Entry entry = (Entry)sender;
+                entry.IsPassword = true;
+            }
+
+        }
+        
         }
     }
 }

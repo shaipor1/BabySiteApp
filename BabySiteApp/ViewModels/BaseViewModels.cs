@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 
-namespace BabySiteApp.Models
+namespace BabySiteApp.ViewModels
 {
     public abstract class BaseViewModels:INotifyPropertyChanged
     {
