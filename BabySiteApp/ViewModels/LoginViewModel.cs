@@ -70,18 +70,18 @@ namespace BabySiteApp.ViewModels
                 ServerStatus = "קורא נתונים...";
                 App theApp = (App)App.Current;
                 theApp.CurrentUser = user;
-                await App.Current.MainPage.DisplayAlert("שגיאה", "קריאת נתונים נכשלה. נסה שוב מאוחר יותר", "בסדר");
-              
-
-                    //Page p = new NavigationPage(new Views.ContactsList());
-                    //App.Current.MainPage = p;
-                }
 
 
+
+                Page p = new NavigationPage(new Views.HomePage());
+                App.Current.MainPage = p;
             }
+
+
+            
         }
 
         
     }
-}
+
 }

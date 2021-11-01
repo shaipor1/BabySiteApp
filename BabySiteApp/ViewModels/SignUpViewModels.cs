@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BabySiteApp.ViewModels
 {
-    class SignUpViewModels
+    class SignUpViewModels:BaseViewModels
     {
     }
 }
