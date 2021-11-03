@@ -116,9 +116,41 @@ namespace BabySiteApp.Services
                 }
             }
 
-        
+        public async Task<BabySitter> PlayerSignUpAsync(BabySitter babySitter)
+        {
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
+                string jsonObject = JsonSerializer.Serialize<BabySitter>(babySitter, options);
+                StringContent content = new StringContent(jsonObject, Encoding.UTF8, "application/json");
 
-            
-        
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/SignUpBabySitter", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    jsonObject = await response.Content.ReadAsStringAsync();
+                    BabySitter a = JsonSerializer.Deserialize<BabySitter>(jsonObject, options);
+                    return a;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
+
+
+
+
     }
 }
