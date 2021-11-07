@@ -2,17 +2,20 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using BabySiteApp.Models;
+using BabySiteApp.Views;
 
 namespace BabySiteApp
 {
     public partial class App : Application
     {
         public static bool IsDevEnv => true;
+        public static bool IsBabySitter => true;
+
         public App()
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new SignUp();
         }
 
         public User CurrentUser { get; set; }

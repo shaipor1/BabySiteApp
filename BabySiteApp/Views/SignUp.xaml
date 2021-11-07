@@ -7,6 +7,20 @@
             <Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <Grid IsVisible="{binding IsBabySitter }">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Text="sign up as {UserType}" Grid.Row="0" HorizontalOptions="Center"></Label>
+
+                <Entry Placeholder="first name" Text="{Binding FirstName}" Grid.Row="1" HorizontalOptions="Center"></Entry>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

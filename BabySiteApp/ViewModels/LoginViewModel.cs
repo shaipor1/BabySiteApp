@@ -64,6 +64,7 @@ namespace BabySiteApp.ViewModels
             {
                 await App.Current.MainPage.Navigation.PopModalAsync();
                 await App.Current.MainPage.DisplayAlert("שגיאה", "התחברות נכשלה, בדוק שם משתמש וסיסמה ונסה שוב", "בסדר");
+                
             }
             else
             {
