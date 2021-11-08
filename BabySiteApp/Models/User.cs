@@ -23,6 +23,7 @@ namespace BabySiteApp.Models
         public string Email { get; set; }
         public string UserName { get; set; }
         public string UserPswd { get; set; }
+        public string Gender { get; set; }
 
         public virtual Location Location { get; set; }
         public virtual UserType UserType { get; set; }
