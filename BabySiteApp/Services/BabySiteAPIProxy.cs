@@ -116,7 +116,7 @@ namespace BabySiteApp.Services
                 }
             }
 
-        public async Task<BabySitter> PlayerSignUpAsync(BabySitter babySitter)
+        public async Task<BabySitter> BabysitterSignUpAsync(BabySitter babySitter)
         {
             try
             {
