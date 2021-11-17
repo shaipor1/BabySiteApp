@@ -1,6 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Windows.Input;
+using Xamarin.Forms;
+using BabySiteApp.Services;
+using BabySiteApp.Models;
+using BabySiteApp.Views;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text.RegularExpressions;
+using Xamarin.Essentials;
 
 namespace BabySiteApp.ViewModels
 {
@@ -9,6 +20,8 @@ namespace BabySiteApp.ViewModels
         public const string REQUIRED_FIELD = "זהו שדה חובה";
         public const string BAD_EMAIL = "מייל לא תקין";
         public const string SHORT_PASS = "סיסמה חייבת להכיל לפחות 6 תווים";
+        public const string BAD_PhoneNum = "מספר טלפון לא תקין";
+        public const string BAD_UserName= "שם לא תקין"; 
 
     }
     class SignUpViewModels:BaseViewModels
@@ -66,6 +79,218 @@ namespace BabySiteApp.ViewModels
             }
         }
         #endregion
+        #region PhoneNum
+        private bool showPhoneNumError;
+
+        public bool ShowPhoneNumError
+        {
+            get => showPhoneNumError;
+            set
+            {
+                showPhoneNumError = value;
+                OnPropertyChanged("ShowPhoneNumError");
+            }
+        }
+
+        private string phoneNum;
+
+        public string PhoneNum
+        {
+            get => phoneNum;
+            set
+            {
+                phoneNum = value;
+                ValidatePhoneNum();
+                OnPropertyChanged("PhoneNum");
+            }
+        }
+
+        private string phoneNumError;
+
+        public string PhoneNumError
+        {
+            get => phoneNumError;
+            set
+            {
+                phoneNumError = value;
+                OnPropertyChanged("PhoneNumError");
+            }
+        }
+
+        private void ValidatePhoneNum()
+        {
+            this.ShowPhoneNumError = string.IsNullOrEmpty(PhoneNum);
+            if (!this.ShowPhoneNumError)
+            {
+                if (!Regex.IsMatch(this.PhoneNum, @"\b((0\d[- ]\d{7})|(0\d[- ]\d{3}[- ]\d{4}))\b"))
+                {
+                    this.ShowPhoneNumError = true;
+                    this.PhoneNumError = ERROR_MESSAGES.BAD_PhoneNum;
+                }
+            }
+
+        }
+        #endregion
+        #region Email
+        private bool showEmailError;
+
+        public bool ShowEmailError
+        {
+            get => showEmailError;
+            set
+            {
+                showEmailError = value;
+                OnPropertyChanged("ShowEmailError");
+            }
+        }
+
+        private string email;
+
+        public string Email
+        {
+            get => email;
+            set
+            {
+                email = value;
+                ValidateEmail();
+                OnPropertyChanged("Email");
+            }
+        }
+
+        private string emailError;
+
+        public string EmailError
+        {
+            get => emailError;
+            set
+            {
+                emailError = value;
+                OnPropertyChanged("EmailError");
+            }
+        }
+
+        private void ValidateEmail()
+        {
+            this.ShowEmailError = string.IsNullOrEmpty(Email);
+            if (!this.ShowEmailError)
+            {
+                if (!Regex.IsMatch(this.Email, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"))
+                {
+                    this.ShowEmailError = true;
+                    this.EmailError = ERROR_MESSAGES.BAD_EMAIL;
+                }
+            }
+
+        }
+        #endregion
+        #region UserName
+        private bool showUserNameError;
+
+        public bool ShowUserNameError
+        {
+            get => showUserNameError;
+            set
+            {
+                showUserNameError = value;
+                OnPropertyChanged("ShowUserNameError");
+            }
+        }
+
+        private string userName;
+
+        public string UserName
+        {
+            get => userName;
+            set
+            {
+                userName = value;
+                ValidateUserName();
+                OnPropertyChanged("UserName");
+            }
+        }
+
+        private string userNameError;
+
+        public string UserNameError
+        {
+            get => userNameError;
+            set
+            {
+                userNameError = value;
+                OnPropertyChanged("UserNameError");
+            }
+        }
+
+        private void ValidateUserName()
+        {
+            this.ShowUserNameError = string.IsNullOrEmpty(UserName);
+            if (!this.ShowUserNameError)
+            {
+                for (int i = 0; i < this.UserName.Length; i++)
+                {
+
+                }
+                
+                    this.ShowUserNameError = true;
+                    this.UserNameError = ERROR_MESSAGES.BAD_UserName;
+                }
+            }
+            
+      
+        #endregion
+        #region Password
+        private bool showPasswordError;
+
+        public bool ShowPasswordError
+        {
+            get => showPasswordError;
+            set
+            {
+                showPasswordError = value;
+                OnPropertyChanged("ShowPasswordError");
+            }
+        }
+
+        private string password;
+
+        public string Password
+        {
+            get => password;
+            set
+            {
+                password = value;
+                ValidatePassword();
+                OnPropertyChanged("Password");
+            }
+        }
+
+        private string passwordError;
+
+        public string PasswordError
+        {
+            get => passwordError;
+            set
+            {
+                passwordError = value;
+                OnPropertyChanged("PasswordError");
+            }
+        }
+
+        private void ValidatePassword()
+        {
+            this.ShowPasswordError = string.IsNullOrEmpty(Password);
+            if (!this.ShowPasswordError)
+            {
+                if (this.Password.Length < 6)
+                {
+                    this.ShowPasswordError = true;
+                    this.PasswordError = ERROR_MESSAGES.SHORT_PASS;
+                }
+            }
+
+        }
+        #endregion
+        #region Gender
         private string gender;
         public string Gender
         {
@@ -73,18 +298,85 @@ namespace BabySiteApp.ViewModels
             set
             {
                 gender = value;
+                ValidateGender();
                 OnPropertyChanged("Gender");
             }
         }
-        #region email
-        private string email;
-        public string Email
+
+        private string genderError;
+
+        public string GenderError
         {
-            get => email;
+            get => genderError;
             set
             {
-                email = value;
+                genderError = value;
+                OnPropertyChanged("GenderError");
             }
         }
+
+        private void ValidateGender()
+        {
+            this.ShowGenderError = string.IsNullOrEmpty(Gender);
+        }
+
+        private bool showGenderError;
+        public bool ShowGenderError
+        {
+            get => showGenderError;
+            set
+            {
+                showGenderError = value;
+                OnPropertyChanged("ShowGenderError");
+            }
+        }
+        #endregion
+        #region BirthDate
+        private bool showBirthDateError;
+
+        public bool ShowBirthDateError
+        {
+            get => showBirthDateError;
+            set
+            {
+                showBirthDateError = value;
+                OnPropertyChanged("ShowBirthDateError");
+            }
+        }
+
+        private DateTime birthDate;
+
+        public DateTime BirthDate
+        {
+            get => birthDate;
+            set
+            {
+                birthDate = value;
+                ValidateBirthDate();
+                OnPropertyChanged("BirthDate");
+            }
+        }
+
+        private string birthDateError;
+
+        public string BirthDateError
+        {
+            get => birthDateError;
+            set
+            {
+                birthDateError = value;
+                OnPropertyChanged("BirthDateError");
+            }
+        }
+
+        private const int MIN_AGE = 12;
+        private void ValidateBirthDate()
+        {
+            TimeSpan ts = DateTime.Now - this.BirthDate;
+            this.ShowBirthDateError = ts.TotalDays < (MIN_AGE * 365);
+        }
+        #endregion
+       
+
     }
 }

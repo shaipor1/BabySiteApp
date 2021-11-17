@@ -33,10 +33,62 @@
                 <Entry Placeholder="user name" Text="{Binding UserName}" Grid.Row="8" HorizontalOptions="Center"></Entry>
                 <Entry Placeholder="password" Text="{Binding Password}" Grid.Row="9" HorizontalOptions="Center"></Entry>
                 <DatePicker Date="{Binding BirthDate}" Grid.Row="10" HorizontalOptions="Center"/>
-                <Switch IsVisible="{binding IsBabySitter}" IsToggled="{Binding HasCar}" Grid.Row="11" HorizontalOptions="Center"/>
-                <Slider x:Name="has car" Minimum="25" Maximum="100" Value="{Binding Salary}"/>
+                <Switch IsVisible="{Binding IsBabySitter}" IsToggled="{Binding HasCar}" Grid.Row="11" HorizontalOptions="Center"/>
+                <Slider IsVisible="{Binding IsBabySitter}" x:Name="has car" Minimum="25" Maximum="100" Grid.Row="12" HorizontalOptions="Center" Value="{Binding Salary}"/>
                 <Label x:Name="displayLabel"
                Text="{Binding Salary} " HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                <Switch IsVisible="{Binding IsParent}" IsToggled="{Binding HasDog}" Grid.Row="13" HorizontalOptions="Center"/>
+                <Picker IsVisible="{Binding IsParent}"   Grid.Row="14" HorizontalOptions="Center" x:Name="minAge"
+        Title="minimum child age" SelectedIndex="{Binding MinAge}" >
+                    <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:Int32}">
+                        <x:Int32>1</x:Int32>
+                        <x:Int32>2</x:Int32>
+                        <x:Int32>3</x:Int32>
+                        <x:Int32>4</x:Int32>
+                        <x:Int32>5</x:Int32>
+                        <x:Int32>6</x:Int32>
+                        <x:Int32>7</x:Int32>
+                        <x:Int32>8</x:Int32>
+                        <x:Int32>9</x:Int32>
+                        <x:Int32>10</x:Int32>
+                        <x:Int32>11</x:Int32>
+                        <x:Int32>12</x:Int32>
+                        <x:Int32>13</x:Int32>
+                        <x:Int32>14</x:Int32>
+                        <x:Int32>15</x:Int32>
+                        <x:Int32>16</x:Int32>
+                        <x:Int32>17</x:Int32>
+                        <x:Int32>18</x:Int32>
+                    </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <Picker IsVisible="{Binding IsParent}"   Grid.Row="15" HorizontalOptions="Center" x:Name="maxAge"
+        Title="maximum child age" SelectedIndex="{Binding MaxAge}" >
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:Int32}">
+                            <x:Int32>1</x:Int32>
+                            <x:Int32>2</x:Int32>
+                            <x:Int32>3</x:Int32>
+                            <x:Int32>4</x:Int32>
+                            <x:Int32>5</x:Int32>
+                            <x:Int32>6</x:Int32>
+                            <x:Int32>7</x:Int32>
+                            <x:Int32>8</x:Int32>
+                            <x:Int32>9</x:Int32>
+                            <x:Int32>10</x:Int32>
+                            <x:Int32>11</x:Int32>
+                            <x:Int32>12</x:Int32>
+                            <x:Int32>13</x:Int32>
+                            <x:Int32>14</x:Int32>
+                            <x:Int32>15</x:Int32>
+                            <x:Int32>16</x:Int32>
+                            <x:Int32>17</x:Int32>
+                            <x:Int32>18</x:Int32>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                
             </Grid>
         </StackLayout>
     </ContentPage.Content>
