@@ -17,7 +17,7 @@ namespace BabySiteApp.Models
         public int UserId { get; set; }
         public int RatingAverage { get; set; }
         public bool HasCar { get; set; }
-        public int Age { get; set; }
+
         public int Salary { get; set; }
 
         public virtual User User { get; set; }

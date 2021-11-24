@@ -15,7 +15,7 @@ namespace BabySiteApp
         {
             InitializeComponent();
 
-            MainPage = new SignUp();
+            MainPage = new Login();
         }
 
         public User CurrentUser { get; set; }

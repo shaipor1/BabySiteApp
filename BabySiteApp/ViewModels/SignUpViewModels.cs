@@ -376,7 +376,38 @@ namespace BabySiteApp.ViewModels
             this.ShowBirthDateError = ts.TotalDays < (MIN_AGE * 365);
         }
         #endregion
-       
+        #region HasCar
+        
+        
+        private string hasCar;
+        public string HasCar
+        {
+            get => hasCar;
+            set
+            {
+                hasCar = value;
+               
+                OnPropertyChanged("HasCar");
+            }
+        }
+
+        #endregion
+        #region Salary
+
+
+        private string salay;
+        public string Salary
+        {
+            get => salay;
+            set
+            {
+                salay = value;
+
+                OnPropertyChanged("Salary");
+            }
+        }
+
+        #endregion
 
     }
 }

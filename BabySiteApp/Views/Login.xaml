@@ -6,8 +6,29 @@
     
     <ContentPage.Content>
         <StackLayout>
-            
-            
+            <StackLayout Style="{StaticResource Stack}" Padding="0" >
+                <Grid Margin="0,0,0,0" Padding="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="150"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Label Text="התחברות" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Style="{StaticResource FormTitle}"></Label>
+                </Grid>
+                <Frame Style="{StaticResource logInSignUp}">
+                    <StackLayout>
+                        <Entry x:Name="Email" MaxLength="30" Text="{Binding Email}" Placeholder="דואר אלקטרוני"   
+                           Keyboard="Email"  
+                           Style="{StaticResource entry}"/>
+                        <Entry x:Name="Password" MaxLength="30" Text="{Binding Password}" Placeholder="סיסמה" IsPassword="True"
+                           Style="{StaticResource entry}"/>
+                    </StackLayout>
+                </Frame>
+                <Button Command="{Binding SubmitCommand}" Text="התחבר" Style="{StaticResource Button}" />
+            </StackLayout>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BabySiteApp.ViewModels"
              x:Class="BabySiteApp.Views.SignUp">
+    <ContentPage.BindingContext>
+        <local:SignUpViewModels></local:SignUpViewModels>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Welcome to Xamarin.Forms!"
@@ -34,12 +38,12 @@
                 <Entry Placeholder="password" Text="{Binding Password}" Grid.Row="9" HorizontalOptions="Center"></Entry>
                 <DatePicker Date="{Binding BirthDate}" Grid.Row="10" HorizontalOptions="Center"/>
                 <Switch IsVisible="{Binding IsBabySitter}" IsToggled="{Binding HasCar}" Grid.Row="11" HorizontalOptions="Center"/>
-                <Slider IsVisible="{Binding IsBabySitter}" x:Name="has car" Minimum="25" Maximum="100" Grid.Row="12" HorizontalOptions="Center" Value="{Binding Salary}"/>
+                <Slider IsVisible="{Binding IsBabySitter}" x:Name="hasCar" Minimum="25" Maximum="100" Grid.Row="12" HorizontalOptions="Center" Value="{Binding Salary}"/>
                 <Label x:Name="displayLabel"
                Text="{Binding Salary} " HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
-                <Switch IsVisible="{Binding IsParent}" IsToggled="{Binding HasDog}" Grid.Row="13" HorizontalOptions="Center"/>
+                <Switch  IsVisible="true"  IsToggled="{Binding HasDog}" Grid.Row="13" HorizontalOptions="Center"/>
                 <Picker IsVisible="{Binding IsParent}"   Grid.Row="14" HorizontalOptions="Center" x:Name="minAge"
-        Title="minimum child age" SelectedIndex="{Binding MinAge}" >
+        Title="minimum child age" SelectedIndex="1" >
                     <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:Int32}">
                         <x:Int32>1</x:Int32>
