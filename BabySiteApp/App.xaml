@@ -8,7 +8,7 @@
                 <Setter Property="FontFamily" Value="Amatic"></Setter>
                 <Setter Property="FontSize" Value="32"></Setter>
                 <Setter Property="HorizontalOptions" Value="Center"></Setter>
-                <Setter Property="TextColor" Value="#f5ab35"></Setter>
+                <Setter Property="TextColor" Value="#FFC0CB"></Setter>
             </Style>
 
             <Style x:Key="smallerTitle" TargetType="Label">
@@ -25,12 +25,12 @@
             <Style x:Key="Link" TargetType="Label">
                 <Setter Property="FontFamily" Value="Fill"></Setter>
                 <Setter Property="FontSize" Value="14"></Setter>
-                <Setter Property="TextColor" Value="Blue"></Setter>
+                <Setter Property="TextColor" Value="#B0E0E6"></Setter>
                 <Setter Property="TextDecorations" Value="Underline"></Setter>
             </Style>
 
             <Style x:Key="logInSignUp" TargetType="Frame">
-                <Setter Property="BackgroundColor" Value="#fabe58"></Setter>
+                <Setter Property="BackgroundColor" Value="#FFC0CB"></Setter>
                 <Setter Property="HasShadow" Value="true"></Setter>
                 <Setter Property="CornerRadius" Value="10"></Setter>
             </Style>
@@ -41,7 +41,7 @@
             <Style x:Key="labelErrorStyle" TargetType="Label">
                 <Setter Property="HorizontalOptions" Value="End" />
                 <Setter Property="VerticalOptions" Value="End" />
-                <Setter Property="TextColor" Value="#e63946" />
+                <Setter Property="TextColor" Value="#FF1493" />
                 <Setter Property="FontSize" Value="14" />
             </Style>
 
@@ -68,7 +68,7 @@
                 <Setter Property="FontSize" Value="Large"/>
                 <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
                 <Setter Property="TextColor" Value="White"/>
-                <Setter Property="BackgroundColor" Value="#f5ab35"/>
+                <Setter Property="BackgroundColor" Value="#FFC0CB"/>
                 <Setter Property="CornerRadius" Value="10"></Setter>
             </Style>
             <Style TargetType="RadioButton" x:Key="RadioButton">
@@ -78,7 +78,7 @@
                             <VisualState x:Name="Checked">
                                 <VisualState.Setters>
                                     <Setter Property="TextColor"
-                                        Value="Green" />
+                                        Value="#5F9EA0" />
                                     <Setter Property="Opacity"
                                         Value="1" />
                                 </VisualState.Setters>
@@ -86,7 +86,7 @@
                             <VisualState x:Name="Unchecked">
                                 <VisualState.Setters>
                                     <Setter Property="TextColor"
-                                        Value="Red" />
+                                        Value="#FF1493" />
                                     <Setter Property="Opacity"
                                         Value="0.5" />
                                 </VisualState.Setters>
