@@ -28,8 +28,45 @@ namespace BabySiteApp.ViewModels
     class SignUpViewModels:BaseViewModels
     {
         #region IsBabySitter
-        private bool isBabySitter=;
-        
+        private bool isBabySitter= false;
+        private bool isParent = false;
+        private string userTypeSelection;
+
+
+        public string UserTypeSelection
+        {
+            get => userTypeSelection;
+            set
+            {
+                OnPropertyChanged("UserTypeSelection");
+            }
+        }
+        public bool IsBabySitter
+        {
+            get => isBabySitter;
+            set
+            {
+                if(userTypeSelection=="BabySitter")
+                {
+                    isBabySitter = true;
+                    OnPropertyChanged("IsBabySitter");
+                }
+            }
+        }
+        public bool IsParent
+        {
+            get => isBabySitter;
+            set
+            {
+                if (userTypeSelection == "BabySitter")
+                {
+                    isBabySitter = true;
+                    OnPropertyChanged("IsBabySitter");
+                }
+            }
+        }
+
+
         #region Name
         private bool showNameError;
         public bool ShowNameError
