@@ -8,77 +8,82 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-           
-            <Grid >
+            <StackLayout>
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="sign up as " Grid.Row="0" HorizontalOptions="Center"></Label>
+
+                    <Entry Placeholder="first name" Text="{Binding FirstName}" Grid.Row="1" HorizontalOptions="Center"></Entry>
+                    <Entry Placeholder="last name" Text="{Binding LastName}" Grid.Row="2" HorizontalOptions="Center"></Entry>
+                    <StackLayout Grid.Row="3" Grid.RowSpan="3" RadioButtonGroup.GroupName="Gender" RadioButtonGroup.SelectedValue="{Binding Gender}">
+                        <RadioButton IsChecked="True" Content="male" Grid.Row="3"/>
+                        <RadioButton Content="female" />
+                        <RadioButton  Content="other"/>
+                    </StackLayout>
+                    <Entry Placeholder="phone number" Text="{Binding PhoneNum}" Grid.Row="6" HorizontalOptions="Center"></Entry>
+                    <Entry Placeholder="email" Text="{Binding Email}" Grid.Row="7" HorizontalOptions="Center"></Entry>
+                    <Entry Placeholder="user name" Text="{Binding UserName}" Grid.Row="8" HorizontalOptions="Center"></Entry>
+                    <Entry Placeholder="password" Text="{Binding Password}" Grid.Row="9" HorizontalOptions="Center"></Entry>
+                    <DatePicker Date="{Binding BirthDate}" Grid.Row="10" HorizontalOptions="Center"/>
+                   <!-- <RadioButtonGroup GroupName="UserTypeButton" SelectedValue="{Binding Selection}"/>-->
+                    
+                    <Label Grid.Row="11" Text="are you parent or babysitter?" />
+                    <StackLayout Orientation="Horizontal" RadioButtonGroup.GroupName="UserType" RadioButtonGroup.SelectedValue="{Binding UserTypeSelection}">
+                    <RadioButton Content="Parent" Value="Parent" />
+                    <RadioButton Content="Baby sitter" Value="BabySitter" />
+                </StackLayout>
+                </Grid>
+                
+            </StackLayout>
+            <StackLayout IsVisible="{Binding IsBabySitter}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+                    <Switch IsToggled="{Binding HasCar}" Grid.Row="0" HorizontalOptions="Center"/>
+                    <Slider  x:Name="hasCar" Minimum="25" Maximum="100" Grid.Row="1" HorizontalOptions="Center" Value="{Binding Salary}"/>
+
+                    <Label x:Name="displayLabel"
+               Text="{Binding Salary} " HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+
+
+                </Grid>
+            </StackLayout>
+            <StackLayout IsVisible="{Binding IsParent}" >
+                <Grid >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/> 
                 </Grid.RowDefinitions>
-                <Label Text="sign up as {UserType}" Grid.Row="0" HorizontalOptions="Center"></Label>
-
-                <Entry Placeholder="first name" Text="{Binding FirstName}" Grid.Row="1" HorizontalOptions="Center"></Entry>
-                <Entry Placeholder="last name" Text="{Binding LastName}" Grid.Row="2" HorizontalOptions="Center"></Entry>
-                <RadioButton IsChecked="True" Content="male" Grid.Row="3"/>
-                <RadioButton Grid.Row="4" Content="female"/>
-                    <RadioButton Grid.row="5" Content="other"/>
-                    <Entry Placeholder="phone number" Text="{Binding PhoneNum}" Grid.Row="6" HorizontalOptions="Center"></Entry>
-                <Entry Placeholder="email" Text="{Binding Email}" Grid.Row="7" HorizontalOptions="Center"></Entry>
-                <Entry Placeholder="user name" Text="{Binding UserName}" Grid.Row="8" HorizontalOptions="Center"></Entry>
-                <Entry Placeholder="password" Text="{Binding Password}" Grid.Row="9" HorizontalOptions="Center"></Entry>
-                <DatePicker Date="{Binding BirthDate}" Grid.Row="10" HorizontalOptions="Center"/>
-                <RadioButtonGroup.GroupName="UserTypeButton"
-             RadioButtonGroup.SelectedValue="{Binding Selection}">
-                    <Label Text="are you parent or babysitter?" />
-                    <RadioButton Content="Parent"
-                 Value="Parent" />
-                    <RadioButton Content="Baby sitter"
-                 Value="BabySitter" />
-            </Grid>
-                <StackLayout/>
-                <StackLayout IsVisible="{Binding IsBabySitter}">
-                    <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        
-                    </Grid.RowDefinitions>
-                    <Switch IsToggled="{Binding HasCar}" Grid.Row="0" HorizontalOptions="Center"/>
-                <Slider  x:Name="hasCar" Minimum="25" Maximum="100" Grid.Row="1" HorizontalOptions="Center" Value="{Binding Salary}"/>
-                   
-                        <Label x:Name="displayLabel"
-               Text="{Binding Salary} " HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
-                    
-               
-            </Grid>
-            <StackLayout/>
-                    <StackLayout IsVisible="{Binding IsParent}" >
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Switch  IsToggled="{Binding HasDog}" Grid.Row="0" HorizontalOptions="Center"/>
+                <Switch  IsToggled="{Binding HasDog}" Grid.Row="0" HorizontalOptions="Center"/>
                 <Picker Grid.Row="1" HorizontalOptions="Center" x:Name="minAge"
         Title="minimum child age" SelectedIndex="{Binding MinAge}" ItemsSource="{Binding AgeArray}">
-                   
+
                 </Picker>
                 <Picker  Grid.Row="2" HorizontalOptions="Center" x:Name="maxAge"
         Title="maximum child age" SelectedIndex="{Binding MaxAge}" ItemsSource="{Binding AgeArray}">
-                
+
                 </Picker>
-                
-           
+
+            </Grid>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -27,7 +27,7 @@ namespace BabySiteApp.ViewModels
     }
     class SignUpViewModels:BaseViewModels
     {
-        #region IsBabySitter
+        #region UserType
         private bool isBabySitter= false;
         private bool isParent = false;
         private string userTypeSelection;
@@ -38,6 +38,7 @@ namespace BabySiteApp.ViewModels
             get => userTypeSelection;
             set
             {
+                userTypeSelection = value;
                 OnPropertyChanged("UserTypeSelection");
             }
         }
@@ -65,8 +66,7 @@ namespace BabySiteApp.ViewModels
                 }
             }
         }
-
-
+        #endregion
         #region Name
         private bool showNameError;
         public bool ShowNameError
@@ -436,8 +436,8 @@ namespace BabySiteApp.ViewModels
         #region Salary
 
 
-        private string salay;
-        public string Salary
+        private int salay=-1;
+        public int Salary
         {
             get => salay;
             set
@@ -449,6 +449,32 @@ namespace BabySiteApp.ViewModels
         }
 
         #endregion
-        public List<int> AgeArray { get; } = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 };
+        #region Age
+        private int minAge=1;
+        public int MinAge
+        {
+            get => minAge;
+            set
+            {
+                minAge = value;
+                OnPropertyChanged("MinAge");
+            }
+        }
+        private int maxAge=1;
+        public int MaxAge
+        {
+            get => maxAge;
+            set
+            {
+                maxAge = value;
+                OnPropertyChanged("MaxAge");
+            }
+        }
+        #endregion
+        private List<int> ageArray= new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 };
+        public List<int> AgeArray
+        {
+            get => ageArray;
+        }
     }
 }
