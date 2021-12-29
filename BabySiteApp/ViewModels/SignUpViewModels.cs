@@ -25,11 +25,11 @@ namespace BabySiteApp.ViewModels
         public const string BAD_UserName= "שם לא תקין"; 
 
     }
-    class SignUpViewModels:BaseViewModels
+    public class SignUpViewModels:BaseViewModels
     {
         #region UserType
-        private bool isBabySitter= false;
-        private bool isParent = false;
+        private bool isBabySitter;
+        private bool isParent;
         private string userTypeSelection;
 
 
@@ -56,13 +56,13 @@ namespace BabySiteApp.ViewModels
         }
         public bool IsParent
         {
-            get => isBabySitter;
+            get => isParent;
             set
             {
-                if (userTypeSelection == "BabySitter")
+                if (userTypeSelection == "Parent")
                 {
-                    isBabySitter = true;
-                    OnPropertyChanged("IsBabySitter");
+                    isParent = true;
+                    OnPropertyChanged("IsParent");
                 }
             }
         }
@@ -420,8 +420,8 @@ namespace BabySiteApp.ViewModels
         #region HasCar
         
         
-        private string hasCar;
-        public string HasCar
+        private bool hasCar;
+        public bool HasCar
         {
             get => hasCar;
             set
@@ -436,7 +436,7 @@ namespace BabySiteApp.ViewModels
         #region Salary
 
 
-        private int salay=-1;
+        private int salay;
         public int Salary
         {
             get => salay;
@@ -450,7 +450,7 @@ namespace BabySiteApp.ViewModels
 
         #endregion
         #region Age
-        private int minAge=1;
+        private int minAge;
         public int MinAge
         {
             get => minAge;
@@ -460,7 +460,7 @@ namespace BabySiteApp.ViewModels
                 OnPropertyChanged("MinAge");
             }
         }
-        private int maxAge=1;
+        private int maxAge;
         public int MaxAge
         {
             get => maxAge;
@@ -475,6 +475,40 @@ namespace BabySiteApp.ViewModels
         public List<int> AgeArray
         {
             get => ageArray;
+        }
+
+
+        public SignUpViewModels()
+        {
+            MaxAge = 1;
+            MinAge = 1;
+            HasCar = false;
+            Salary = 75;
+            IsBabySitter = false;
+            NameError = string.Empty;
+            ShowNameError = false;
+            IsParent = false;
+            UserTypeSelection= string.Empty;
+            FirstName= string.Empty; 
+            LastName= string.Empty;
+            PhoneNum= string.Empty; 
+            PhoneNumError= string.Empty;
+            ShowPhoneNumError = false;
+            Email= string.Empty;
+            EmailError= string.Empty;
+            ShowEmailError = false;
+            UserName= string.Empty;
+            UserNameError= string.Empty;
+            ShowUserNameError = false;
+            Password= string.Empty;
+            PasswordError= string.Empty;
+            ShowPasswordError = false;
+            Gender= string.Empty; 
+            GenderError= string.Empty;
+            BirthDate = DateTime.Now;
+            BirthDateError= string.Empty;
+            ShowBirthDateError = false;
+
         }
     }
 }
