@@ -52,7 +52,8 @@
                         <RadioButton Grid.Row="13" Content="Parent" Value="Parent" />
                         <RadioButton Grid.Row="14" Content="Baby sitter" Value="BabySitter" />
                     </StackLayout>
-                   <!-- <Button Grid.Row="15" Text="continue" Command="ContinueCommand"></Button> -->
+         
+                  <Button Grid.Row="15" Text="continue" Command="{Binding ContinueCommand}"></Button> 
                 </Grid>
                 
             </StackLayout>

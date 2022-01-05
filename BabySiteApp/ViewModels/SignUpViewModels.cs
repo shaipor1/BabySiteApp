@@ -471,6 +471,18 @@ namespace BabySiteApp.ViewModels
             }
         }
         #endregion
+        private ICommand continueCommand;
+        public ICommand ContinueCommand
+        {
+            get=>continueCommand;
+            set
+            {
+                continueCommand = value;
+                OnPropertyChanged("ContinueCommand");
+            }
+
+
+        }
         private List<int> ageArray= new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 };
         public List<int> AgeArray
         {
@@ -507,8 +519,22 @@ namespace BabySiteApp.ViewModels
             GenderError= string.Empty;
             BirthDate = DateTime.Now;
             BirthDateError= string.Empty;
-            ShowBirthDateError = false;
+            ShowBirthDateError = false;  
+            ContinueCommand = new Command(ShowUserType);
+        }
 
+        private void ShowUserType()
+        {
+            if(UserTypeSelection=="Parent")
+            {
+                IsBabySitter = false;
+                IsParent = true;
+            }
+            else
+            {
+                IsBabySitter = true;
+                IsParent = false;
+            }
         }
     }
 }
