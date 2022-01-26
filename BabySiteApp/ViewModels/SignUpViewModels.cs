@@ -39,6 +39,10 @@ namespace BabySiteApp.ViewModels
             set
             {
                 userTypeSelection = value;
+                if (userTypeSelection == "Parent")
+                    IsBabySitter = false;
+                else
+                    IsBabySitter = true;
                 OnPropertyChanged("UserTypeSelection");
             }
         }
@@ -47,23 +51,17 @@ namespace BabySiteApp.ViewModels
             get => isBabySitter;
             set
             {
-                if(userTypeSelection=="BabySitter")
-                {
-                    isBabySitter = true;
-                    OnPropertyChanged("IsBabySitter");
-                }
+                isBabySitter = value;
+                OnPropertyChanged("IsBabySitter");
+                OnPropertyChanged("IsParent");
             }
         }
         public bool IsParent
         {
-            get => isParent;
+            get => !isBabySitter;
             set
             {
-                if (userTypeSelection == "Parent")
-                {
-                    isParent = true;
-                    OnPropertyChanged("IsParent");
-                }
+                isParent = value;
             }
         }
         #endregion
@@ -492,6 +490,7 @@ namespace BabySiteApp.ViewModels
 
         public SignUpViewModels()
         {
+            UserTypeSelection = "Parent";
             MaxAge = 1;
             MinAge = 1;
             HasCar = false;
@@ -499,8 +498,7 @@ namespace BabySiteApp.ViewModels
             IsBabySitter = false;
             NameError = string.Empty;
             ShowNameError = false;
-            IsParent = false;
-            UserTypeSelection= string.Empty;
+            
             FirstName= string.Empty; 
             LastName= string.Empty;
             PhoneNum= string.Empty; 
@@ -528,12 +526,10 @@ namespace BabySiteApp.ViewModels
             if(UserTypeSelection=="Parent")
             {
                 IsBabySitter = false;
-                IsParent = true;
             }
             else
             {
                 IsBabySitter = true;
-                IsParent = false;
             }
         }
     }
