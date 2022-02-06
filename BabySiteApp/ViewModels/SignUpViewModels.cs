@@ -22,7 +22,8 @@ namespace BabySiteApp.ViewModels
         public const string BAD_EMAIL = "מייל לא תקין";
         public const string SHORT_PASS = "סיסמה חייבת להכיל לפחות 6 תווים";
         public const string BAD_PhoneNum = "מספר טלפון לא תקין";
-        public const string BAD_UserName= "שם לא תקין"; 
+        public const string BAD_UserName= "שם לא תקין";
+        public const string BAD_DATE = "המשתמש חייב להיות מעל גיל 12";
 
     }
     public class SignUpViewModels:BaseViewModels
@@ -161,7 +162,7 @@ namespace BabySiteApp.ViewModels
             this.ShowPhoneNumError = string.IsNullOrEmpty(PhoneNum);
             if (!this.ShowPhoneNumError)
             {
-                if (!Regex.IsMatch(this.PhoneNum, @"\b((0\d[- ]\d{7})|(0\d[- ]\d{3}[- ]\d{4}))\b"))
+                if (!Regex.IsMatch(this.PhoneNum, @"^[0-9]"))
                 {
                     this.ShowPhoneNumError = true;
                     this.PhoneNumError = ERROR_MESSAGES.BAD_PhoneNum;
@@ -263,18 +264,7 @@ namespace BabySiteApp.ViewModels
         private void ValidateUserName()
         {
             this.ShowUserNameError = string.IsNullOrEmpty(UserName);
-            if (!this.ShowUserNameError)
-            {
-                for (int i = 0; i < this.UserName.Length; i++)
-                {
-
-                }
-                
-                    this.ShowUserNameError = true;
-                    this.UserNameError = ERROR_MESSAGES.BAD_UserName;
-                }
-            }
-            
+        }
       
         #endregion
         #region Password
@@ -416,8 +406,8 @@ namespace BabySiteApp.ViewModels
         }
         #endregion
         #region HasCar
-        
-        
+
+
         private bool hasCar;
         public bool HasCar
         {
@@ -468,6 +458,7 @@ namespace BabySiteApp.ViewModels
                 OnPropertyChanged("MaxAge");
             }
         }
+
         #endregion
         private ICommand continueCommand;
         public ICommand ContinueCommand
@@ -496,27 +487,27 @@ namespace BabySiteApp.ViewModels
             HasCar = false;
             Salary = 75;
             IsBabySitter = false;
-            NameError = string.Empty;
+            NameError = ERROR_MESSAGES.BAD_UserName;
             ShowNameError = false;
             
             FirstName= string.Empty; 
             LastName= string.Empty;
             PhoneNum= string.Empty; 
-            PhoneNumError= string.Empty;
+            PhoneNumError= ERROR_MESSAGES.BAD_PhoneNum;
             ShowPhoneNumError = false;
             Email= string.Empty;
-            EmailError= string.Empty;
+            EmailError= ERROR_MESSAGES.BAD_EMAIL;
             ShowEmailError = false;
             UserName= string.Empty;
-            UserNameError= string.Empty;
+            UserNameError= ERROR_MESSAGES.BAD_UserName;
             ShowUserNameError = false;
             Password= string.Empty;
-            PasswordError= string.Empty;
+            PasswordError= ERROR_MESSAGES.SHORT_PASS;
             ShowPasswordError = false;
             Gender= string.Empty; 
-            GenderError= string.Empty;
+            GenderError= ERROR_MESSAGES.REQUIRED_FIELD;
             BirthDate = DateTime.Now;
-            BirthDateError= string.Empty;
+            BirthDateError= ERROR_MESSAGES.BAD_DATE;
             ShowBirthDateError = false;  
             ContinueCommand = new Command(ShowUserType);
         }
@@ -532,5 +523,7 @@ namespace BabySiteApp.ViewModels
                 IsBabySitter = true;
             }
         }
+
+
     }
 }

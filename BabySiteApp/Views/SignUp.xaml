@@ -8,8 +8,8 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <ScrollView>
-        <StackLayout>
-           
+            <StackLayout>
+
                 <StackLayout>
                     <!--first name-->
                     <Grid >
@@ -22,9 +22,9 @@
                         </Grid.ColumnDefinitions>
                         <Label Text="First Name:" Grid.Column="0" Grid.Row="0"></Label>
                         <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"></Label>
-                       
-                       </Grid>
-                     <Entry Placeholder="First Name" Text="{Binding FirstName}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill"></Entry>
+
+                    </Grid>
+                    <Entry Placeholder="First Name" Text="{Binding FirstName}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill"></Entry>
 
                     <!--last name-->
                     <Grid >
@@ -37,10 +37,10 @@
                         </Grid.ColumnDefinitions>
                         <Label Text="Last Name:" Grid.Column="0" Grid.Row="0"></Label>
                         <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"></Label>
-                       
-                    </Grid> 
+
+                    </Grid>
                     <Entry Placeholder="Last Name" Text="{Binding LastName}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill"></Entry>
-                  <!--gender-->
+                    <!--gender-->
                     <Grid  RadioButtonGroup.GroupName="Gender" RadioButtonGroup.SelectedValue="{Binding Gender}">
 
                         <Grid.ColumnDefinitions>
@@ -134,6 +134,19 @@
 
                     </Grid>
                     <DatePicker Date="{Binding BirthDate}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill"/>
+                    
+                    <!--location-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="location:" Grid.Column="0" Grid.Row="0"/>
+                        <Entry Placeholder="city"></Entry>
+                    </Grid>
 
                     <!--user type-->
                     <Grid  RadioButtonGroup.GroupName="UserType" RadioButtonGroup.SelectedValue="{Binding UserTypeSelection}">
@@ -141,70 +154,84 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="300" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Label Text="Are you parent or babysitter?" Grid.Column="0" Grid.Row="0"></Label>
                         <RadioButton Grid.Column="0" Grid.Row="1" Content="Parent" Value="Parent" IsChecked="True"/>
                         <RadioButton Grid.Column="1" Grid.Row="1" Content="Baby sitter" Value="BabySitter" HorizontalOptions="Fill"/>
                     </Grid>
 
-                    
+
 
                 </StackLayout>
-            
 
-            <StackLayout IsVisible="{Binding IsBabySitter}">
-                
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
+
+                <StackLayout IsVisible="{Binding IsBabySitter}">
+                    <!--has car-->
+                    <Grid>
+                        <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
-
-
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Text="do you have a car?"></Label>
-                            <Switch IsToggled="{Binding HasCar}" Grid.Row="1" HorizontalOptions="Center"/>
-                        <Label Grid.Row="2" Text="choose start salary:"></Label>
-                        <Slider   Minimum="0" Maximum="100" Grid.Row="3" HorizontalOptions="Center" Value="{Binding Salary}" MinimumTrackColor="DarkGray" MaximumTrackColor="LightGray" WidthRequest="300"/>
+                    </Grid>
+                    <Switch IsToggled="{Binding HasCar}" Grid.Row="1" HorizontalOptions="Center"/>
+                    <!--start salary-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Text="choose start salary:"></Label>
+                        <Slider   Minimum="0" Maximum="100" Grid.Row="1" HorizontalOptions="Fill" Value="{Binding Salary}" MinimumTrackColor="DarkGray" MaximumTrackColor="LightGray" WidthRequest="300"/>
+                        <Label  Text="{Binding Salary}" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
 
-                            <Label  Text="{Binding Salary}" Grid.Row="4" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                    </Grid>
 
 
-                        </Grid>
+
+
                 </StackLayout>
-            <StackLayout IsVisible="{Binding IsParent}" >
-               
-        <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                     <RowDefinition Height="*"/>
+                <StackLayout IsVisible="{Binding IsParent}" >
+                    <!--have dog-->
+                    <Grid>
+                        <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Text="do you have a dog?"></Label>
-                        <Switch  IsToggled="{Binding HasDog}" Grid.Row="1" HorizontalOptions="Center"/>
-                        <Label Grid.Row="2" Text="how old are your children?"></Label>
-                        <Picker Grid.Row="3" HorizontalOptions="Center"
+                    </Grid>
+                    <Switch  IsToggled="{Binding HasDog}" Grid.Row="1" HorizontalOptions="Center"/>
+                    
+                    <!--children age-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Text="how old are your children?"></Label>
+                        <Picker Grid.Row="1" Grid.Column="0" HorizontalOptions="Center"
         Title="minimum child age" SelectedIndex="{Binding MinAge}" ItemsSource="{Binding AgeArray}">
 
-                </Picker>
-                <Picker  Grid.Row="4" HorizontalOptions="Center"
+                        </Picker>
+                        <Picker  Grid.Row="1" Grid.Column="1" HorizontalOptions="Center"
         Title="maximum child age" SelectedIndex="{Binding MaxAge}" ItemsSource="{Binding AgeArray}">
 
-                </Picker>
+                        </Picker>
 
-            </Grid> 
+                    </Grid>
+                    <Grid>
+                        <Button Text="continue" Command="{Binding ContinueCommand}" ></Button>
+                    </Grid>
+                </StackLayout>
+
             </StackLayout>
-           
-        </StackLayout>
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>
