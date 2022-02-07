@@ -139,13 +139,18 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Text="location:" Grid.Column="0" Grid.Row="0"/>
-                        <Entry Placeholder="city"></Entry>
+                        <Label Text="Location:" Grid.Column="0" Grid.Row="0"/>
+                        <Entry Placeholder="City" Grid.Column="0" Grid.Row="1"/>
+                        <Entry Placeholder="Street" Grid.Column="0" Grid.Row="2"/>
+                        <Entry Placeholder="House number" Grid.Column="0" Grid.Row="3"/>
                     </Grid>
 
                     <!--user type-->
