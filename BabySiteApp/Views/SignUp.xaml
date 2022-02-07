@@ -134,24 +134,54 @@
 
                     </Grid>
                     <DatePicker Date="{Binding BirthDate}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill"/>
-                    
-                    <!--location-->
+
+                    <!-- City -->
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Text="Location:" Grid.Column="0" Grid.Row="0"/>
-                        <Entry Placeholder="City" Grid.Column="0" Grid.Row="1"/>
-                        <Entry Placeholder="Street" Grid.Column="0" Grid.Row="2"/>
-                        <Entry Placeholder="House number" Grid.Column="0" Grid.Row="3"/>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Label Text="עיר" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
+                        <Label Text="{Binding CityError}" IsVisible="{Binding ShowCityError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
                     </Grid>
+                    <SearchBar Placeholder="חפש עיר" Text="{Binding City}" Style="{StaticResource entry}"/>
+                    <CollectionView EmptyView="לא נמצאו ערים"  x:Name="cities" ItemsSource="{Binding FilteredCities}" SelectedItem="{Binding SelectedCityItem}" SelectionMode="Single"
+                                   IsVisible="{Binding ShowCities}" SelectionChangedCommand="{Binding Source={x:Reference cities}, Path=BindingContext.SelectedCity}" SelectionChangedCommandParameter="{Binding Source={x:Reference cities}, Path=SelectedItem}"></CollectionView>
+                    <!-- <Entry Placeholder="עיר" MaxLength="30" Text="{Binding City}" Style="{StaticResource entry}"/> -->
+
+                    <!-- Street -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Label Text="רחוב" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
+                        <Label Text="{Binding StreetError}" IsVisible="{Binding ShowStreetError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
+                    </Grid>
+                    <SearchBar Placeholder="חפש רחוב" Text="{Binding Street}" Style="{StaticResource entry}"/>
+                    <CollectionView EmptyView="לא נמצאו רחובות"  x:Name="streets" ItemsSource="{Binding FilteredStreets}" SelectedItem="{Binding SelectedStreetItem}" SelectionMode="Single"
+                                   IsVisible="{Binding ShowStreets}" SelectionChangedCommand="{Binding Source={x:Reference streets}, Path=BindingContext.SelectedStreet}" SelectionChangedCommandParameter="{Binding Source={x:Reference streets}, Path=SelectedItem}"></CollectionView>
+
+
+                    <!-- HouseNumber -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Label Text="מספר בית" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
+                        <Label Text="{Binding StringHouseNumError}" IsVisible="{Binding ShowStringHouseNumError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
+                    </Grid>
+                    <Entry Placeholder="מספר בית" MaxLength="30" Text="{Binding StringHouseNum}" Style="{StaticResource entry}"/>
 
                     <!--user type-->
                     <Grid  RadioButtonGroup.GroupName="UserType" RadioButtonGroup.SelectedValue="{Binding UserTypeSelection}">
