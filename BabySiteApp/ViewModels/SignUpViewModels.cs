@@ -532,6 +532,7 @@ namespace BabySiteApp.ViewModels
 
 
         }
+        public ICommand CitySearchCommand { get; }
         #endregion
         #region OnCityChanged
         public void OnCityChanged(string search)
@@ -634,10 +635,12 @@ namespace BabySiteApp.ViewModels
 
         private void ValidateCity()
         {
+            string city = null; 
             this.ShowCityError = string.IsNullOrEmpty(this.City);
             if (!this.ShowCityError)
             {
-                string city = this.allCities.Where(c => c == this.City).FirstOrDefault();
+                if (allCities != null)
+                     city = this.allCities.Where(c => c == this.City).FirstOrDefault();
                 if (string.IsNullOrEmpty(city))
                 {
                     this.ShowCityError = true;
@@ -929,6 +932,7 @@ namespace BabySiteApp.ViewModels
             BirthDateError= ERROR_MESSAGES.BAD_DATE;
             ShowBirthDateError = false;  
             ContinueCommand = new Command(ShowUserType);
+            CitySearchCommand = new Command<string>(OnCityChanged);
         }
         #endregion
      
