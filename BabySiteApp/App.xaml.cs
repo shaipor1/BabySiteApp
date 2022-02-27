@@ -18,7 +18,7 @@ namespace BabySiteApp
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new TabbedMainPage();
         }
 
         public User CurrentUser { get; set; }

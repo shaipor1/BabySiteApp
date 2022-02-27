@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            xmlns:views="clr-namespace:BabySiteApp.Views"
+            xmlns:local="clr-namespace:BabySiteApp.ViewModels"
+             x:Class="BabySiteApp.Views.TabbedMainPage" android:TabbedPage.ToolbarPlacement="Bottom" Title="Hello">
+
+
+    <NavigationPage IconImageSource="login.png" Title="Login">
+        <x:Arguments>
+            <views:Login Title="Login"></views:Login>
+         </x:Arguments>
+
+    </NavigationPage>
+
+    <NavigationPage IconImageSource="adduser.png" Title="Sign Up">
+        <x:Arguments>
+            <views:SignUp  Title="Sign Up"></views:SignUp>
+        </x:Arguments>
+
+    </NavigationPage>
+
+    
+
+</TabbedPage>

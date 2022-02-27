@@ -55,13 +55,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Text.Json">
-      <Version>5.0.2</Version>
+      <Version>6.0.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.CommunityToolkit">
       <Version>2.0.0</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -90,13 +90,19 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\drawable\" />
+    <AndroidResource Include="Resources\drawable\login.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BabySiteApp\BabySiteApp.csproj">
       <Project>{C9EF4EF6-A3F6-4EE1-9554-4A5D5CCE6D5A}</Project>
       <Name>BabySiteApp</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\homeiconsilhouette.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\adduser.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
