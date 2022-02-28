@@ -537,14 +537,14 @@ namespace BabySiteApp.ViewModels
         #region OnCityChanged
         public void OnCityChanged(string search)
         {
-            if (!string.IsNullOrEmpty(this.SelectedCityItem))
-            {
+            //if (!string.IsNullOrEmpty(this.SelectedCityItem))
+            //{
                 if (this.City != this.SelectedCityItem)
                 {
                     this.ShowCities = true;
                     this.SelectedCityItem = null;
                 }
-            }
+            //}
             //Filter the list of contacts based on the search term
             if (this.allCities == null)
                 return;

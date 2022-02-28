@@ -27,6 +27,19 @@
                     </StackLayout>
                 </Frame>
                 <Button Command="{Binding SubmitCommand}" Text="התחבר" Style="{StaticResource Button}" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="אין לך משתמש?" Grid.Column="1" Grid.Row="0"/>
+                    <Button Text="הרשם" Command="{Binding GoToSignUp}" BackgroundColor="Transparent" Grid.Column="0" Grid.Row="0"/>
+                </Grid>
+               
+                
             </StackLayout>
 
         </StackLayout>

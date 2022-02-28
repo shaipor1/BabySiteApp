@@ -9,6 +9,7 @@ using BabySiteApp.Services;
 using BabySiteApp.Models;
 using Xamarin.Essentials;
 using System.Linq;
+using BabySiteApp.Views;
 
 namespace BabySiteApp.ViewModels
 { 
@@ -37,12 +38,18 @@ namespace BabySiteApp.ViewModels
             }
         }
         public ICommand SubmitCommand { protected set; get; }
-
+        public ICommand GoToSignUp { protected set; get; }
         public LoginViewModel()
         {
             SubmitCommand = new Command(OnSubmit);
+            GoToSignUp = new Command(OnTap);
         }
 
+        public async void OnTap()
+        {
+            SignUp page = new SignUp();
+            await App.Current.MainPage.Navigation.PushAsync(page);
+        }
         private string serverStatus;
         public string ServerStatus
         {
