@@ -64,7 +64,8 @@ namespace BabySiteApp.ViewModels
         public async void OnSubmit()
         {
             ServerStatus = "מתחבר לשרת...";
-            //await App.Current.MainPage.Navigation.PushModalAsync(new Views.ServerStatusPage(this));
+            
+            await App.Current.MainPage.Navigation.PushModalAsync(new Views.ServerStatusPage(this));
             BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
             User user = await proxy.LoginAsync(Email, Password);
             if (user == null)
@@ -80,9 +81,18 @@ namespace BabySiteApp.ViewModels
                 theApp.CurrentUser = user;
 
 
-
-                Page p = new NavigationPage(new Views.HomePage());
-                App.Current.MainPage = p;
+                if(theApp.CurrentUser.UserTypeId==1)
+                {
+                    Page p = new NavigationPage(new Views.ParentMainPage());
+                    App.Current.MainPage = p;
+                }
+                else
+                {
+                    Page p = new NavigationPage(new Views.BabySitterMainPage());
+                    App.Current.MainPage = p;
+                }
+                //Page p = new NavigationPage(new Views.HomePage());
+                //App.Current.MainPage = p;
             }
 
 

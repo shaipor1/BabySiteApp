@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace BabySiteApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HomePage : ContentPage
+    public partial class ParentMainPage : ContentPage
     {
-        public HomePage()
+        public ParentMainPage()
         {
             InitializeComponent();
         }
