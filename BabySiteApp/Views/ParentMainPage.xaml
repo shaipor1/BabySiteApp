@@ -4,12 +4,10 @@
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              xmlns:views="clr-namespace:BabySiteApp.Views"
              xmlns:local="clr-namespace:BabySiteApp.ViewModels"
-             x:Class="BabySiteApp.Views.ParentMainPage" android:TabbedPage.ToolbarPlacement="Bottom"> 
-    <NavigationPage IconImageSource="">
-        <StackLayout>
-            <Label Text="Welcome to parent page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+             x:Class="BabySiteApp.Views.ParentMainPage" android:TabbedPage.ToolbarPlacement="Bottom" Title="welcome"> 
+    <NavigationPage IconImageSource="tap.png" Title="Find Baby Sitter">
+        <x:Arguments>
+            <views:FindBabySitter Title="Find Baby Sitter"></views:FindBabySitter>
+        </x:Arguments>
     </NavigationPage>
 </TabbedPage>
