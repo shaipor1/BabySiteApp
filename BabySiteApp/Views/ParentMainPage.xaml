@@ -10,4 +10,9 @@
             <views:FindBabySitter Title="Find Baby Sitter"></views:FindBabySitter>
         </x:Arguments>
     </NavigationPage>
+    <NavigationPage IconImageSource="parent.png" Title="User Page">
+        <x:Arguments>
+            <views:ParentPage Title="User Page"></views:ParentPage>
+        </x:Arguments>
+    </NavigationPage>
 </TabbedPage>

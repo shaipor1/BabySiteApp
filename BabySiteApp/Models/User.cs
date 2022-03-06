@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BabySiteApp.Services;
 
 
 
@@ -32,5 +33,15 @@ namespace BabySiteApp.Models
         public virtual List<BabySitter> BabySitters { get; set; }
         public virtual List<Massage> Massages { get; set; }
         public virtual List<Parent> Parents { get; set; }
+        //Added only to client side
+        public string PhotoURL
+        {
+            get
+            {
+                BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
+                Random r = new Random();
+                return $"{proxy.GetBasePhotoUri()}{this.UserId}.jpg?" + r.Next();
+            }
+        }
     }
 }
