@@ -190,14 +190,14 @@ namespace BabySiteApp.ViewModels
         }
         #endregion
 
-        #region UpdateCommand
-        public ICommand UpdateCommand => new Command(OnUpdate);
-        public async void OnUpdate()
-        {
-            Page page = new UpdateUser();
-            page.Title = "עדכון פרטים";
-            await App.Current.MainPage.Navigation.PushAsync(page);
-        }
-        #endregion
+        //#region UpdateCommand
+        //public ICommand UpdateCommand => new Command(OnUpdate);
+        //public async void OnUpdate()
+        //{
+        //    Page page = new UpdateUser();
+        //    page.Title = "עדכון פרטים";
+        //    await App.Current.MainPage.Navigation.PushAsync(page);
+        //}
+        //#endregion
     }
 }

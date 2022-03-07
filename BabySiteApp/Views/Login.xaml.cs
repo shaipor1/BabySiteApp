@@ -14,8 +14,8 @@ namespace BabySiteApp.Views
     {
         public Login()
         {
-           
-            
+
+            this.Title = "התחברות";
                 this.BindingContext = new LoginViewModel();
                 InitializeComponent();
             }

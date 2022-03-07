@@ -14,9 +14,11 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="150"/>
                     </Grid.RowDefinitions>
+                   
                     
-                    <Label Text="התחברות" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Style="{StaticResource FormTitle}"></Label>
+                    <!--<Label Text="התחברות" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Style="{StaticResource FormTitle}"></Label>-->
                 </Grid>
+                <Image  Source="LOGO.png" HeightRequest="200" WidthRequest="300" Margin="50" ></Image>
                 <Frame Style="{StaticResource logInSignUp}">
                     <StackLayout>
                         <Entry x:Name="Email" MaxLength="30" Text="{Binding Email}" Placeholder="דואר אלקטרוני"   
