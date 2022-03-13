@@ -5,6 +5,7 @@
              
     
     <ContentPage.Content>
+        <ScrollView>
         <StackLayout>
             <StackLayout Style="{StaticResource Stack}" Padding="0" >
                 <Grid Margin="0,0,0,0" Padding="0">
@@ -45,5 +46,6 @@
             </StackLayout>
 
         </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

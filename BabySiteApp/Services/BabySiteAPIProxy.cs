@@ -94,6 +94,7 @@ namespace BabySiteApp.Services
             this.client = new HttpClient(handler, true);
             this.baseUri = baseUri;
             this.basePhotosUri = basePhotosUri;
+            this.baseDataUri = baseDataUri;
         }
 
         public string GetBasePhotoUri() { return this.basePhotosUri; }

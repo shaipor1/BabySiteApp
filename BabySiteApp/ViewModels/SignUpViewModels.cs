@@ -30,7 +30,7 @@ namespace BabySiteApp.ViewModels
         public const string BAD_STREET = "רחוב לא תקין";
 
     }
-    public class SignUpViewModels:BaseViewModels
+    public class SignUpViewModels : BaseViewModels
     {
         #region cities and streets
         private List<string> allCities;
@@ -225,6 +225,7 @@ namespace BabySiteApp.ViewModels
             }
 
         }
+
         #endregion
         #region Email
         private bool showEmailError;
@@ -320,7 +321,7 @@ namespace BabySiteApp.ViewModels
         {
             this.ShowUserNameError = string.IsNullOrEmpty(UserName);
         }
-      
+
         #endregion
         #region Password
         private bool showPasswordError;
@@ -470,7 +471,7 @@ namespace BabySiteApp.ViewModels
             set
             {
                 hasCar = value;
-               
+
                 OnPropertyChanged("HasCar");
             }
         }
@@ -523,7 +524,7 @@ namespace BabySiteApp.ViewModels
         private ICommand continueCommand;
         public ICommand ContinueCommand
         {
-            get=>continueCommand;
+            get => continueCommand;
             set
             {
                 continueCommand = value;
@@ -539,11 +540,11 @@ namespace BabySiteApp.ViewModels
         {
             //if (!string.IsNullOrEmpty(this.SelectedCityItem))
             //{
-                if (this.City != this.SelectedCityItem)
-                {
-                    this.ShowCities = true;
-                    this.SelectedCityItem = null;
-                }
+            if (this.City != this.SelectedCityItem)
+            {
+                this.ShowCities = true;
+                this.SelectedCityItem = null;
+            }
             //}
             //Filter the list of contacts based on the search term
             if (this.allCities == null)
@@ -638,12 +639,12 @@ namespace BabySiteApp.ViewModels
 
         private void ValidateCity()
         {
-            string city = null; 
+            string city = null;
             this.ShowCityError = string.IsNullOrEmpty(this.City);
             if (!this.ShowCityError)
             {
                 if (allCities != null)
-                     city = this.allCities.Where(c => c == this.City).FirstOrDefault();
+                    city = this.allCities.Where(c => c == this.City).FirstOrDefault();
                 if (string.IsNullOrEmpty(city))
                 {
                     this.ShowCityError = true;
@@ -783,9 +784,12 @@ namespace BabySiteApp.ViewModels
                 this.HouseNumError = ERROR_MESSAGES.REQUIRED_FIELD;
         }
         #endregion
+        #region Location
+        private
+    #endregion
 
-        #region StringHouseNum
-        private bool showStringHouseNumError;
+    #region StringHouseNum
+    private bool showStringHouseNumError;
         public bool ShowStringHouseNumError
         {
             get => showStringHouseNumError;
@@ -903,6 +907,153 @@ namespace BabySiteApp.ViewModels
             }
         }
         #endregion
+        #region ValidateForm
+        private bool ValidateForm()
+        {
+            //Validate all fields first
+            ValidateEmail();
+            ValidateUserName();
+            ValidatePassword();
+            ValidateFName();
+            ValidateLName();
+            ValidateBirthDate();
+            ValidatePhoneNum();
+            ValidateCity();
+            ValidateStreet();
+            ValidateStringHouseNum();
+
+            //check if any validation failed
+            if (ShowEmailError || ShowUserNameError || ShowPasswordError
+                || ShowNameError || ShowBirthDateError || ShowPhoneNumError
+                || ShowCityError || ShowStreetError || ShowStringHouseNumError)
+                return false;
+            return true;
+        }
+        #endregion
+        #region SaveData
+        public Command SaveDataCommand { protected set; get; }
+        private async void SaveData()
+        {
+            if (ValidateForm())
+            {
+                if (IsParent)
+                {
+                    User user = new User()
+                    {
+                        UserTypeId = 1,
+                        FirstName = this.FirstName,
+                        LastName = this.LastName,
+                        PhoneNumber = this.phoneNum,
+                        Email = this.Email,
+                        UserName = this.userName,
+                        UserPswd = this.Password,
+                        Gender = this.Gender,
+                        BirthDate = this.BirthDate,
+                        Location = new Models.Location()
+                        {
+                            City = new City()
+                            {
+                                CityName = SelectedCityItem
+                            },
+                            Street = SelectedStreetItem,
+                            HouseId = HouseNum
+
+                        }
+
+
+
+                    }; 
+
+
+                    
+                }
+                   
+                        
+                //{
+                //    Parent parent = new Parent()
+                //    {
+
+                //        User. = this.Email,
+                //        UserName = this.UserName,
+                //        UserPswd = this.Password,
+                //        FirstName = this.FirstName,
+                //        LastName = this.LastName,
+                //        BirthDate = this.BirthDate,
+                //        PhoneNumber = this.PhoneNum,
+
+
+                //     = new Adult()
+                //    };
+                //    Parent theParent = new Parent()
+                //    {
+                //        IdNavigation = user
+                //    };
+                //}
+                
+
+                ServerStatus = "מתחבר לשרת...";
+                await App.Current.MainPage.Navigation.PushModalAsync(new Views.ServerStatusPage(this));
+                CarpoolAPIProxy proxy = CarpoolAPIProxy.CreateProxy();
+
+                bool isEmailExist = await proxy.EmailExistAsync(theAdult.IdNavigation.Email);
+                bool isUserNameExist = await proxy.UserNameExistAsync(theAdult.IdNavigation.UserName);
+
+                if (!isEmailExist && !isUserNameExist)
+                {
+                    Adult newAdult = await proxy.AdultSignUpAsync(theAdult);
+                    if (newAdult == null)
+                    {
+                        await App.Current.MainPage.Navigation.PopModalAsync();
+                        await App.Current.MainPage.DisplayAlert("שגיאה", "ההרשמה נכשלה", "אישור", FlowDirection.RightToLeft);
+                    }
+                    else
+                    {
+                        if (this.imageFileResult != null)
+                        {
+                            ServerStatus = "מעלה תמונה...";
+
+                            bool success = await proxy.UploadImage(new FileInfo()
+                            {
+                                Name = this.imageFileResult.FullPath
+                            }, $"{newAdult.Id}.jpg");
+                        }
+                        //else
+                        //{
+                        //    bool success = await proxy.UploadImage(new FileInfo()
+                        //    {
+                        //        Name = DEFAULT_PHOTO
+                        //    }, $"{newAdult.Id}.jpg");
+                        //}
+                        ServerStatus = "שומר נתונים...";
+
+                        App theApp = (App)App.Current;
+                        theApp.CurrentUser = newAdult.IdNavigation;
+
+                        Page page = new AdultMainTab();
+                        page.Title = "שלום " + theApp.CurrentUser.UserName;
+                        theApp.MainPage = new NavigationPage(page) { BarBackgroundColor = Color.FromHex("#81cfe0") };
+
+                        await App.Current.MainPage.DisplayAlert("הרשמה", "ההרשמה בוצעה בהצלחה", "אישור", FlowDirection.RightToLeft);
+                    }
+                }
+                else
+                {
+                    if (isEmailExist && isUserNameExist)
+                        await App.Current.MainPage.DisplayAlert("שגיאה", "האימייל ושם המשתמש שהקלדת כבר קיימים במערכת, בבקשה תבחר אימייל ושם משתמש חדשים ונסה שוב", "אישור", FlowDirection.RightToLeft);
+
+                    else if (isEmailExist)
+                        await App.Current.MainPage.DisplayAlert("שגיאה", "האימייל שהקלדת כבר קיים במערכת, בבקשה תבחר אימייל חדש ונסה שוב", "אישור", FlowDirection.RightToLeft);
+
+                    else
+                        await App.Current.MainPage.DisplayAlert("שגיאה", "שם המשתמש שהקלדת כבר קיים במערכת, בבקשה תבחר שם משתמש חדש ונסה שוב", "אישור", FlowDirection.RightToLeft);
+
+                    await App.Current.MainPage.Navigation.PopModalAsync();
+                }
+            }
+            else
+                await App.Current.MainPage.DisplayAlert("שמירת נתונים", " יש בעיה עם הנתונים בדוק ונסה שוב", "אישור", FlowDirection.RightToLeft);
+        }
+        #endregion
         #region constractor
         public SignUpViewModels()
         {
@@ -938,6 +1089,8 @@ namespace BabySiteApp.ViewModels
             CitySearchCommand = new Command<string>(OnCityChanged);
             allCities = ((App)Application.Current).Cities;
             allStreets = ((App)Application.Current).Streets;
+            this.FilteredCities = new ObservableCollection<string>();
+            this.FilteredStreets = new ObservableCollection<string>();
         }
         #endregion
      

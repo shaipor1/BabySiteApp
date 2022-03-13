@@ -265,6 +265,7 @@
                         <Button Text="continue" Command="{Binding ContinueCommand}" ></Button>
                     </Grid>
                 </StackLayout>
+                <Button Text="הירשם" Command="{Binding SaveDataCommand}"></Button>
 
             </StackLayout>
         </ScrollView>
