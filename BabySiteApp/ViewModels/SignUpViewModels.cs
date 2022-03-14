@@ -520,6 +520,34 @@ namespace BabySiteApp.ViewModels
             get => ageArray;
         }
         #endregion
+        #region children count
+        private int childrenCount;
+        public int ChildrenCount
+        {
+            get => childrenCount;
+            set
+            {
+                childrenCount = value;
+                OnPropertyChanged("ChildrenCount");
+            }
+        }
+        #endregion
+        #region HasDog
+
+
+        private bool hasDog;
+        public bool HasDog
+        {
+            get => hasDog;
+            set
+            {
+                hasDog = value;
+
+                OnPropertyChanged("HasDog");
+            }
+        }
+
+        #endregion
         #region command
         private ICommand continueCommand;
         public ICommand ContinueCommand
@@ -784,12 +812,21 @@ namespace BabySiteApp.ViewModels
                 this.HouseNumError = ERROR_MESSAGES.REQUIRED_FIELD;
         }
         #endregion
-        #region Location
-        private
-    #endregion
-
-    #region StringHouseNum
-    private bool showStringHouseNumError;
+        
+        #region ServerStatus
+        private string serverStatus;
+        public string ServerStatus
+        {
+            get { return serverStatus; }
+            set
+            {
+                serverStatus = value;
+                OnPropertyChanged("ServerStatus");
+            }
+        }
+        #endregion
+        #region StringHouseNum
+        private bool showStringHouseNumError;
         public bool ShowStringHouseNumError
         {
             get => showStringHouseNumError;
@@ -962,11 +999,60 @@ namespace BabySiteApp.ViewModels
 
 
 
-                    }; 
+                    };
+                    Parent parent = new Parent()
+                    {
+
+                        ChildrenCount = this.ChildrenCount,
+                        User = user,
+                        ChildrenMinAge = this.MinAge,
+                        ChildrenMaxAge = this.MaxAge,
+                        HasDog = this.HasDog
+
+
+
+                    };
 
 
                     
                 }
+                else
+                {
+                    User user = new User()
+                    {
+                        UserTypeId = 2,
+                        FirstName = this.FirstName,
+                        LastName = this.LastName,
+                        PhoneNumber = this.phoneNum,
+                        Email = this.Email,
+                        UserName = this.userName,
+                        UserPswd = this.Password,
+                        Gender = this.Gender,
+                        BirthDate = this.BirthDate,
+                        Location = new Models.Location()
+                        {
+                            City = new City()
+                            {
+                                CityName = SelectedCityItem
+                            },
+                            Street = SelectedStreetItem,
+                            HouseId = HouseNum
+
+                        }
+                        
+
+
+
+
+                    };
+                    BabySitter babySitter = new BabySitter()
+                    {
+                        RatingAverage = 0,
+                        HasCar=this.HasCar,
+                        Salary=this.Salary,
+                        User=user
+                    };
+                
                    
                         
                 //{
@@ -993,14 +1079,17 @@ namespace BabySiteApp.ViewModels
 
                 ServerStatus = "מתחבר לשרת...";
                 await App.Current.MainPage.Navigation.PushModalAsync(new Views.ServerStatusPage(this));
-                CarpoolAPIProxy proxy = CarpoolAPIProxy.CreateProxy();
+                BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
 
-                bool isEmailExist = await proxy.EmailExistAsync(theAdult.IdNavigation.Email);
-                bool isUserNameExist = await proxy.UserNameExistAsync(theAdult.IdNavigation.UserName);
+                bool isEmailExist = await proxy.EmailExistAsync(user.Email);
+                bool isUserNameExist = await proxy.UserNameExistAsync(user.UserName);
 
                 if (!isEmailExist && !isUserNameExist)
                 {
-                    Adult newAdult = await proxy.AdultSignUpAsync(theAdult);
+                    if(IsParent)
+                        {
+                            Parent newParent = await proxy.ParentSignUpAsync(parent);
+                        }
                     if (newAdult == null)
                     {
                         await App.Current.MainPage.Navigation.PopModalAsync();
@@ -1092,8 +1181,8 @@ namespace BabySiteApp.ViewModels
             this.FilteredCities = new ObservableCollection<string>();
             this.FilteredStreets = new ObservableCollection<string>();
         }
-        #endregion
-     
+            #endregion
+        }
 
 
     }

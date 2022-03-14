@@ -191,6 +191,7 @@ namespace BabySiteApp.Services
                 return null;
             }
         }
+
         //************** Streets and Cities JSOn file **********************************
         #region GetCitiesNameList
         private List<string> GetCitiesNameList(List<CityDTO> cities)
@@ -285,6 +286,46 @@ namespace BabySiteApp.Services
         #endregion
 
 
+        #region EmailExistAsync
+        public async Task<bool> EmailExistAsync(string email)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync($"{this.baseUri}/IsEmailExist?email={email}");
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
+        #endregion
+        #region UserNameExistAsync
+        public async Task<bool> UserNameExistAsync(string userName)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync($"{this.baseUri}/IsUserNameExist?userName={userName}");
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return true;
+            }
+        }
+        #endregion
 
 
 

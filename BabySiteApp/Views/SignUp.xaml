@@ -239,7 +239,23 @@
                         <Label Grid.Row="0" Text="do you have a dog?"></Label>
                     </Grid>
                     <Switch  IsToggled="{Binding HasDog}" Grid.Row="1" HorizontalOptions="Center"/>
+                    <!--children count-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
                     
+                    <Label Grid.Row="0" Text="how many children do you have?"></Label>
+                    <Picker Grid.Row="1" Grid.Column="0" HorizontalOptions="Center"
+        Title="your children count" SelectedIndex="{Binding childrenCount}" ItemsSource="{Binding AgeArray}">
+
+                    </Picker>
+                    </Grid>
                     <!--children age-->
                     <Grid>
                         <Grid.RowDefinitions>
