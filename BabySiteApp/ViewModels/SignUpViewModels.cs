@@ -23,7 +23,7 @@ namespace BabySiteApp.ViewModels
         public const string BAD_EMAIL = "מייל לא תקין";
         public const string SHORT_PASS = "סיסמה חייבת להכיל לפחות 6 תווים";
         public const string BAD_PhoneNum = "מספר טלפון לא תקין";
-        public const string BAD_UserName= "שם לא תקין";
+        public const string BAD_UserName = "שם לא תקין";
         public const string BAD_DATE = "המשתמש חייב להיות מעל גיל 12";
         public const string BAD_HOUSE_NUM = "מספר בית לא תקין";
         public const string BAD_CITY = "עיר לא תקינה";
@@ -812,7 +812,7 @@ namespace BabySiteApp.ViewModels
                 this.HouseNumError = ERROR_MESSAGES.REQUIRED_FIELD;
         }
         #endregion
-        
+
         #region ServerStatus
         private string serverStatus;
         public string ServerStatus
@@ -967,178 +967,178 @@ namespace BabySiteApp.ViewModels
             return true;
         }
         #endregion
-        #region SaveData
-        public Command SaveDataCommand { protected set; get; }
-        private async void SaveData()
+        #region parent sign up
+        public async Task<Parent> ParentSignUp(BabySiteAPIProxy proxy)
         {
-            if (ValidateForm())
+            User user = CreateUser();
+            user.UserTypeId = 1;
+            Parent parent = new Parent()
             {
-                if (IsParent)
+                ChildrenCount = this.ChildrenCount,
+                ChildrenMaxAge = this.MaxAge,
+                ChildrenMinAge = this.MinAge,
+                HasDog=this.HasDog,
+                User = user
+            };
+            if (await IsExist(user, proxy))
+            {
+                Parent newParent = await proxy.ParentSignUpAsync(parent);
+                if (newParent == null)
                 {
-                    User user = new User()
-                    {
-                        UserTypeId = 1,
-                        FirstName = this.FirstName,
-                        LastName = this.LastName,
-                        PhoneNumber = this.phoneNum,
-                        Email = this.Email,
-                        UserName = this.userName,
-                        UserPswd = this.Password,
-                        Gender = this.Gender,
-                        BirthDate = this.BirthDate,
-                        Location = new Models.Location()
-                        {
-                            City = new City()
-                            {
-                                CityName = SelectedCityItem
-                            },
-                            Street = SelectedStreetItem,
-                            HouseId = HouseNum
-
-                        }
-
-
-
-                    };
-                    Parent parent = new Parent()
-                    {
-
-                        ChildrenCount = this.ChildrenCount,
-                        User = user,
-                        ChildrenMinAge = this.MinAge,
-                        ChildrenMaxAge = this.MaxAge,
-                        HasDog = this.HasDog
-
-
-
-                    };
-
-
-                    
+                    await App.Current.MainPage.Navigation.PopModalAsync();
+                    await App.Current.MainPage.DisplayAlert("שגיאה", "ההרשמה נכשלה", "אישור", FlowDirection.RightToLeft);
                 }
                 else
                 {
-                    User user = new User()
+                    ServerStatus = "שומר נתונים...";
+
+                    App theApp = (App)App.Current;
+                    theApp.CurrentUser = parent.User;
+
+                    Page page = new ParentMainPage();
+                    page.Title = "שלום " + theApp.CurrentUser.UserName;
+                    theApp.MainPage = new NavigationPage(page) { BarBackgroundColor = Color.FromHex("#81cfe0") };
+
+                    await App.Current.MainPage.DisplayAlert("הרשמה", "ההרשמה בוצעה בהצלחה", "אישור", FlowDirection.RightToLeft);
+                }
+
+            }
+            else
+            {
+                if (await IsExist(user,proxy))
+                    await App.Current.MainPage.DisplayAlert("שגיאה", "האימייל ושם המשתמש שהקלדת כבר קיימים במערכת, בבקשה תבחר אימייל ושם משתמש חדשים ונסה שוב", "אישור", FlowDirection.RightToLeft);
+
+                else if (await proxy.EmailExistAsync(user.Email))
+                    await App.Current.MainPage.DisplayAlert("שגיאה", "האימייל שהקלדת כבר קיים במערכת, בבקשה תבחר אימייל חדש ונסה שוב", "אישור", FlowDirection.RightToLeft);
+
+                else
+                    await App.Current.MainPage.DisplayAlert("שגיאה", "שם המשתמש שהקלדת כבר קיים במערכת, בבקשה תבחר שם משתמש חדש ונסה שוב", "אישור", FlowDirection.RightToLeft);
+
+                await App.Current.MainPage.Navigation.PopModalAsync();
+            }
+
+
+           
+
+
+
+            return parent;
+
+        }
+        #endregion
+        #region babysitter sign up
+        public async Task<BabySitter> BabySitterSignUp(BabySiteAPIProxy proxy)
+        {
+            
+            User user = CreateUser();
+            user.UserTypeId = 2;
+            BabySitter babySitter = new BabySitter()
+            {
+                RatingAverage = 0,
+                HasCar = this.HasCar,
+                Salary = this.Salary,
+                User = user
+            };
+            if (await IsExist(user, proxy))
+            {
+                BabySitter newBabySitter = await proxy.BabysitterSignUpAsync(babySitter);
+                if (newBabySitter == null)
+                {
+                    await App.Current.MainPage.Navigation.PopModalAsync();
+                    await App.Current.MainPage.DisplayAlert("שגיאה", "ההרשמה נכשלה", "אישור", FlowDirection.RightToLeft);
+                }
+                else
+                {
+                    ServerStatus = "שומר נתונים...";
+
+                    App theApp = (App)App.Current;
+                    theApp.CurrentUser = babySitter.User;
+
+                    Page page = new BabySitterMainPage();
+                    page.Title = "שלום " + theApp.CurrentUser.UserName;
+                    theApp.MainPage = new NavigationPage(page) { BarBackgroundColor = Color.FromHex("#81cfe0") };
+
+                    await App.Current.MainPage.DisplayAlert("הרשמה", "ההרשמה בוצעה בהצלחה", "אישור", FlowDirection.RightToLeft);
+                }
+
+            }
+            else
+            {
+                if (await IsExist(user,proxy))
+                    await App.Current.MainPage.DisplayAlert("שגיאה", "האימייל ושם המשתמש שהקלדת כבר קיימים במערכת, בבקשה תבחר אימייל ושם משתמש חדשים ונסה שוב", "אישור", FlowDirection.RightToLeft);
+
+                else if (await proxy.EmailExistAsync(user.Email))
+                    await App.Current.MainPage.DisplayAlert("שגיאה", "האימייל שהקלדת כבר קיים במערכת, בבקשה תבחר אימייל חדש ונסה שוב", "אישור", FlowDirection.RightToLeft);
+
+                else
+                    await App.Current.MainPage.DisplayAlert("שגיאה", "שם המשתמש שהקלדת כבר קיים במערכת, בבקשה תבחר שם משתמש חדש ונסה שוב", "אישור", FlowDirection.RightToLeft);
+
+                await App.Current.MainPage.Navigation.PopModalAsync();
+            }
+        
+            return babySitter;
+        
+        }
+        #endregion
+        #region createUser
+        private User CreateUser()
+        {
+            User user = new User()
+            {
+
+                FirstName = this.FirstName,
+                LastName = this.LastName,
+                PhoneNumber = this.phoneNum,
+                Email = this.Email,
+                UserName = this.userName,
+                UserPswd = this.Password,
+                Gender = this.Gender,
+                BirthDate = this.BirthDate,
+                Location = new Models.Location()
+                {
+                    City = new City()
                     {
-                        UserTypeId = 2,
-                        FirstName = this.FirstName,
-                        LastName = this.LastName,
-                        PhoneNumber = this.phoneNum,
-                        Email = this.Email,
-                        UserName = this.userName,
-                        UserPswd = this.Password,
-                        Gender = this.Gender,
-                        BirthDate = this.BirthDate,
-                        Location = new Models.Location()
-                        {
-                            City = new City()
-                            {
-                                CityName = SelectedCityItem
-                            },
-                            Street = SelectedStreetItem,
-                            HouseId = HouseNum
+                        CityName = SelectedCityItem
+                    },
+                    Street = SelectedStreetItem,
+                    HouseId = HouseNum
 
-                        }
-                        
+                },
+        };
+            return user;
+         
+        }
+        #endregion
 
+        #region is exist
+        public async Task<bool> IsExist(User user, BabySiteAPIProxy proxy)
+        {
+            return (await proxy.EmailExistAsync(user.Email) && await proxy.UserNameExistAsync(user.UserName));
+        }
 
-
-
-                    };
-                    BabySitter babySitter = new BabySitter()
-                    {
-                        RatingAverage = 0,
-                        HasCar=this.HasCar,
-                        Salary=this.Salary,
-                        User=user
-                    };
-                
-                   
-                        
-                //{
-                //    Parent parent = new Parent()
-                //    {
-
-                //        User. = this.Email,
-                //        UserName = this.UserName,
-                //        UserPswd = this.Password,
-                //        FirstName = this.FirstName,
-                //        LastName = this.LastName,
-                //        BirthDate = this.BirthDate,
-                //        PhoneNumber = this.PhoneNum,
+        #endregion
+        #region SaveData
+        public Command SaveDataCommand { protected set; get; }
+        public async void SaveData()
+        {
+            if (ValidateForm())
+            {
 
 
-                //     = new Adult()
-                //    };
-                //    Parent theParent = new Parent()
-                //    {
-                //        IdNavigation = user
-                //    };
-                //}
-                
+
+
+
+
 
                 ServerStatus = "מתחבר לשרת...";
                 await App.Current.MainPage.Navigation.PushModalAsync(new Views.ServerStatusPage(this));
                 BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
-
-                bool isEmailExist = await proxy.EmailExistAsync(user.Email);
-                bool isUserNameExist = await proxy.UserNameExistAsync(user.UserName);
-
-                if (!isEmailExist && !isUserNameExist)
-                {
-                    if(IsParent)
-                        {
-                            Parent newParent = await proxy.ParentSignUpAsync(parent);
-                        }
-                    if (newAdult == null)
-                    {
-                        await App.Current.MainPage.Navigation.PopModalAsync();
-                        await App.Current.MainPage.DisplayAlert("שגיאה", "ההרשמה נכשלה", "אישור", FlowDirection.RightToLeft);
-                    }
-                    else
-                    {
-                        if (this.imageFileResult != null)
-                        {
-                            ServerStatus = "מעלה תמונה...";
-
-                            bool success = await proxy.UploadImage(new FileInfo()
-                            {
-                                Name = this.imageFileResult.FullPath
-                            }, $"{newAdult.Id}.jpg");
-                        }
-                        //else
-                        //{
-                        //    bool success = await proxy.UploadImage(new FileInfo()
-                        //    {
-                        //        Name = DEFAULT_PHOTO
-                        //    }, $"{newAdult.Id}.jpg");
-                        //}
-                        ServerStatus = "שומר נתונים...";
-
-                        App theApp = (App)App.Current;
-                        theApp.CurrentUser = newAdult.IdNavigation;
-
-                        Page page = new AdultMainTab();
-                        page.Title = "שלום " + theApp.CurrentUser.UserName;
-                        theApp.MainPage = new NavigationPage(page) { BarBackgroundColor = Color.FromHex("#81cfe0") };
-
-                        await App.Current.MainPage.DisplayAlert("הרשמה", "ההרשמה בוצעה בהצלחה", "אישור", FlowDirection.RightToLeft);
-                    }
-                }
+                if (IsBabySitter)
+                    await BabySitterSignUp(proxy);
                 else
-                {
-                    if (isEmailExist && isUserNameExist)
-                        await App.Current.MainPage.DisplayAlert("שגיאה", "האימייל ושם המשתמש שהקלדת כבר קיימים במערכת, בבקשה תבחר אימייל ושם משתמש חדשים ונסה שוב", "אישור", FlowDirection.RightToLeft);
-
-                    else if (isEmailExist)
-                        await App.Current.MainPage.DisplayAlert("שגיאה", "האימייל שהקלדת כבר קיים במערכת, בבקשה תבחר אימייל חדש ונסה שוב", "אישור", FlowDirection.RightToLeft);
-
-                    else
-                        await App.Current.MainPage.DisplayAlert("שגיאה", "שם המשתמש שהקלדת כבר קיים במערכת, בבקשה תבחר שם משתמש חדש ונסה שוב", "אישור", FlowDirection.RightToLeft);
-
-                    await App.Current.MainPage.Navigation.PopModalAsync();
-                }
+                    await ParentSignUp(proxy);
             }
+
             else
                 await App.Current.MainPage.DisplayAlert("שמירת נתונים", " יש בעיה עם הנתונים בדוק ונסה שוב", "אישור", FlowDirection.RightToLeft);
         }
@@ -1186,4 +1186,4 @@ namespace BabySiteApp.ViewModels
 
 
     }
-}
+
