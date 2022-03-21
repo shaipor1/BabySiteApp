@@ -981,7 +981,7 @@ namespace BabySiteApp.ViewModels
                 HasDog=this.HasDog,
                 User = user
             };
-            if (await IsExist(user))
+            if (!await IsExist(user))
             {
                 Parent newParent = await proxy.ParentSignUpAsync(parent);
                 if (newParent == null)
@@ -1041,7 +1041,7 @@ namespace BabySiteApp.ViewModels
                 Salary = this.Salary,
                 User = user
             };
-            if (await IsExist(user))
+            if (!await IsExist(user))
             {
                 BabySitter newBabySitter = await proxy.BabysitterSignUpAsync(babySitter);
                 if (newBabySitter == null)
@@ -1117,7 +1117,7 @@ namespace BabySiteApp.ViewModels
         {
             BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
 
-            return (await proxy.EmailExistAsync(user.Email) && await proxy.UserNameExistAsync(user.UserName));
+            return (await proxy.EmailExistAsync(user.Email) || await proxy.UserNameExistAsync(user.UserName));
         }
 
         #endregion

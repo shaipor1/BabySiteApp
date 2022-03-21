@@ -291,18 +291,26 @@ namespace BabySiteApp.Services
         {
             try
             {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
                 HttpResponseMessage response = await client.GetAsync($"{this.baseUri}/IsEmailExist?email={email}");
                 if (response.IsSuccessStatusCode)
                 {
-                    return true;
+                    string jsonObject = await response.Content.ReadAsStringAsync();
+                    bool ret = JsonSerializer.Deserialize<bool>(jsonObject, options);
+                    return ret;
                 }
                 else
-                    return false;
+                    return true;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return false;
+                return true;
             }
         }
         #endregion
@@ -311,13 +319,21 @@ namespace BabySiteApp.Services
         {
             try
             {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
                 HttpResponseMessage response = await client.GetAsync($"{this.baseUri}/IsUserNameExist?userName={userName}");
                 if (response.IsSuccessStatusCode)
                 {
-                    return true;
+                    string jsonObject = await response.Content.ReadAsStringAsync();
+                    bool ret = JsonSerializer.Deserialize<bool>(jsonObject, options);
+                    return ret;
                 }
                 else
-                    return false;
+                    return true;
             }
             catch (Exception e)
             {
