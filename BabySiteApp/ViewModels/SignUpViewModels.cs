@@ -968,8 +968,9 @@ namespace BabySiteApp.ViewModels
         }
         #endregion
         #region parent sign up
-        public async Task<Parent> ParentSignUp(BabySiteAPIProxy proxy)
+        public async Task<Parent> ParentSignUp()
         {
+            BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
             User user = CreateUser();
             user.UserTypeId = 1;
             Parent parent = new Parent()
@@ -980,7 +981,7 @@ namespace BabySiteApp.ViewModels
                 HasDog=this.HasDog,
                 User = user
             };
-            if (await IsExist(user, proxy))
+            if (await IsExist(user))
             {
                 Parent newParent = await proxy.ParentSignUpAsync(parent);
                 if (newParent == null)
@@ -1005,7 +1006,7 @@ namespace BabySiteApp.ViewModels
             }
             else
             {
-                if (await IsExist(user,proxy))
+                if (await IsExist(user))
                     await App.Current.MainPage.DisplayAlert("שגיאה", "האימייל ושם המשתמש שהקלדת כבר קיימים במערכת, בבקשה תבחר אימייל ושם משתמש חדשים ונסה שוב", "אישור", FlowDirection.RightToLeft);
 
                 else if (await proxy.EmailExistAsync(user.Email))
@@ -1027,9 +1028,10 @@ namespace BabySiteApp.ViewModels
         }
         #endregion
         #region babysitter sign up
-        public async Task<BabySitter> BabySitterSignUp(BabySiteAPIProxy proxy)
+        public async Task<BabySitter> BabySitterSignUp()
         {
-            
+            BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
+
             User user = CreateUser();
             user.UserTypeId = 2;
             BabySitter babySitter = new BabySitter()
@@ -1039,7 +1041,7 @@ namespace BabySiteApp.ViewModels
                 Salary = this.Salary,
                 User = user
             };
-            if (await IsExist(user, proxy))
+            if (await IsExist(user))
             {
                 BabySitter newBabySitter = await proxy.BabysitterSignUpAsync(babySitter);
                 if (newBabySitter == null)
@@ -1064,7 +1066,7 @@ namespace BabySiteApp.ViewModels
             }
             else
             {
-                if (await IsExist(user,proxy))
+                if (await IsExist(user))
                     await App.Current.MainPage.DisplayAlert("שגיאה", "האימייל ושם המשתמש שהקלדת כבר קיימים במערכת, בבקשה תבחר אימייל ושם משתמש חדשים ונסה שוב", "אישור", FlowDirection.RightToLeft);
 
                 else if (await proxy.EmailExistAsync(user.Email))
@@ -1111,32 +1113,27 @@ namespace BabySiteApp.ViewModels
         #endregion
 
         #region is exist
-        public async Task<bool> IsExist(User user, BabySiteAPIProxy proxy)
+        public async Task<bool> IsExist(User user)
         {
+            BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
+
             return (await proxy.EmailExistAsync(user.Email) && await proxy.UserNameExistAsync(user.UserName));
         }
 
         #endregion
         #region SaveData
-        public Command SaveDataCommand { protected set; get; }
+        public ICommand SaveDataCommand => new Command(SaveData);
         public async void SaveData()
         {
             if (ValidateForm())
             {
-
-
-
-
-
-
-
                 ServerStatus = "מתחבר לשרת...";
                 await App.Current.MainPage.Navigation.PushModalAsync(new Views.ServerStatusPage(this));
                 BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
                 if (IsBabySitter)
-                    await BabySitterSignUp(proxy);
+                    await BabySitterSignUp();
                 else
-                    await ParentSignUp(proxy);
+                    await ParentSignUp();
             }
 
             else
