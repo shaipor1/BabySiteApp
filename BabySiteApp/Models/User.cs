@@ -17,7 +17,6 @@ namespace BabySiteApp.Models
 
         public int UserId { get; set; }
         public int UserTypeId { get; set; }
-        public int LocationId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
@@ -26,9 +25,11 @@ namespace BabySiteApp.Models
         public string UserPswd { get; set; }
         public string Gender { get; set; }
         public DateTime BirthDate { get; set; }
+        public string City { get; set; }
+        public string Street { get; set; }
+        public string House { get; set; }
 
 
-        public virtual Location Location { get; set; }
         public virtual UserType UserType { get; set; }
         public virtual List<BabySitter> BabySitters { get; set; }
         public virtual List<Massage> Massages { get; set; }

@@ -25,7 +25,7 @@ namespace BabySiteApp
 
         public User CurrentUser { get; set; }
         public List<string> Cities { get; set; }
-        public List<string> Streets { get; set; }
+        public List<StreetDTO> Streets { get; set; }
         protected async override void OnStart()
         {
             BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();

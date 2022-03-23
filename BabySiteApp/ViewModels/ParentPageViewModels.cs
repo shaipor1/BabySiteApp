@@ -153,8 +153,8 @@ namespace BabySiteApp.ViewModels
         #endregion
 
         #region HouseNum
-        private int houseNum;
-        public int HouseNum
+        private string houseNum;
+        public string HouseNum
         {
             get => houseNum;
             set
@@ -178,9 +178,9 @@ namespace BabySiteApp.ViewModels
             this.LastName = currentUser.LastName;
             this.BirthDate = currentUser.BirthDate;
             this.PhoneNum = currentUser.PhoneNumber;
-            this.City = currentUser.Location.City.CityName;
-            this.Street = currentUser.Location.Street;
-            this.HouseNum = currentUser.Location.HouseId;
+            this.City = currentUser.City;
+            this.Street = currentUser.Street;
+            this.HouseNum = currentUser.House;
 
             //set the path url to the contact photo
             BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();

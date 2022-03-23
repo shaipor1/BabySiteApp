@@ -52,9 +52,9 @@ namespace BabySiteApp.ViewModels
             }
         }
 
-        private List<string> allStreets;
-        private ObservableCollection<string> filteredStreets;
-        public ObservableCollection<string> FilteredStreets
+        private List<StreetDTO> allStreets;
+        private ObservableCollection<StreetDTO> filteredStreets;
+        public ObservableCollection<StreetDTO> FilteredStreets
         {
             get
             {
@@ -748,8 +748,8 @@ namespace BabySiteApp.ViewModels
             this.ShowStreetError = string.IsNullOrEmpty(this.Street);
             if (!this.ShowStreetError)
             {
-                string street = this.allStreets.Where(s => s == this.Street).FirstOrDefault();
-                if (string.IsNullOrEmpty(street))
+                StreetDTO street = this.allStreets.Where(s => s.street_name == this.Street).FirstOrDefault();
+                if (string.IsNullOrEmpty(street?.street_name))
                 {
                     this.ShowStreetError = true;
                     this.StreetError = ERROR_MESSAGES.BAD_STREET;
@@ -772,8 +772,8 @@ namespace BabySiteApp.ViewModels
             }
         }
 
-        private int houseNum;
-        public int HouseNum
+        private string houseNum;
+        public string HouseNum
         {
             get => houseNum;
             set
@@ -797,18 +797,9 @@ namespace BabySiteApp.ViewModels
 
         private void ValidateHouseNum()
         {
-            this.ShowHouseNumError = this.HouseNum == 0;
-            int i;
-            string num = this.HouseNum.ToString();
-            if (!this.ShowHouseNumError)
-            {
-                if (!int.TryParse(num, out i) || int.Parse(num) <= 0/*!Regex.IsMatch(num, @"^[-+]?[0-9]*\.?[0-9]+$")*/)
-                {
-                    this.ShowHouseNumError = true;
-                    this.HouseNumError = ERROR_MESSAGES.BAD_HOUSE_NUM;
-                }
-            }
-            else
+            this.ShowHouseNumError = String.IsNullOrEmpty(this.HouseNum);
+            
+            if (this.ShowHouseNumError)
                 this.HouseNumError = ERROR_MESSAGES.REQUIRED_FIELD;
         }
         #endregion
@@ -895,16 +886,16 @@ namespace BabySiteApp.ViewModels
             }
             else
             {
-                foreach (string street in this.allStreets)
+                foreach (StreetDTO street in this.allStreets)
                 {
-                    string contactString = street;
-
-                    if (!this.FilteredStreets.Contains(street) &&
-                        contactString.Contains(search))
-                        this.FilteredStreets.Add(street);
-                    else if (this.FilteredStreets.Contains(street) &&
-                        !contactString.Contains(search))
-                        this.FilteredStreets.Remove(street);
+                    string contactString = street.street_name;
+                    if (street.city_name == SelectedCityItem)
+                        if (!this.FilteredStreets.Contains(street) &&
+                            contactString.Contains(search))
+                            this.FilteredStreets.Add(street);
+                        else if (this.FilteredStreets.Contains(street) &&
+                            !contactString.Contains(search))
+                            this.FilteredStreets.Remove(street);
                 }
             }
         }
@@ -918,15 +909,7 @@ namespace BabySiteApp.ViewModels
             {
                 this.ShowCities = false;
                 this.City = city;
-                //this.FilteredCities.Clear();
-
-                //App theApp = (App)App.Current;
-                //AddContactViewModel vm = new AddContactViewModel(uc);
-                //vm.ContactUpdatedEvent += OnContactAdded;
-                //Page p = new Views.AddContact(vm);
-                //await theApp.MainPage.Navigation.PushAsync(p);
-                //if (ClearSelection != null)
-                //    ClearSelection();
+                this.filteredStreets = new ObservableCollection<StreetDTO>(this.allStreets.Where(s => s.city_name == city).ToList());
             }
         }
 
@@ -1096,16 +1079,9 @@ namespace BabySiteApp.ViewModels
                 UserPswd = this.Password,
                 Gender = this.Gender,
                 BirthDate = this.BirthDate,
-                Location = new Models.Location()
-                {
-                    City = new City()
-                    {
-                        CityName = SelectedCityItem
-                    },
-                    Street = SelectedStreetItem,
-                    HouseId = HouseNum
-
-                },
+                City = this.City,
+                Street = this.Street,
+                House = this.HouseNum
         };
             return user;
          
@@ -1176,7 +1152,7 @@ namespace BabySiteApp.ViewModels
             allCities = ((App)Application.Current).Cities;
             allStreets = ((App)Application.Current).Streets;
             this.FilteredCities = new ObservableCollection<string>();
-            this.FilteredStreets = new ObservableCollection<string>();
+            this.FilteredStreets = new ObservableCollection<StreetDTO>();
         }
             #endregion
         }

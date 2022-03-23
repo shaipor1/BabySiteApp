@@ -27,12 +27,12 @@ namespace BabySiteApp.Services
         private const string CLOUD_PHOTOS_URL = "TBD";
         private const string DEV_ANDROID_EMULATOR_URL = "http://10.0.2.2:54152/BabySiteAPI"; //API url when using emulator on android
         private const string DEV_ANDROID_PHYSICAL_URL = "http://10.100.102.104:54152/BabySiteAPI"; //API url when using physucal device on android
-        private const string DEV_WINDOWS_URL = "https://localhost:44331/BabySiteAPI"; //API url when using windoes on development
+        private const string DEV_WINDOWS_URL = "http://localhost:54152/BabySiteAPI"; //API url when using windoes on development
         private const string DEV_ANDROID_EMULATOR_PHOTOS_URL = "http://10.0.2.2:54152/Images/"; //API url when using emulator on android
         private const string DEV_ANDROID_PHYSICAL_PHOTOS_URL = "http://10.100.102.104:54152/Images/"; //API url when using physucal device on android
-        private const string DEV_WINDOWS_PHOTOS_URL = "https://localhost:44331/Images/"; //API url when using windoes on development
+        private const string DEV_WINDOWS_PHOTOS_URL = "http://localhost:54152/Images/"; //API url when using windoes on development
         private const string CLOUD_DATA_URL = "TBD";
-        private const string DEV_WINDOWS_DATA_URL = "https://localhost:54152/data/"; //API url when using windoes on development
+        private const string DEV_WINDOWS_DATA_URL = "http://localhost:54152/data/"; //API url when using windoes on development
         private const string DEV_ANDROID_EMULATOR_DATA_URL = "http://10.0.2.2:54152/data/"; //API url when using emulator on android
         private const string DEV_ANDROID_PHYSICAL_DATA_URL = "http://10.100.102.104:54152/data/"; //API url when using physucal device on android
 
@@ -255,7 +255,7 @@ namespace BabySiteApp.Services
         #endregion
 
         #region GetStreetsAsync
-        public async Task<List<string>> GetStreetsAsync(/*string city*/)
+        public async Task<List<StreetDTO>> GetStreetsAsync(/*string city*/)
         {
             //?resource_id=d4901968-dad3-4845-a9b0-a57d027f11ab&limit=1500
             try
@@ -270,7 +270,7 @@ namespace BabySiteApp.Services
                     string content = await response.Content.ReadAsStringAsync();
 
                     List<StreetDTO> streets = JsonSerializer.Deserialize<List<StreetDTO>>(content, options);
-                    return GetStreetsNameList(streets/*, city*/);
+                    return streets;
                 }
                 else
                 {
