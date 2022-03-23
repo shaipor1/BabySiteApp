@@ -886,7 +886,7 @@ namespace BabySiteApp.ViewModels
             }
             else
             {
-                foreach (StreetDTO street in this.allStreets)
+                foreach (StreetDTO street in this.filteredStreets)
                 {
                     string contactString = street.street_name;
                     if (street.city_name == SelectedCityItem)
