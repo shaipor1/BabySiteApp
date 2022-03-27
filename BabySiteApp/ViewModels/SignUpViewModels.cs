@@ -647,10 +647,14 @@ namespace BabySiteApp.ViewModels
             get => city;
             set
             {
-                city = value;
-                OnCityChanged(value);
-                ValidateCity();
-                OnPropertyChanged("City");
+                if (city != value)
+                {
+                    city = value;
+                    OnCityChanged(value);
+                    ValidateCity();
+                    OnPropertyChanged("City");
+                }
+                
             }
         }
 
@@ -725,10 +729,14 @@ namespace BabySiteApp.ViewModels
             get => street;
             set
             {
-                street = value;
-                OnStreetChanged(value);
-                ValidateStreet();
-                OnPropertyChanged("Street");
+                if (street != value)
+                {
+                    street = value;
+                    OnStreetChanged(value);
+                    ValidateStreet();
+                    OnPropertyChanged("Street");
+                }
+                
             }
         }
 
@@ -871,7 +879,7 @@ namespace BabySiteApp.ViewModels
         #region OnStreetChanged
         public void OnStreetChanged(string search)
         {
-            if (this.Street != this.SelectedStreetItem)
+            if (String.IsNullOrEmpty(this.SelectedStreetItem) || this.Street != this.SelectedStreetItem)
             {
                 this.ShowStreets = true;
                 this.SelectedStreetItem = null;
@@ -883,10 +891,11 @@ namespace BabySiteApp.ViewModels
             {
                 this.ShowStreets = false;
                 this.FilteredStreets.Clear();
+                     
             }
             else
             {
-                foreach (StreetDTO street in this.filteredStreets)
+                foreach (StreetDTO street in this.allStreets)
                 {
                     string contactString = street.street_name;
                     if (street.city_name == SelectedCityItem)
@@ -909,7 +918,10 @@ namespace BabySiteApp.ViewModels
             {
                 this.ShowCities = false;
                 this.City = city;
-                this.filteredStreets = new ObservableCollection<StreetDTO>(this.allStreets.Where(s => s.city_name == city).ToList());
+                List<StreetDTO> streets = this.allStreets.Where(s => s.city_name == city).ToList();
+                this.filteredStreets.Clear();
+                foreach (StreetDTO s in streets)
+                    this.FilteredStreets.Add(s);
             }
         }
 
@@ -917,13 +929,15 @@ namespace BabySiteApp.ViewModels
         #endregion
 
         #region SelectedStreet
-        public ICommand SelectedStreet => new Command<string>(OnSelectedStreet);
-        public void OnSelectedStreet(string street)
+        public ICommand SelectedStreet => new Command<StreetDTO>(OnSelectedStreet);
+        public void OnSelectedStreet(StreetDTO street)
         {
             if (street != null)
             {
                 this.ShowStreets = false;
-                this.Street = street;
+                this.street = street.street_name;
+                OnPropertyChanged("Street");
+                ValidateStreet();
             }
         }
         #endregion

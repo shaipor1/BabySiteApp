@@ -11,5 +11,10 @@ namespace BabySiteApp.DTO
         public string city_name { get; set; }
         public int street_symbol { get; set; }
         public string street_name { get; set; }
+
+        public override string ToString()
+        {
+            return this.street_name;
+        }
     }
 }
