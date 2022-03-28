@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BabySiteApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace BabySiteApp.Views
         public ParentPage()
         {
             InitializeComponent();
+            BindingContext = new ParentPageViewModels();
         }
     }
 }

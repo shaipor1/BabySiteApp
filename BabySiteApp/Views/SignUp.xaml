@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:BabySiteApp.ViewModels"
+             x:DataType="local:SignUpViewModels"
+             xmlns:modals="clr-namespace:BabySiteApp.DTO"
              x:Class="BabySiteApp.Views.SignUp">
     <ContentPage.BindingContext>
         <local:SignUpViewModels></local:SignUpViewModels>
@@ -40,7 +42,26 @@
 
                     </Grid>
                     <Entry Placeholder="Last Name" Text="{Binding LastName}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill"></Entry>
-                    <!--gender-->
+                   <!--gender-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="Gender:" Grid.Column="0" Grid.Row="0"></Label>
+                        <Picker Grid.Row="1" Grid.Column="0" HorizontalOptions="Center"
+                            Title="Gender" SelectedItem="{Binding Gender}" ItemsSource="{Binding GenderArray}">
+
+                        </Picker>
+                    </Grid>
+
+                    <!--gender--><!--
+                    
                     <Grid  RadioButtonGroup.GroupName="Gender" RadioButtonGroup.SelectedValue="{Binding Gender}">
 
                         <Grid.ColumnDefinitions>
@@ -53,10 +74,10 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Label Text="Gender:" Grid.Column="0" Grid.Row="0"></Label>
-                        <RadioButton IsChecked="True" Content="male" Grid.Column="1"/>
-                        <RadioButton Content="female" Grid.Column="2"/>
-                        <RadioButton  Content="other" Grid.Column="3"/>
-                    </Grid>
+                        <RadioButton GroupName="Gender" IsChecked="True" Content="male" Value="Male" Grid.Column="1"/>
+                        <RadioButton GroupName="Gender" Content="female" Value="Female" Grid.Column="2"/>
+                        <RadioButton GroupName="Gender" Content="other" Value="Other"  Grid.Column="3"/>
+                    </Grid>-->
 
                     <!--phone number-->
                     <Grid >
@@ -168,7 +189,7 @@
                     <CollectionView EmptyView="לא נמצאו רחובות"  x:Name="streets" ItemsSource="{Binding FilteredStreets}" SelectedItem="{Binding SelectedStreetItem}" SelectionMode="Single"
                                    IsVisible="{Binding ShowStreets}" SelectionChangedCommand="{Binding Source={x:Reference streets}, Path=BindingContext.SelectedStreet}" SelectionChangedCommandParameter="{Binding Source={x:Reference streets}, Path=SelectedItem}">
                         <CollectionView.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate x:DataType="modals:StreetDTO">
                                 <Grid Padding="10">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -176,9 +197,10 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
+                                    
                                     <Label Grid.Column="0" Grid.Row="0"
-                       Text="{Binding street_name}"
-                       FontAttributes="Bold" />
+                                       Text="{Binding street_name}"
+                                       FontAttributes="Bold" />     
                                 </Grid>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
@@ -198,7 +220,7 @@
                         <Label Text="מספר בית" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
                         <Label Text="{Binding StringHouseNumError}" IsVisible="{Binding ShowStringHouseNumError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
                     </Grid>
-                    <Entry Placeholder="מספר בית" MaxLength="30" Text="{Binding StringHouseNum}" Style="{StaticResource entry}"/>
+                    <Entry Placeholder="מספר בית" MaxLength="30" Text="{Binding HouseNum}" Style="{StaticResource entry}"/>
 
                     <!--user type-->
                     <Grid  RadioButtonGroup.GroupName="UserType" RadioButtonGroup.SelectedValue="{Binding UserTypeSelection}">

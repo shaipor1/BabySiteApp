@@ -1,12 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BabySiteApp.Views.BabySitterMainPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:views="clr-namespace:BabySiteApp.Views"
+             xmlns:local="clr-namespace:BabySiteApp.ViewModels"
+             x:Class="BabySiteApp.Views.BabySitterMainPage" android:TabbedPage.ToolbarPlacement="Bottom" Title="welcome">
+    <NavigationPage IconImageSource="tap.png" Title="Find job">
+        <x:Arguments>
+            <views:FindBabySitter Title="Find job"></views:FindBabySitter>
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage IconImageSource="babysitter.png" Title="User Page">
+        <x:Arguments>
+            <views:ParentPage Title="User Page"></views:ParentPage>
+        </x:Arguments>
+    </NavigationPage>
+</TabbedPage>

@@ -160,7 +160,24 @@ namespace BabySiteApp.Services
             }
         }
 
-        public async Task<Parent> ParentSignUpAsync(Parent parent)
+        public async Task<bool> LogOutAsync()
+        {
+            HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/LogOut");
+            if (response.IsSuccessStatusCode)
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                    };
+                string jsonObject = await response.Content.ReadAsStringAsync();
+                bool a = JsonSerializer.Deserialize<bool>(jsonObject, options);
+                return a;
+            }
+            return false;
+        }
+        public async Task<Parent>ParentSignUpAsync(Parent parent)
         {
             try
             {
@@ -339,6 +356,39 @@ namespace BabySiteApp.Services
             {
                 Console.WriteLine(e.Message);
                 return true;
+            }
+        }
+        #endregion
+        #region UpdateParent
+        public async Task<Parent> UpdateParent(Parent parent)
+        {
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
+                string jsonObject = JsonSerializer.Serialize<Parent>(parent, options);
+                StringContent content = new StringContent(jsonObject, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/UpdateParent", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    jsonObject = await response.Content.ReadAsStringAsync();
+                    Parent ret = JsonSerializer.Deserialize<Parent>(jsonObject, options);
+                    return ret;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
             }
         }
         #endregion

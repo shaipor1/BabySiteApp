@@ -376,7 +376,18 @@ namespace BabySiteApp.ViewModels
         }
         #endregion
         #region Gender
-        private string gender;
+        //private int genderId;
+        //public int GenderId
+        //{
+        //    get => genderId;
+        //    set
+        //    {
+        //        genderId = value;
+        //        OnPropertyChanged("GenderId");
+        //    }
+        //}
+        public ObservableCollection<string> GenderArray { get; }
+        private string gender; 
         public string Gender
         {
             get => gender;
@@ -387,6 +398,7 @@ namespace BabySiteApp.ViewModels
                 OnPropertyChanged("Gender");
             }
         }
+       
 
         private string genderError;
 
@@ -806,7 +818,7 @@ namespace BabySiteApp.ViewModels
         private void ValidateHouseNum()
         {
             this.ShowHouseNumError = String.IsNullOrEmpty(this.HouseNum);
-            
+
             if (this.ShowHouseNumError)
                 this.HouseNumError = ERROR_MESSAGES.REQUIRED_FIELD;
         }
@@ -954,7 +966,7 @@ namespace BabySiteApp.ViewModels
             ValidatePhoneNum();
             ValidateCity();
             ValidateStreet();
-            ValidateStringHouseNum();
+            ValidateHouseNum();
 
             //check if any validation failed
             if (ShowEmailError || ShowUserNameError || ShowPasswordError
@@ -1167,6 +1179,11 @@ namespace BabySiteApp.ViewModels
             allStreets = ((App)Application.Current).Streets;
             this.FilteredCities = new ObservableCollection<string>();
             this.FilteredStreets = new ObservableCollection<StreetDTO>();
+
+            GenderArray = new ObservableCollection<string>();
+            GenderArray.Add("Male");
+            GenderArray.Add("Female");
+            GenderArray.Add("Other");
         }
             #endregion
         }

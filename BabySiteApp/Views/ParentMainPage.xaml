@@ -6,6 +6,11 @@
              xmlns:local="clr-namespace:BabySiteApp.ViewModels"
              x:Class="BabySiteApp.Views.ParentMainPage" android:TabbedPage.ToolbarPlacement="Bottom" Title="welcome"> 
     <NavigationPage IconImageSource="tap.png" Title="Find Baby Sitter">
+        <NavigationPage.TitleView>
+            <StackLayout>
+                <Button Text="Hi"></Button>
+            </StackLayout>
+        </NavigationPage.TitleView>
         <x:Arguments>
             <views:FindBabySitter Title="Find Baby Sitter"></views:FindBabySitter>
         </x:Arguments>

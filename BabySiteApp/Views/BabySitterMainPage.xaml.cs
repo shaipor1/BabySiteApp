@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace BabySiteApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BabySitterMainPage : ContentPage
+    public partial class BabySitterMainPage : TabbedPage
     {
         public BabySitterMainPage()
         {
