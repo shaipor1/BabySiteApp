@@ -127,7 +127,28 @@ namespace BabySiteApp.Services
                 return null;
             }
         }
-
+        //Upload file to server (only images!)
+        public async Task<bool> UploadImage(Models.FileInfo fileInfo, string targetFileName)
+        {
+            try
+            {
+                var multipartFormDataContent = new MultipartFormDataContent();
+                var fileContent = new ByteArrayContent(File.ReadAllBytes(fileInfo.Name));
+                multipartFormDataContent.Add(fileContent, "file", targetFileName);
+                HttpResponseMessage response = await client.PostAsync($"{this.baseUri}/UploadImage", multipartFormDataContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
         public async Task<BabySitter> BabysitterSignUpAsync(BabySitter babySitter)
         {
             try
@@ -190,7 +211,7 @@ namespace BabySiteApp.Services
                 string jsonObject = JsonSerializer.Serialize<Parent>(parent, options);
                 StringContent content = new StringContent(jsonObject, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/SignUpBabySitter", content);
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/SignUpParent", content);
                 if (response.IsSuccessStatusCode)
                 {
                     jsonObject = await response.Content.ReadAsStringAsync();
@@ -392,7 +413,71 @@ namespace BabySiteApp.Services
             }
         }
         #endregion
+        #region UpdateBabySitter
+        public async Task<BabySitter> UpdateBabySitter(BabySitter babySitter)
+        {
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
+                string jsonObject = JsonSerializer.Serialize<BabySitter>(babySitter, options);
+                StringContent content = new StringContent(jsonObject, Encoding.UTF8, "application/json");
 
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/UpdateBabySitter", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    jsonObject = await response.Content.ReadAsStringAsync();
+                    BabySitter ret = JsonSerializer.Deserialize<BabySitter>(jsonObject, options);
+                    return ret;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+        #endregion
+
+        #region GetBabySitters
+        public async Task< List<BabySitter>> GetBabySitters()
+        {
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
+                
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetBabySitters");
+                if (response.IsSuccessStatusCode)
+                {
+                    string jsonObject = await response.Content.ReadAsStringAsync();
+                    List<BabySitter> ret = JsonSerializer.Deserialize<List<BabySitter>>(jsonObject, options);
+                    return ret;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+        #endregion
 
 
     }

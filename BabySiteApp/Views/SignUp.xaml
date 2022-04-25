@@ -5,14 +5,26 @@
              x:DataType="local:SignUpViewModels"
              xmlns:modals="clr-namespace:BabySiteApp.DTO"
              x:Class="BabySiteApp.Views.SignUp">
-    <ContentPage.BindingContext>
-        <local:SignUpViewModels></local:SignUpViewModels>
-    </ContentPage.BindingContext>
+   
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
 
                 <StackLayout>
+                    <!-- תמונה -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="150" />
+                        </Grid.RowDefinitions>
+                        <Image x:Name="theImage" Source="{Binding UserImgSrc}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
+                        <ImageButton Source="photogallery.png" HorizontalOptions="End" BackgroundColor="White" Grid.Column="0" Grid.Row="0" Command="{Binding PickImageCommand}"/>
+                        <ImageButton Source="camera.png" HorizontalOptions="Start" Grid.Column="1" Grid.Row="0" BackgroundColor="White" Command="{Binding CameraImageCommand}"/>
+                    </Grid>
                     <!--first name-->
                     <Grid >
                         <Grid.RowDefinitions>
@@ -288,16 +300,15 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                    
-                    <Label Grid.Row="0" Text="how many children do you have?"></Label>
-                    <Picker Grid.Row="1" Grid.Column="0" HorizontalOptions="Center"
-        Title="your children count" SelectedIndex="{Binding ChildrenCount}" ItemsSource="{Binding AgeArray}">
 
-                    </Picker>
+                        <Label Grid.Row="0" Text="על כמה ילדים ישגיח הבייביסיטר"></Label>
+                        <Entry Placeholder="מספר הילדים" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" Text="{Binding ChildrenCount}"/>
+                        <Label Text="{Binding ChildrenCountError }" IsVisible="{Binding ShowChildrenCountError}" Grid.Row="0" Grid.Column="1" Style="{StaticResource labelErrorStyle}"></Label>
                     </Grid>
                     <!--children age-->
                     <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
@@ -305,15 +316,12 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Text="how old are your children?"></Label>
-                        <Picker Grid.Row="1" Grid.Column="0" HorizontalOptions="Center"
-        Title="minimum child age" SelectedIndex="{Binding MinAge}" ItemsSource="{Binding AgeArray}">
+                        <Label Grid.Row="0" Text="מהם גילאי הילדים שלך?"></Label>
+                        <Entry Placeholder="הקטן ביותר" Text="{Binding MinAge}" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center"/>
+                        <Entry Placeholder="הגדול ביותר" Text="{Binding MaxAge}" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center"/>
+                        <Label Text="{Binding AgeError }" IsVisible="{Binding ShowAgeError}" Grid.Row="2" Style="{StaticResource labelErrorStyle}"></Label>
 
-                        </Picker>
-                        <Picker  Grid.Row="1" Grid.Column="1" HorizontalOptions="Center"
-        Title="maximum child age" SelectedIndex="{Binding MaxAge}" ItemsSource="{Binding AgeArray}">
 
-                        </Picker>
 
                     </Grid>
 

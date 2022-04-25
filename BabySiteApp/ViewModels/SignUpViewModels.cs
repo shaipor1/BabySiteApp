@@ -24,10 +24,13 @@ namespace BabySiteApp.ViewModels
         public const string SHORT_PASS = "סיסמה חייבת להכיל לפחות 6 תווים";
         public const string BAD_PhoneNum = "מספר טלפון לא תקין";
         public const string BAD_UserName = "שם לא תקין";
-        public const string BAD_DATE = "המשתמש חייב להיות מעל גיל 12";
+        public const string BAD_DATE = "המשתמש חייב להיות מעל גיל 18";
         public const string BAD_HOUSE_NUM = "מספר בית לא תקין";
         public const string BAD_CITY = "עיר לא תקינה";
         public const string BAD_STREET = "רחוב לא תקין";
+        public const string BAD_AGE = "גיל הילדים יכול להיות מספר בין 1 ל 18";
+        public const string BAD_COUNT = "מספר הילדים צריך להיות בין 1 ל 10";
+
 
     }
     public class SignUpViewModels : BaseViewModels
@@ -121,6 +124,60 @@ namespace BabySiteApp.ViewModels
             }
         }
         #endregion
+        #region מקור התמונה
+        private string userImgSrc;
+
+        public string UserImgSrc
+        {
+            get => userImgSrc;
+            set
+            {
+                userImgSrc = value;
+                OnPropertyChanged("UserImgSrc");
+            }
+        }
+        private const string DEFAULT_PHOTO_SRC = "defaultphoto.png";
+        #endregion
+        ///The following command handle the pick photo button
+        FileResult imageFileResult;
+        public event Action<ImageSource> SetImageSourceEvent;
+        public ICommand PickImageCommand => new Command(OnPickImage);
+        public async void OnPickImage()
+        {
+            FileResult result = await MediaPicker.PickPhotoAsync(new MediaPickerOptions()
+            {
+                Title = "בחר תמונה"
+            });
+
+            if (result != null)
+            {
+                this.imageFileResult = result;
+
+                var stream = await result.OpenReadAsync();
+                ImageSource imgSource = ImageSource.FromStream(() => stream);
+                if (SetImageSourceEvent != null)
+                    SetImageSourceEvent(imgSource);
+            }
+        }
+
+        ///The following command handle the take photo button
+        public ICommand CameraImageCommand => new Command(OnCameraImage);
+        public async void OnCameraImage()
+        {
+            var result = await MediaPicker.CapturePhotoAsync(new MediaPickerOptions()
+            {
+                Title = "צלם תמונה"
+            });
+
+            if (result != null)
+            {
+                this.imageFileResult = result;
+                var stream = await result.OpenReadAsync();
+                ImageSource imgSource = ImageSource.FromStream(() => stream);
+                if (SetImageSourceEvent != null)
+                    SetImageSourceEvent(imgSource);
+            }
+        }
         #region Name
         private bool showNameError;
         public bool ShowNameError
@@ -217,7 +274,7 @@ namespace BabySiteApp.ViewModels
             this.ShowPhoneNumError = string.IsNullOrEmpty(PhoneNum);
             if (!this.ShowPhoneNumError)
             {
-                if (!Regex.IsMatch(this.PhoneNum, @"^[0-9]"))
+                if (!Regex.IsMatch(this.PhoneNum, @"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$"))
                 {
                     this.ShowPhoneNumError = true;
                     this.PhoneNumError = ERROR_MESSAGES.BAD_PhoneNum;
@@ -466,10 +523,11 @@ namespace BabySiteApp.ViewModels
             }
         }
 
-        private const int MIN_AGE = 12;
+        private const int MIN_AGE = 18;
         private void ValidateBirthDate()
         {
             TimeSpan ts = DateTime.Now - this.BirthDate;
+           
             this.ShowBirthDateError = ts.TotalDays < (MIN_AGE * 365);
         }
         #endregion
@@ -526,13 +584,62 @@ namespace BabySiteApp.ViewModels
                 OnPropertyChanged("MaxAge");
             }
         }
-        private List<int> ageArray = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 };
-        public List<int> AgeArray
+        private bool showAgeError;
+        public bool ShowAgeError
         {
-            get => ageArray;
+            get => showAgeError;
+            set
+            {
+                showAgeError = value;
+                OnPropertyChanged("ShowAgeError");
+            }
+        }
+        private string ageError;
+        public string AgeError
+        {
+            get => ageError;
+            set
+            {
+                ageError = value;
+                OnPropertyChanged("AgeError");
+            }
+        }
+        private void ValidateAge()
+        {
+            if (string.IsNullOrEmpty(ChildrenCount.ToString()) || MinAge < 1 || MinAge > 18 || MaxAge < 1 || MaxAge > 18||MinAge>MaxAge)
+                this.showAgeError = false;
+            else
+                this.showAgeError = true;
         }
         #endregion
         #region children count
+        private bool showChildrenCountError;
+        public bool ShowChildrenCountError
+        {
+            get => showChildrenCountError;
+            set
+            {
+                showChildrenCountError = value;
+                OnPropertyChanged("ShowChildrenCountError");
+            }
+        }
+        private string childrenCountError;
+        public string ChildrenCountError
+        {
+            get => childrenCountError;
+            set
+            {
+                childrenCountError = value;
+                OnPropertyChanged("ChildrenCountError");
+            }
+        }
+        private void ValidateChildrenCount()
+        {
+            if (string.IsNullOrEmpty(ChildrenCount.ToString()) || ChildrenCount < 1 || ChildrenCount > 10)
+                this.showChildrenCountError = false;
+            else
+                this.showChildrenCountError = true;
+        }
         private int childrenCount;
         public int ChildrenCount
         {
@@ -967,11 +1074,13 @@ namespace BabySiteApp.ViewModels
             ValidateCity();
             ValidateStreet();
             ValidateHouseNum();
+            if (!IsBabySitter) ValidateAge();
+            ValidateChildrenCount();
 
             //check if any validation failed
             if (ShowEmailError || ShowUserNameError || ShowPasswordError
                 || ShowNameError || ShowBirthDateError || ShowPhoneNumError
-                || ShowCityError || ShowStreetError || ShowStringHouseNumError)
+                || ShowCityError || ShowStreetError || ShowStringHouseNumError||ShowChildrenCountError||ShowAgeError)
                 return false;
             return true;
         }
@@ -1000,10 +1109,23 @@ namespace BabySiteApp.ViewModels
                 }
                 else
                 {
+                    if (this.imageFileResult != null)
+                    {
+                        ServerStatus = "מעלה תמונה...";
+
+                        bool success = await proxy.UploadImage(new FileInfo()
+                        {
+                            Name = this.imageFileResult.FullPath
+                        }, $"{newParent.UserId}.jpg");
+
+                        
+                    }
                     ServerStatus = "שומר נתונים...";
 
                     App theApp = (App)App.Current;
                     theApp.CurrentUser = parent.User;
+                    theApp.CurrentParent = parent;
+                    theApp.CurrentBabySitter = null;
 
                     Page page = new ParentMainPage();
                     page.Title = "שלום " + theApp.CurrentUser.UserName;
@@ -1060,10 +1182,24 @@ namespace BabySiteApp.ViewModels
                 }
                 else
                 {
+                    if (this.imageFileResult != null)
+                    {
+                        ServerStatus = "מעלה תמונה...";
+
+                        bool success = await proxy.UploadImage(new FileInfo()
+                        {
+                            Name = this.imageFileResult.FullPath
+                        }, $"{newBabySitter.UserId}.jpg");
+
+
+                    }
                     ServerStatus = "שומר נתונים...";
 
                     App theApp = (App)App.Current;
                     theApp.CurrentUser = babySitter.User;
+                    theApp.CurrentBabySitter=babySitter;
+                    theApp.CurrentParent = null;
+
 
                     Page page = new BabySitterMainPage();
                     page.Title = "שלום " + theApp.CurrentUser.UserName;
@@ -1153,7 +1289,10 @@ namespace BabySiteApp.ViewModels
             IsBabySitter = false;
             NameError = ERROR_MESSAGES.BAD_UserName;
             ShowNameError = false;
-            
+            ShowAgeError = false;
+            ShowChildrenCountError = false;
+            AgeError = ERROR_MESSAGES.BAD_AGE;
+            ChildrenCountError = ERROR_MESSAGES.BAD_COUNT;
             FirstName= string.Empty; 
             LastName= string.Empty;
             PhoneNum= string.Empty; 
@@ -1184,6 +1323,9 @@ namespace BabySiteApp.ViewModels
             GenderArray.Add("Male");
             GenderArray.Add("Female");
             GenderArray.Add("Other");
+            //Setup default image photo
+            this.UserImgSrc = DEFAULT_PHOTO_SRC;
+            this.imageFileResult = null; //mark that no picture was chosen
         }
             #endregion
         }

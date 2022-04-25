@@ -17,10 +17,9 @@ using System.IO;
 using System.Collections.ObjectModel;
 using BabySiteApp.DTO;
 
-
 namespace BabySiteApp.ViewModels
 {
-    class ParentPageViewModels:BaseViewModels
+    class BabySitterPageViewModel:BaseViewModels
     {
         private List<string> allCities;
         private ObservableCollection<string> filteredCities;
@@ -347,7 +346,38 @@ namespace BabySiteApp.ViewModels
                 this.PhoneNumError = ERROR_MESSAGES.REQUIRED_FIELD;
         }
         #endregion
+        #region HasCar
 
+
+        private bool hasCar;
+        public bool HasCar
+        {
+            get => hasCar;
+            set
+            {
+                hasCar = value;
+
+                OnPropertyChanged("HasCar");
+            }
+        }
+
+        #endregion
+        #region Salary
+
+
+        private int salay;
+        public int Salary
+        {
+            get => salay;
+            set
+            {
+                salay = value;
+
+                OnPropertyChanged("Salary");
+            }
+        }
+
+        #endregion
 
         #region BirthDate
         private bool showBirthDateError;
@@ -467,7 +497,6 @@ namespace BabySiteApp.ViewModels
                 this.CityError = ERROR_MESSAGES.REQUIRED_FIELD;
         }
         #endregion
-
         #region Street
         private bool showStreetError;
         public bool ShowStreetError
@@ -544,7 +573,6 @@ namespace BabySiteApp.ViewModels
                 this.StreetError = ERROR_MESSAGES.REQUIRED_FIELD;
         }
         #endregion
-
         #region HouseNum
         private bool showHouseNumError;
         public bool ShowHouseNumError
@@ -582,7 +610,7 @@ namespace BabySiteApp.ViewModels
 
         private void ValidateHouseNum()
         {
-            this.ShowHouseNumError =  this.HouseNum == "0";
+            this.ShowHouseNumError = this.HouseNum == "0";
             int i;
             string num = this.HouseNum.ToString();
             if (!this.ShowHouseNumError)
@@ -609,7 +637,6 @@ namespace BabySiteApp.ViewModels
             }
         }
         #endregion
-
         #region Refresh
         private bool isRefreshing;
         public bool IsRefreshing
@@ -625,118 +652,117 @@ namespace BabySiteApp.ViewModels
             }
         }
         #endregion
-      
-        #region Age
-        private int minAge;
-        public int MinAge
-        {
-            get => minAge;
-            set
-            {
-                minAge = value;
-                OnPropertyChanged("MinAge");
-            }
-        }
-        private int maxAge;
-        public int MaxAge
-        {
-            get => maxAge;
-            set
-            {
-                maxAge = value;
-                OnPropertyChanged("MaxAge");
-            }
-        }
-        private bool showAgeError;
-        public bool ShowAgeError
-        {
-            get => showAgeError;
-            set
-            {
-                showAgeError = value;
-                OnPropertyChanged("ShowAgeError");
-            }
-        }
-        private string ageError;
-        public string AgeError
-        {
-            get => ageError;
-            set
-            {
-                ageError = value;
-                OnPropertyChanged("AgeError");
-            }
-        }
-        private void ValidateAge()
-        {
-            if (string.IsNullOrEmpty(ChildrenCount.ToString()) || MinAge < 1 || MinAge > 18 || MaxAge < 1 || MaxAge > 18 || MinAge > MaxAge)
-                this.showAgeError = false;
-            else
-                this.showAgeError = true;
-        }
-        #endregion
-        #region children count
-        private int childrenCount;
-        public int ChildrenCount
-        {
-            get => childrenCount;
-            set
-            {
-                childrenCount = value;
-                OnPropertyChanged("ChildrenCount");
-            }
-        }
-        private bool showChildrenCountError;
-        public bool ShowChildrenCountError
-        {
-            get => showChildrenCountError;
-            set
-            {
-                showChildrenCountError = value;
-                OnPropertyChanged("ShowChildrenCountError");
-            }
-        }
-        private string childrenCountError;
-        public string ChildrenCountError
-        {
-            get => childrenCountError;
-            set
-            {
-                childrenCountError = value;
-                OnPropertyChanged("ChildrenCountError");
-            }
-        }
-        private void ValidateChildrenCount()
-        {
-            if (string.IsNullOrEmpty(ChildrenCount.ToString()) || ChildrenCount < 1 || ChildrenCount > 10)
-                this.showChildrenCountError = false;
-            else
-                this.showChildrenCountError = true;
-        }
-        #endregion
-        #region HasDog
+        //#region Age
+        //private int minAge;
+        //public int MinAge
+        //{
+        //    get => minAge;
+        //    set
+        //    {
+        //        minAge = value;
+        //        OnPropertyChanged("MinAge");
+        //    }
+        //}
+        //private int maxAge;
+        //public int MaxAge
+        //{
+        //    get => maxAge;
+        //    set
+        //    {
+        //        maxAge = value;
+        //        OnPropertyChanged("MaxAge");
+        //    }
+        //}
+        //private bool showAgeError;
+        //public bool ShowAgeError
+        //{
+        //    get => showAgeError;
+        //    set
+        //    {
+        //        showAgeError = value;
+        //        OnPropertyChanged("ShowAgeError");
+        //    }
+        //}
+        //private string ageError;
+        //public string AgeError
+        //{
+        //    get => ageError;
+        //    set
+        //    {
+        //        ageError = value;
+        //        OnPropertyChanged("AgeError");
+        //    }
+        //}
+        //private void ValidateAge()
+        //{
+        //    if (string.IsNullOrEmpty(ChildrenCount.ToString()) || MinAge < 1 || MinAge > 18 || MaxAge < 1 || MaxAge > 18 || MinAge > MaxAge)
+        //        this.showAgeError = false;
+        //    else
+        //        this.showAgeError = true;
+        //}
+        //#endregion
+        //#region children count
+        //private int childrenCount;
+        //public int ChildrenCount
+        //{
+        //    get => childrenCount;
+        //    set
+        //    {
+        //        childrenCount = value;
+        //        OnPropertyChanged("ChildrenCount");
+        //    }
+        //}
+        //private bool showChildrenCountError;
+        //public bool ShowChildrenCountError
+        //{
+        //    get => showChildrenCountError;
+        //    set
+        //    {
+        //        showChildrenCountError = value;
+        //        OnPropertyChanged("ShowChildrenCountError");
+        //    }
+        //}
+        //private string childrenCountError;
+        //public string ChildrenCountError
+        //{
+        //    get => childrenCountError;
+        //    set
+        //    {
+        //        childrenCountError = value;
+        //        OnPropertyChanged("ChildrenCountError");
+        //    }
+        //}
+        //private void ValidateChildrenCount()
+        //{
+        //    if (string.IsNullOrEmpty(ChildrenCount.ToString()) || ChildrenCount < 1 || ChildrenCount > 10)
+        //        this.showChildrenCountError = false;
+        //    else
+        //        this.showChildrenCountError = true;
+        //}
+        //#endregion
+        //#region HasDog
 
 
-        private bool hasDog;
-        public bool HasDog
-        {
-            get => hasDog;
-            set
-            {
-                hasDog = value;
+        //private bool hasDog;
+        //public bool HasDog
+        //{
+        //    get => hasDog;
+        //    set
+        //    {
+        //        hasDog = value;
 
-                OnPropertyChanged("HasDog");
-            }
-        }
+        //        OnPropertyChanged("HasDog");
+        //    }
+        //}
 
-        #endregion 
+        //#endregion 
         public Command SaveDataCommand { protected set; get; }
         public ICommand ClearCommand { protected set; get; }
         public ICommand HomePageCommand { protected set; get; }
 
 
         #region Constructor
-        public ParentPageViewModels()
+        public BabySitterPageViewModel()
         {
             App theApp = (App)App.Current;
 
@@ -745,10 +771,10 @@ namespace BabySiteApp.ViewModels
 
             this.allStreets = theApp.Streets;
             this.FilteredStreets = new ObservableCollection<string>();
-            
+
             User currentUser = theApp.CurrentUser;
-            Parent currentParent = theApp.CurrentParent;
-            
+            BabySitter currentBabySitter = theApp.CurrentBabySitter;
+
             this.SelectedCityItem = currentUser.City;
 
             this.Email = currentUser.Email;
@@ -760,20 +786,19 @@ namespace BabySiteApp.ViewModels
             this.PhoneNum = currentUser.PhoneNumber;
             this.City = this.SelectedCityItem;
             this.HouseNum = currentUser.House;
-            this.MaxAge = currentParent.ChildrenMaxAge;
-            this.MinAge = currentParent.ChildrenMinAge;
-            this.ChildrenCount = currentParent.ChildrenCount;
-            this.HasDog = currentParent.HasDog;
+            this.HasCar = currentBabySitter.HasCar;
+            this.salay = currentBabySitter.Salary;
+           
 
-            this.SelectedStreetItem =currentUser.Street;
+            this.SelectedStreetItem = currentUser.Street;
             this.Street = this.SelectedStreetItem;
             this.IsStreetEnabled = true;
 
             //set the path url to the contact photo
             BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
             //Create a source with cache busting!
-            
-           
+
+
 
             this.EmailError = ERROR_MESSAGES.BAD_EMAIL;
             this.UserNameError = ERROR_MESSAGES.REQUIRED_FIELD;
@@ -784,10 +809,10 @@ namespace BabySiteApp.ViewModels
             this.PhoneNumError = ERROR_MESSAGES.REQUIRED_FIELD;
             this.CityError = ERROR_MESSAGES.REQUIRED_FIELD;
             this.StreetError = ERROR_MESSAGES.REQUIRED_FIELD;
-            ShowAgeError = false;
-            ShowChildrenCountError = false;
-            AgeError = ERROR_MESSAGES.BAD_AGE;
-            ChildrenCountError = ERROR_MESSAGES.BAD_COUNT;
+            //ShowAgeError = false;
+            //ShowChildrenCountError = false;
+            //AgeError = ERROR_MESSAGES.BAD_AGE;
+            //ChildrenCountError = ERROR_MESSAGES.BAD_COUNT;
 
             this.ShowEmailError = false;
             this.ShowUserNameError = false;
@@ -798,12 +823,12 @@ namespace BabySiteApp.ViewModels
             this.ShowPhoneNumError = false;
             this.ShowCityError = false;
             this.ShowStreetError = false;
-            
+
 
             this.SaveDataCommand = new Command(() => SaveData());
             ClearCommand = new Command(OnClear);
             HomePageCommand = new Command(OnHome);
-          
+
             LogOutCommand = new Command(OnLogOut);
 
         }
@@ -821,14 +846,14 @@ namespace BabySiteApp.ViewModels
             ValidatePhoneNum();
             ValidateCity();
             ValidateStreet();
-            ValidateAge();
-            ValidateChildrenCount();
+            //ValidateAge();
+            //ValidateChildrenCount();
 
 
             //check if any validation failed
             if (ShowPasswordError || ShowNameError || ShowLastNameError
                 || ShowBirthDateError || ShowPhoneNumError || ShowCityError
-                || ShowStreetError || ShowChildrenCountError || ShowAgeError)
+                || ShowStreetError)
                 return false;
             return true;
         }
@@ -843,9 +868,9 @@ namespace BabySiteApp.ViewModels
                 await App.Current.MainPage.Navigation.PushModalAsync(new Views.ServerStatusPage(this));
 
                 App theApp = (App)App.Current;
-                Parent newParent = new Parent()
+                BabySitter newBabySitter = new BabySitter()
                 {
-                    
+
                     User = new User()
                     {
                         UserId = theApp.CurrentUser.UserId,
@@ -859,41 +884,41 @@ namespace BabySiteApp.ViewModels
                         City = this.City,
                         Street = this.Street,
                         House = this.HouseNum,
-                        Gender= theApp.CurrentUser.Gender
+                        Gender = theApp.CurrentUser.Gender
                     },
-                    ChildrenMaxAge = this.MaxAge,
-                    ChildrenMinAge = this.MinAge,
-                    ParentId = theApp.CurrentParent.ParentId,
-                ChildrenCount = this.ChildrenCount,
-                HasDog=this.HasDog,
-                UserId= theApp.CurrentUser.UserId
+                    //ChildrenMaxAge = this.MaxAge,
+                    //ChildrenMinAge = this.MinAge,
+                    BabySitterId = theApp.CurrentBabySitter.BabySitterId,
+                    //ChildrenCount = this.ChildrenCount,
+                    //HasDog = this.HasDog,
+                    UserId = theApp.CurrentUser.UserId
 
 
 
                 };
 
                 BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
-                Parent parent = await proxy.UpdateParent(newParent);
+                BabySitter babySitter = await proxy.UpdateBabySitter(newBabySitter);
 
-                if (parent == null)
+                if (babySitter == null)
                 {
                     await App.Current.MainPage.Navigation.PopModalAsync();
                     await App.Current.MainPage.DisplayAlert("שגיאה", "העדכון נכשל", "אישור", FlowDirection.RightToLeft);
                 }
                 else
                 {
-                   
+
                     ServerStatus = "שומר נתונים...";
 
-                    theApp.CurrentUser = parent.User;
+                    theApp.CurrentUser = babySitter.User;
                     await App.Current.MainPage.Navigation.PopModalAsync();
 
                     Page page;
 
-                   
-                        page = new Views.ParentMainPage();
 
-               
+                    page = new Views.BabySitterMainPage();
+
+
 
                     page.Title = "שלום " + theApp.CurrentUser.UserName;
                     App.Current.MainPage = new NavigationPage(page) { BarBackgroundColor = Color.FromHex("#81cfe0") };
@@ -907,7 +932,7 @@ namespace BabySiteApp.ViewModels
 
         #region UpdateCommand
         public ICommand UpdateCommand => new Command(OnUpdate);
-          public ICommand LogOutCommand { protected set; get; }
+        public ICommand LogOutCommand { protected set; get; }
         #region OnLogOut
         public async void OnLogOut()
         {
@@ -1055,7 +1080,7 @@ namespace BabySiteApp.ViewModels
             this.City = this.SelectedCityItem;
             this.Street = this.SelectedStreetItem;
             this.HouseNum = currentUser.House;
-            
+
 
             IsRefreshing = false;
         }
@@ -1070,7 +1095,7 @@ namespace BabySiteApp.ViewModels
             this.SelectedCityItem = currentUser.City;
             this.SelectedStreetItem = currentUser.Street;
 
-           
+
             this.Password = currentUser.UserPswd;
             this.Name = currentUser.FirstName;
             this.LastName = currentUser.LastName;
@@ -1079,14 +1104,14 @@ namespace BabySiteApp.ViewModels
             this.City = this.SelectedCityItem;
             this.Street = this.SelectedStreetItem;
             this.HouseNum = currentUser.House;
-           
+
         }
         #endregion
         #region OnHome
         public async void OnHome()
         {
             App theApp = (App)App.Current;
-            Page page = new ParentMainPage();
+            Page page = new BabySitterMainPage();
             page.Title = $"שלום {theApp.CurrentUser.UserName}";
 
             await App.Current.MainPage.Navigation.PopToRootAsync();

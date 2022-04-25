@@ -4,20 +4,13 @@
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              xmlns:views="clr-namespace:BabySiteApp.Views"
              xmlns:local="clr-namespace:BabySiteApp.ViewModels"
-             x:Class="BabySiteApp.Views.ParentMainPage" android:TabbedPage.ToolbarPlacement="Bottom" Title="welcome"> 
-    <NavigationPage IconImageSource="tap.png" Title="Find Baby Sitter">
-        <NavigationPage.TitleView>
-            <StackLayout>
-                <Button Text="Hi"></Button>
-            </StackLayout>
-        </NavigationPage.TitleView>
-        <x:Arguments>
-            <views:FindBabySitter Title="Find Baby Sitter"></views:FindBabySitter>
-        </x:Arguments>
-    </NavigationPage>
-    <NavigationPage IconImageSource="parent.png" Title="User Page">
-        <x:Arguments>
-            <views:ParentPage Title="User Page"></views:ParentPage>
-        </x:Arguments>
-    </NavigationPage>
+             x:Class="BabySiteApp.Views.ParentMainPage" android:TabbedPage.ToolbarPlacement="Bottom" Title="welcome">
+    <views:FindBabySitter IconImageSource="tap.png" Title="מצא בייביסיטר">
+
+
+    </views:FindBabySitter>
+
+    <views:ParentPage IconImageSource="parent.png" Title="דף משתמש">
+       
+    </views:ParentPage>
 </TabbedPage>

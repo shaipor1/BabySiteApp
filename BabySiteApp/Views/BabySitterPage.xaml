@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BabySiteApp.Views.ParentPage"
-               FlowDirection="RightToLeft">
+             x:Class="BabySiteApp.Views.BabySitterPage"
+             FlowDirection="RightToLeft">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="התנתק" Order="Primary" Priority="1" IconImageSource="logoutIcon.png" Command="{Binding LogOutCommand}"></ToolbarItem>
     </ContentPage.ToolbarItems>
@@ -159,47 +159,27 @@
                                     <Label Text="{Binding HouseNumError}" IsVisible="{Binding ShowHouseNumError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
                                 </Grid>
                                 <Entry Placeholder="מספר בית" MaxLength="30" Text="{Binding HouseNum}" Style="{StaticResource entry}"/>
-                                <!--have dog-->
+                                <!--have car-->
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <Label Grid.Row="0" Text="האם יש כלב?"></Label>
+                                    <Label Grid.Row="0" Text="האם נייד?"></Label>
                                 </Grid>
-                                <Switch  IsToggled="{Binding HasDog}" Grid.Row="1" HorizontalOptions="Center"/>
-                                <!--children count-->
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label Grid.Row="0" Text="על כמה ילדים ישגיח הבייביסיטר"></Label>
-                                    <Entry Placeholder="מספר הילדים" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" Text="{Binding ChildrenCount}"/>
-                                    <Label Text="{Binding ChildrenCountError }" IsVisible="{Binding ShowChildrenCountError}" Grid.Row="0" Grid.Column="1" Style="{StaticResource labelErrorStyle}"></Label>
-                                  
-                                </Grid>
-                                <!--children age-->
+                                <Switch  IsToggled="{Binding HasCar}" Grid.Row="1" HorizontalOptions="Center"/>
+                                <!--change salary-->
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Row="0" Text="מהם גילאי הילדים שלך?"></Label>
-                                    <Entry Placeholder="הקטן ביותר" Text="{Binding MinAge}" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center"/>
-                                    <Entry Placeholder="הגדול ביותר" Text="{Binding MaxAge}" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center"/>
-                                    <Label Text="{Binding AgeError }" IsVisible="{Binding ShowAgeError}" Grid.Row="2" Style="{StaticResource labelErrorStyle}"></Label>
-
+                                   
+                                    <Label Grid.Row="0" Text="שכר לשעה:"></Label>
+                                    <Slider Minimum="0" Maximum="100" Grid.Row="1" HorizontalOptions="Fill" Value="{Binding Salary}" MinimumTrackColor="DarkGray" MaximumTrackColor="LightGray" WidthRequest="300"/>
+                                    <Label Text="{Binding Salary}" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
                                 </Grid>
+                              
                             </StackLayout>
                         </Frame>
 

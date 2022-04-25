@@ -83,11 +83,15 @@ namespace BabySiteApp.ViewModels
 
                 if(theApp.CurrentUser.UserTypeId==1)
                 {
+                    theApp.CurrentParent = user.Parents.Where(pr => pr.UserId == user.UserId).FirstOrDefault();
+                    theApp.CurrentBabySitter = null;
                     Page p = new NavigationPage(new Views.ParentMainPage());
                     App.Current.MainPage = p;
                 }
                 else
                 {
+                    theApp.CurrentBabySitter = user.BabySitters.Where(pr => pr.UserId == user.UserId).FirstOrDefault();
+                    theApp.CurrentParent = null;
                     Page p = new NavigationPage(new Views.BabySitterMainPage());
                     App.Current.MainPage = p;
                 }

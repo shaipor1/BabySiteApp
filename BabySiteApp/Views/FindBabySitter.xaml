@@ -1,12 +1,94 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BabySiteApp.Views.FindBabySitter">
+             xmlns:viewmodels="clr-namespace:BabySiteApp.ViewModels"
+             xmlns:modles="clr-namespace:BabySiteApp.Models"
+             x:DataType="viewmodels:FindBabySitterViewModel"
+             x:Class="BabySiteApp.Views.FindBabySitter"
+             Title="מצא בייביסיטר"
+             FlowDirection="RightToLeft">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Text="ניידות:" Grid.Row="0" Grid.Column="0"/>
+                <Switch IsToggled="{Binding HasCarFilter}" Grid.Column="0" Grid.Row="1"/>
+                <Label Text="דירוג מינימלי:" Grid.Row="0" Grid.Column="1"/>
+                <Slider   Minimum="0" Maximum="5" Grid.Row="1" Grid.Column="1" Value="{Binding MinRatingFilter}" MinimumTrackColor="DarkGray" MaximumTrackColor="LightGray" WidthRequest="300"/>
+                <Label  Text="{Binding MinRatingFilter}" Grid.Row="2" Grid.Column="1" />
+                <Label Text="שכר מקסימלי:" Grid.Row="0" Grid.Column="2"/>
+                <Slider   Minimum="0" Maximum="100" Grid.Row="1" Grid.Column="2" Value="{Binding MaxSalaryFilter }"/>
+                <Label  Text="{Binding MaxSalaryFilter}" Grid.Row="2" Grid.Column="2"/>
+                <Button Text="סנן" Command="{Binding FilterCommand}" Grid.Column="1" Grid.Row="2"/>
+            </Grid>
+            <RefreshView x:Name="refreshView"
+             Command="{Binding RefreshCommand}"
+             IsRefreshing="{Binding IsRefreshing}">
+                
+                <CollectionView  x:Name="collectionName" ItemsSource="{Binding FilteredBabySitters}" SelectionMode="Single" BackgroundColor="White"
+                               SelectedItem="{Binding CurrentBabySitter}" SelectionChangedCommand="{Binding ShowBabySitter}" SelectionChangedCommandParameter="{Binding CurrentBabySitter}">
+                    <CollectionView.EmptyView>
+                        <StackLayout>
+                            <Label Text="אין ביביסטרים"/>
+                        </StackLayout>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Span="1" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="modles:BabySitter">
+                            <SwipeView>
+                                <SwipeView.LeftItems>
+                                    <SwipeItems>
+                                        <SwipeItem Text="התקשר"
+                                           IconImageSource="phone.png"
+                                           BackgroundColor="Aqua"
+                                           Command="{Binding Source={x:Reference collectionName}, Path=BindingContext.CallBabySitter}"
+                                           CommandParameter="{Binding}" />
+                                    </SwipeItems>
+                                </SwipeView.LeftItems>
+                                
+                                <Grid Margin="7">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="50"/>
+                                    </Grid.RowDefinitions>
+                                    <Label Text="{Binding User.FirstName}" HorizontalTextAlignment="Start" FontSize="Caption"  Grid.Row="0" Grid.Column="0"/>
+                                    <Label Text="{Binding User.LastName}" HorizontalTextAlignment="Start" FontSize="Caption" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" Margin="0,0,5,0"/>
+                                    <Image Source="{Binding User.PhotoURL}" WidthRequest="100" Grid.Column="0" Grid.RowSpan="2" Grid.Row="0"/>
+                                    <!--<Image Source="{Binding RatingStarsImage}" Grid.Column="1" HorizontalOptions="Fill" Grid.Row="3"/>--> 
+                                </Grid>
+
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+            </Grid>
+            <Label Text="לא מצאת מה שחיפשת?" Grid.Column="1" Grid.Row="0"/>
+            <Button Text="פרסם הצעת עבודה" Command="{Binding AddJobOffer}" Grid.Row="0" Grid.Column="0"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

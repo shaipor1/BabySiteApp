@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BabySiteApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using BabySiteApp.Views;
 
 namespace BabySiteApp.Views
 {
@@ -14,9 +15,16 @@ namespace BabySiteApp.Views
     {
         public SignUp()
         {
+            SignUpViewModels vm = new SignUpViewModels();
+            this.BindingContext = vm;
+            vm.SetImageSourceEvent += OnSetImageSource;
             InitializeComponent();
         }
+        public void OnSetImageSource(ImageSource imageSource)
+        {
+            theImage.Source = imageSource;
+        }
 
-       
+
     }
 }
