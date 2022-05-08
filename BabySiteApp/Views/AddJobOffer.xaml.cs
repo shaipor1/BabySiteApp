@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using BabySiteApp.ViewModels;
 
 namespace BabySiteApp.Views
 {
@@ -14,7 +15,7 @@ namespace BabySiteApp.Views
     {
         public AddJobOffer()
         {
-            InitializeComponent();
+            BindingContext = new AddJobOfferViewModel();
         }
     }
 }

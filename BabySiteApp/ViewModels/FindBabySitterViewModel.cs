@@ -146,9 +146,10 @@ namespace BabySiteApp.ViewModels
             FilterBabySitters();
         }
 
-        private void AddJobPage()
+        private async void AddJobPage()
         {
-            CurrentApp.MainPage.Navigation.PushAsync(new AddJobOffer() { BindingContext = new AddJobOfferViewModel() });
+            AddJobOffer page = new AddJobOffer();
+            await App.Current.MainPage.Navigation.PushAsync(page);
             //CurrentApp.MainPage.DisplayAlert("מעבר לעמוד בו הורה יכול לפרסם הצעת עבודה", "baby sitter page", "אישור");
         }
 

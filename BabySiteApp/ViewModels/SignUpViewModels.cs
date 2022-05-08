@@ -607,9 +607,9 @@ namespace BabySiteApp.ViewModels
         private void ValidateAge()
         {
             if (string.IsNullOrEmpty(ChildrenCount.ToString()) || MinAge < 1 || MinAge > 18 || MaxAge < 1 || MaxAge > 18||MinAge>MaxAge)
-                this.showAgeError = false;
-            else
                 this.showAgeError = true;
+            else
+                this.showAgeError = false;
         }
         #endregion
         #region children count
@@ -636,9 +636,9 @@ namespace BabySiteApp.ViewModels
         private void ValidateChildrenCount()
         {
             if (string.IsNullOrEmpty(ChildrenCount.ToString()) || ChildrenCount < 1 || ChildrenCount > 10)
-                this.showChildrenCountError = false;
-            else
                 this.showChildrenCountError = true;
+            else
+                this.showChildrenCountError = false;
         }
         private int childrenCount;
         public int ChildrenCount

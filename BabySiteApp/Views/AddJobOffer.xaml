@@ -27,10 +27,11 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
 
                     </Grid.RowDefinitions>
-                    <Label Text="פרטים:" Grid.Column="1" Grid.Row="0"/>
-                    <Entry Placeholder=" תאריך, שעות עבודה ועוד.." Text="{Binding MassageBody}" Grid.Column="0" Grid.Row="0"/>
+                    <Label Text="פרטים:" Grid.Column="1"  Grid.Row="0"/>
+                    <Entry Placeholder=" תאריך, שעות עבודה ועוד.." Text="{Binding MassageBody}" Grid.RowSpan="2" Grid.Column="0" Grid.Row="0"/>
                 </Grid>
             </StackLayout>
             <Button Text="פרסם" Command="{Binding PostMessageCommand}"/>

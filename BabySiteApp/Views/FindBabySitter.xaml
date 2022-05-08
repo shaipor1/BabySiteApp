@@ -88,7 +88,7 @@
                 </Grid.RowDefinitions>
             </Grid>
             <Label Text="לא מצאת מה שחיפשת?" Grid.Column="1" Grid.Row="0"/>
-            <Button Text="פרסם הצעת עבודה" Command="{Binding AddJobOffer}" Grid.Row="0" Grid.Column="0"/>
+            <Button Text="פרסם הצעת עבודה" BackgroundColor="Transparent" Command="{Binding AddJobOffer}" Grid.Row="0" Grid.Column="0"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
