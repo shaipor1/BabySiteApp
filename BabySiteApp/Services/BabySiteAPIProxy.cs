@@ -180,7 +180,37 @@ namespace BabySiteApp.Services
                 return null;
             }
         }
+        public async Task<bool> PostMessageAsync(Massage message)
+        {
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
+                string jsonObject = JsonSerializer.Serialize<Massage>(message, options);
+                StringContent content = new StringContent(jsonObject, Encoding.UTF8, "application/json");
 
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/PostMessage", content);
+                if (response.IsSuccessStatusCode)
+                {
+                   
+                   
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
         public async Task<bool> LogOutAsync()
         {
             HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/LogOut");

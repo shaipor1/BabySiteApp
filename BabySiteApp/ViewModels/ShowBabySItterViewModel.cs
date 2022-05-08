@@ -5,9 +5,9 @@ using BabySiteApp.Models;
 
 namespace BabySiteApp.ViewModels
 {
-    class ShowBabySItterViewModel
+    class ShowBabySitterViewModel
     {
-        public ShowBabySItterViewModel(BabySitter b)
+        public ShowBabySitterViewModel(BabySitter b)
         {
 
         }
