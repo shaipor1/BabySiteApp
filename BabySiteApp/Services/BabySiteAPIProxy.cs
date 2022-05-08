@@ -509,6 +509,38 @@ namespace BabySiteApp.Services
         }
         #endregion
 
+        #region GetJobOffers
+        public async Task<List<Massage>> GetJobOffers()
+        {
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
+
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetJobOffers");
+                if (response.IsSuccessStatusCode)
+                {
+                    string jsonObject = await response.Content.ReadAsStringAsync();
+                    List<Massage> ret = JsonSerializer.Deserialize<List<Massage>>(jsonObject, options);
+                    return ret;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+        #endregion
+
 
     }
 }

@@ -29,6 +29,8 @@ namespace BabySiteApp.Models
         public string Street { get; set; }
         public string House { get; set; }
 
+        public double? Longitude { get; set; }
+        public double? Latitude { get; set; }
 
         public virtual UserType UserType { get; set; }
         public virtual List<BabySitter> BabySitters { get; set; }

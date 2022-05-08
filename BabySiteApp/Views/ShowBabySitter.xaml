@@ -100,6 +100,10 @@
                 </Grid>
                 <!--salary-->
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
@@ -111,13 +115,59 @@
                 </Grid>
                 <!--has car-->
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Text="Has a car" IsVisible="{Binding HasCar}"></Label>
                 </Grid>
-                <!---->
+                <!--rate-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="הוסף דירוג:" Grid.Column="0" Grid.Row="0"/>
+
+                    <Slider   Minimum="1" Maximum="5" Grid.Row="1" Grid.Column="0"  Value="{Binding Rating}" MinimumTrackColor="DarkGray" MaximumTrackColor="LightGray" WidthRequest="300"/>
+                    <Label  Text="{Binding Rating}" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                </Grid>
+                <!--review-->
+                <Label Text="הוסף חוות דע,:"/>
+                <!--כותרת-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+                    <Label Text="כותרת:" Grid.Column="1" Grid.Row="0"/>
+                    <Entry Text="{Binding ReviewHeadLine}" Grid.Column="0" Grid.Row="0"/>
+                </Grid>
+                <!--תוכן המודעה-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+                    <Label Text="פרטים נוספים:" Grid.Column="1" Grid.Row="0"/>
+                    <Entry Text="{Binding ReviewBody}" Grid.Column="0" Grid.Row="0"/>
+                </Grid>
             </StackLayout>
+            <Button Text="שלח" Command="{Binding PostReviewCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

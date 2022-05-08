@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Xamarin.Essentials;
 using BabySiteApp.DTO;
-
+using Xamarin.Forms.Maps;
 
 namespace BabySiteApp.ViewModels
 {
@@ -1089,7 +1089,7 @@ namespace BabySiteApp.ViewModels
         public async Task<Parent> ParentSignUp()
         {
             BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
-            User user = CreateUser();
+            User user = await CreateUser();
             user.UserTypeId = 1;
             Parent parent = new Parent()
             {
@@ -1163,7 +1163,7 @@ namespace BabySiteApp.ViewModels
         {
             BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
 
-            User user = CreateUser();
+            User user = await CreateUser();
             user.UserTypeId = 2;
             BabySitter babySitter = new BabySitter()
             {
@@ -1228,8 +1228,15 @@ namespace BabySiteApp.ViewModels
         }
         #endregion
         #region createUser
-        private User CreateUser()
+        private async Task<User> CreateUser()
         {
+            //first extract the position of the address
+            Geocoder geoCoder = new Geocoder();
+
+            IEnumerable<Position> approximateLocations = await geoCoder.GetPositionsForAddressAsync($"{this.Street}, {this.HouseNum}, {this.City}");
+            Position position = approximateLocations.FirstOrDefault();
+            
+            
             User user = new User()
             {
 
@@ -1243,7 +1250,9 @@ namespace BabySiteApp.ViewModels
                 BirthDate = this.BirthDate,
                 City = this.City,
                 Street = this.Street,
-                House = this.HouseNum
+                House = this.HouseNum,
+                Longitude = position.Longitude,
+                Latitude = position.Latitude
         };
             return user;
          

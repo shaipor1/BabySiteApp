@@ -8,7 +8,7 @@
             FlowDirection="RightToLeft">
     <NavigationPage IconImageSource="tap.png" Title="Find job">
         <x:Arguments>
-            <views:JobOffersPage Title="מצא עבודה"></views:JobOffersPage>
+            <views:ViewJobOffers Title="מצא עבודה"></views:ViewJobOffers>
         </x:Arguments>
     </NavigationPage>
     <NavigationPage IconImageSource="babysitter.png" Title="User Page">
