@@ -4,9 +4,36 @@
              x:Class="BabySiteApp.Views.AddJobOffer">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <StackLayout>
+                <!--כותרת-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        
+                    </Grid.RowDefinitions>
+                    <Label Text="כותרת:" Grid.Column="1" Grid.Row="0"/>
+                    <Entry Placeholder="כותרת המודעה" Grid.Column="0" Grid.Row="0"/>
+                </Grid>
+                <!--תוכן המודעה-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+                    <Label Text="פרטים:" Grid.Column="1" Grid.Row="0"/>
+                    <Entry Placeholder="תאריך ושעות עבודה" Grid.Column="0" Grid.Row="0"/>
+                </Grid>
+            </StackLayout>
+            <Button Text="פרסם"/>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
