@@ -597,6 +597,29 @@ namespace BabySiteApp.ViewModels
                 this.HouseNumError = ERROR_MESSAGES.REQUIRED_FIELD;
         }
         #endregion
+        #region adress
+        private double? longitude;
+        public double? Longitude
+        {
+            get => longitude;
+            set
+            {
+                longitude = value;
+                OnPropertyChanged("Longitude");
+            }
+        }
+     
+        private double? latitude;
+        public double? Latitude
+        {
+            get => latitude;
+            set
+            {
+                latitude = value;
+                OnPropertyChanged("Latitude");
+            }
+        }
+        #endregion
         #region ServerStatus
         private string serverStatus;
         public string ServerStatus
@@ -750,7 +773,8 @@ namespace BabySiteApp.ViewModels
             Parent currentParent = theApp.CurrentParent;
             
             this.SelectedCityItem = currentUser.City;
-
+            this.Longitude = currentUser.Longitude;
+            this.Latitude = currentUser.Latitude;
             this.Email = currentUser.Email;
             this.UserName = currentUser.UserName;
             this.Password = currentUser.UserPswd;
@@ -764,7 +788,7 @@ namespace BabySiteApp.ViewModels
             this.MinAge = currentParent.ChildrenMinAge;
             this.ChildrenCount = currentParent.ChildrenCount;
             this.HasDog = currentParent.HasDog;
-
+            
             this.SelectedStreetItem =currentUser.Street;
             this.Street = this.SelectedStreetItem;
             this.IsStreetEnabled = true;

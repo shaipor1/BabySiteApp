@@ -30,8 +30,8 @@ namespace BabySiteApp.ViewModels
         }
         
 
-        private ObservableCollection<Massage> jobOffers;
-        public ObservableCollection<Massage> JobOffers
+        private List<Massage> jobOffers;
+        public List<Massage> JobOffers
         {
             get => jobOffers;
             set
@@ -76,8 +76,8 @@ namespace BabySiteApp.ViewModels
         private async void InitJobOffers()
         {
             BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
-            //this.jobOffers = await proxy.GetJobOffers();
-          
+            this.jobOffers = await proxy.GetJobOffers();
+
         }
 
         private void AddJobPage()

@@ -13,4 +13,7 @@
     <views:ParentPage IconImageSource="parent.png" Title="דף משתמש">
        
     </views:ParentPage>
+    <views:ViewJobOffers IconImageSource="list.png" Title="הצעות עבודה שפרסמתי">
+
+    </views:ViewJobOffers>
 </TabbedPage>
