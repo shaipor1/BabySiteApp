@@ -122,7 +122,7 @@ namespace BabySiteApp.ViewModels
         {
             get; protected set;
         }
-        public ICommand AddJobOffer
+        public ICommand AddJobOfferCommand
         {
             get; protected set;
         }
@@ -133,7 +133,7 @@ namespace BabySiteApp.ViewModels
             FilterCommand = new Command(FilterBabySitters);
             RefreshCommand = new Command(OnRefresh);
             CallBabySitter = new Command<BabySitter>(OnCall);
-            AddJobOffer = new Command(AddJobPage);
+            AddJobOfferCommand = new Command(AddJobPage);
             FilteredBabySitters = new ObservableCollection<BabySitter>();
             InitBabySitters();
         }

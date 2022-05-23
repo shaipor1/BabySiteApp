@@ -16,6 +16,7 @@ namespace BabySiteApp.Views
         public AddJobOffer()
         {
             BindingContext = new AddJobOfferViewModel();
+            InitializeComponent(); 
         }
     }
 }

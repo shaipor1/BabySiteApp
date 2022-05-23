@@ -56,12 +56,12 @@ namespace BabySiteApp.ViewModels
         #endregion
 
         #region commands
-        public ICommand PostMessageCommand;
+        public ICommand PostMessageCommand=> new Command(PostMessage);
 
         #endregion
         public AddJobOfferViewModel()
         {
-           PostMessageCommand = new Command(PostMessage);
+            
             MessageBody = string.Empty;
             MessageHeadLine = string.Empty;
             ServerStatus = string.Empty;
@@ -76,11 +76,14 @@ namespace BabySiteApp.ViewModels
                 HeadLine = this.MessageHeadLine,
                 Body = this.MessageBody,
                 UserId = a.CurrentUser.UserId
+              
+
             };
             BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
             bool b= await proxy.PostMessageAsync(newMassage);
             ServerStatus = "מעלה את ההצעה..";
-            if(b)
+            await App.Current.MainPage.Navigation.PushModalAsync(new Views.ServerStatusPage(this));
+            if (b)
             {
                 Page page = new ViewJobOffers();
 
