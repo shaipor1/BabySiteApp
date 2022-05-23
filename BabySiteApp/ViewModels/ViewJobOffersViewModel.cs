@@ -30,8 +30,8 @@ namespace BabySiteApp.ViewModels
         }
         
 
-        private List<Massage> jobOffers;
-        public List<Massage> JobOffers
+        private ObservableCollection<Massage> jobOffers;
+        public ObservableCollection<Massage> JobOffers
         {
             get => jobOffers;
             set
@@ -76,7 +76,9 @@ namespace BabySiteApp.ViewModels
         private async void InitJobOffers()
         {
             BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
-            this.jobOffers = await proxy.GetJobOffers();
+            List<Massage> messages = await proxy.GetJobOffers();
+            this.JobOffers = new ObservableCollection<Massage>(messages);
+            this.IsRefreshing = false;
 
         }
 
@@ -95,6 +97,7 @@ namespace BabySiteApp.ViewModels
         {
             this.IsRefreshing = true;
             InitJobOffers();
+            
         }
 
      

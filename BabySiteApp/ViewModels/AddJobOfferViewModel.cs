@@ -86,9 +86,11 @@ namespace BabySiteApp.ViewModels
             if (b)
             {
                 Page page = new ViewJobOffers();
-
                 await App.Current.MainPage.DisplayAlert("בוצע", "ההצעה פורסמה בהצלחה", "אישור", FlowDirection.RightToLeft);
-                 await a.MainPage.Navigation.PushAsync(new ViewJobOffers() { BindingContext = new ViewJobOffersViewModel() });
+                await App.Current.MainPage.Navigation.PopAsync();
+                await App.Current.MainPage.Navigation.PushAsync(new ViewJobOffers() { BindingContext = new ViewJobOffersViewModel() });
+                await App.Current.MainPage.Navigation.PopModalAsync();
+
 
             }
             else

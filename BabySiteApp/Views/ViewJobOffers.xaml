@@ -44,6 +44,19 @@
                                            CommandParameter="{Binding}" />
                                     </SwipeItems>
                                 </SwipeView.LeftItems>
+                                <Grid Margin="7">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label Text="{Binding HeadLine}" HorizontalTextAlignment="Start" FontSize="Caption"  Grid.Row="0" Grid.Column="0" FontAttributes="Bold"/>
+                                    <Label Text="{Binding Body}" HorizontalTextAlignment="Start" FontSize="Caption" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" Margin="0,0,5,0"/>
+                                    
+                                    <!--<Image Source="{Binding RatingStarsImage}" Grid.Column="1" HorizontalOptions="Fill" Grid.Row="3"/>-->
+                                </Grid>
                             </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
