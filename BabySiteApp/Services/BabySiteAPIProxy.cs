@@ -211,6 +211,40 @@ namespace BabySiteApp.Services
                 return false;
             }
         }
+
+        //continue
+
+        public async Task<int> PostReviewAsync(Review review)
+        {
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
+                string jsonObject = JsonSerializer.Serialize<Review>(review, options);
+                StringContent content = new StringContent(jsonObject, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/PostReview", content);
+                if (response.IsSuccessStatusCode)
+                {
+
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
         public async Task<bool> LogOutAsync()
         {
             HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/LogOut");

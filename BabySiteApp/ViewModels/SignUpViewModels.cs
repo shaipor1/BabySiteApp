@@ -1074,8 +1074,11 @@ namespace BabySiteApp.ViewModels
             ValidateCity();
             ValidateStreet();
             ValidateHouseNum();
-            if (!IsBabySitter) ValidateAge();
-            ValidateChildrenCount();
+            if (!IsBabySitter)
+            {
+                ValidateAge();
+                ValidateChildrenCount();
+            }
 
             //check if any validation failed
             if (ShowEmailError || ShowUserNameError || ShowPasswordError

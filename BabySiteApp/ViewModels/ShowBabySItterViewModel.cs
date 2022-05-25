@@ -35,6 +35,18 @@ namespace BabySiteApp.ViewModels
             }
         }
         #endregion
+        #region ServerStatus
+        private string serverStatus;
+        public string ServerStatus
+        {
+            get { return serverStatus; }
+            set
+            {
+                serverStatus = value;
+                OnPropertyChanged("ServerStatus");
+            }
+        }
+        #endregion
         private string firstName;
 
         public string FirstName
@@ -261,6 +273,89 @@ namespace BabySiteApp.ViewModels
                 this.ShowStar1 = true;
             else
                 this.ShowStar1 = false;
+            if (b.RatingAverage == 2)
+            {
+                this.ShowStar1 = true;
+                 this.ShowStar2 = true;
+            }
+                
+            else
+                this.ShowStar2 = false;
+            if (b.RatingAverage == 3)
+            {
+                this.ShowStar1 = true;
+                this.ShowStar2 = true;
+
+                this.ShowStar3 = true;
+            }
+
+            else
+                this.ShowStar3 = false;
+
+            if (b.RatingAverage == 4)
+            {
+                this.ShowStar1 = true;
+                this.ShowStar2 = true;
+                this.ShowStar3 = true;
+                this.ShowStar4 = true;
+
+            }
+
+            else
+                this.ShowStar4 = false;
+            if (b.RatingAverage == 5)
+            {
+                this.ShowStar1 = true;
+                this.ShowStar2 = true;
+                this.ShowStar3 = true;
+                this.ShowStar4 = true;
+                this.ShowStar5 = true;
+
+            }
+
+            else
+                this.ShowStar4 = false;
+
+            this.PostReviewCommand = new Command<BabySitter>(PostReview);
+            this.EmailBabySitterCommand = new Command(EmailBabySitter);
+            this.CallBabySitter = new Command<BabySitter>(OnCall);
+            this.ServerStatus = string.Empty;
+        }
+        private void OnCall(BabySitter b)
+        {
+            PhoneDialer.Open(b.User.PhoneNumber);
+        }
+
+        private async void PostReview(BabySitter baby)
+        {
+            App a = (App)App.Current;
+
+            Review newReview = new Review()
+            {
+                Rating = this.Rating,
+                BabySitterId = baby.BabySitterId,
+                ParentId=a.CurrentParent.ParentId,
+                Decription=this.ReviewBody
+
+            };
+
+            
+            BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
+            bool b = await proxy.PostReviewAsync(newReview);
+            ServerStatus = "מעלה את ההצעה..";
+            await App.Current.MainPage.Navigation.PushModalAsync(new Views.ServerStatusPage(this));
+            if (b)
+            {
+
+                await App.Current.MainPage.DisplayAlert("בוצע", "הדירוג פורסם בהצלחה", "אישור", FlowDirection.RightToLeft);
+                await App.Current.MainPage.Navigation.PopAsync();
+               
+
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("שגיאה", "היתה תקלה בפרסום ההצעה, נסה שוב", "אישור", FlowDirection.RightToLeft);
+            }
 
         }
     }
