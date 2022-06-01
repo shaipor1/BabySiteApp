@@ -67,7 +67,7 @@ namespace BabySiteApp.ViewModels
         public ViewJobOffersViewModel()
         {
 
-            DeleteJobOffer = new Command(OnDelete);
+            DeleteJobOffer = new Command<Massage>(OnDelete);
             RefreshCommand = new Command(OnRefresh);
             AddJobOffer = new Command(AddJobPage);
             InitJobOffers();
@@ -88,9 +88,27 @@ namespace BabySiteApp.ViewModels
             //CurrentApp.MainPage.DisplayAlert("מעבר לעמוד בו הורה יכול לפרסם הצעת עבודה", "baby sitter page", "אישור");
         }
 
-        private void OnDelete()
+        private async void OnDelete(Massage jobOffer)
         {
-            
+            bool result = await App.Current.MainPage.DisplayAlert("אתה בטוח?", null, "אישור", "ביטול", FlowDirection.RightToLeft);
+            if (result)
+            {
+                BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
+                bool b = await proxy.DeleteJobOffer(jobOffer);
+                if(b)
+                {
+                    JobOffers.Remove(jobOffer);
+                    InitJobOffers();
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("שגיאה", "לא בוצע", "אישור");
+                }
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("שגיאה", "לא בוצע", "אישור");
+            }
         }
 
         private void OnRefresh(object obj)

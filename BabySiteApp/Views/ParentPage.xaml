@@ -16,6 +16,20 @@
 
                         <Frame Style="{StaticResource logInSignUp}">
                             <StackLayout>
+                                <!-- תמונה -->
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="150" />
+                                    </Grid.RowDefinitions>
+                                    <Image x:Name="theImage" Source="{Binding UserImgSrc}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
+                                    <ImageButton Source="photogallery.png" HorizontalOptions="End" BackgroundColor="White" Grid.Column="0" Grid.Row="0" Command="{Binding PickImageCommand}"/>
+                                    <ImageButton Source="camera.png" HorizontalOptions="Start" Grid.Column="1" Grid.Row="0" BackgroundColor="White" Command="{Binding CameraImageCommand}"/>
+                                </Grid>
                                 <!-- Email-->
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -181,7 +195,7 @@
                                     <Label Grid.Row="0" Text="על כמה ילדים ישגיח הבייביסיטר"></Label>
                                     <Entry Placeholder="מספר הילדים" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" Text="{Binding ChildrenCount}"/>
                                     <Label Text="{Binding ChildrenCountError }" IsVisible="{Binding ShowChildrenCountError}" Grid.Row="0" Grid.Column="1" Style="{StaticResource labelErrorStyle}"></Label>
-                                  
+
                                 </Grid>
                                 <!--children age-->
                                 <Grid>

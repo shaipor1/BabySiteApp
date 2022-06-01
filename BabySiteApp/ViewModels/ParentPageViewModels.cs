@@ -22,6 +22,60 @@ namespace BabySiteApp.ViewModels
 {
     class ParentPageViewModels:BaseViewModels
     {
+        #region מקור התמונה
+        private string userImgSrc;
+
+        public string UserImgSrc
+        {
+            get => userImgSrc;
+            set
+            {
+                userImgSrc = value;
+                OnPropertyChanged("UserImgSrc");
+            }
+        }
+        private const string DEFAULT_PHOTO_SRC = "defaultphoto.png";
+        #endregion
+        ///The following command handle the pick photo button
+        FileResult imageFileResult;
+        public event Action<ImageSource> SetImageSourceEvent;
+        public ICommand PickImageCommand => new Command(OnPickImage);
+        public async void OnPickImage()
+        {
+            FileResult result = await MediaPicker.PickPhotoAsync(new MediaPickerOptions()
+            {
+                Title = "בחר תמונה"
+            });
+
+            if (result != null)
+            {
+                this.imageFileResult = result;
+
+                var stream = await result.OpenReadAsync();
+                ImageSource imgSource = ImageSource.FromStream(() => stream);
+                if (SetImageSourceEvent != null)
+                    SetImageSourceEvent(imgSource);
+            }
+        }
+
+        ///The following command handle the take photo button
+        public ICommand CameraImageCommand => new Command(OnCameraImage);
+        public async void OnCameraImage()
+        {
+            var result = await MediaPicker.CapturePhotoAsync(new MediaPickerOptions()
+            {
+                Title = "צלם תמונה"
+            });
+
+            if (result != null)
+            {
+                this.imageFileResult = result;
+                var stream = await result.OpenReadAsync();
+                ImageSource imgSource = ImageSource.FromStream(() => stream);
+                if (SetImageSourceEvent != null)
+                    SetImageSourceEvent(imgSource);
+            }
+        }
         private List<string> allCities;
         private ObservableCollection<string> filteredCities;
         public ObservableCollection<string> FilteredCities
@@ -788,7 +842,8 @@ namespace BabySiteApp.ViewModels
             this.MinAge = currentParent.ChildrenMinAge;
             this.ChildrenCount = currentParent.ChildrenCount;
             this.HasDog = currentParent.HasDog;
-            
+            Random r = new Random();
+            this.UserImgSrc = currentUser.PhotoURL + $"?{r.Next()}";
             this.SelectedStreetItem =currentUser.Street;
             this.Street = this.SelectedStreetItem;
             this.IsStreetEnabled = true;
@@ -906,7 +961,23 @@ namespace BabySiteApp.ViewModels
                 }
                 else
                 {
-                   
+                    if (this.imageFileResult != null)
+                    {
+                        ServerStatus = "מעלה תמונה...";
+
+                        bool success = await proxy.UploadImage(new Models.FileInfo()
+                        {
+                            Name = this.imageFileResult.FullPath
+                        }, $"{newParent.User.UserId}.jpg");
+
+                        //if (!success)
+                        //{
+                        //    if (SetImageSourceEvent != null)
+                        //        SetImageSourceEvent(theApp.CurrentUser.PhotoURL);
+                        //    await App.Current.MainPage.DisplayAlert("עדכון", "יש בעיה בהעלאת התמונה", "אישור", FlowDirection.RightToLeft);
+                        //}
+                    }
+
                     ServerStatus = "שומר נתונים...";
 
                     theApp.CurrentUser = parent.User;
@@ -1070,7 +1141,7 @@ namespace BabySiteApp.ViewModels
             this.SelectedCityItem = currentUser.City;
             this.SelectedStreetItem = currentUser.Street;
 
-            //this.UserImgSrc = currentUser.PhotoURL;
+            this.UserImgSrc = currentUser.PhotoURL;
             this.Password = currentUser.UserPswd;
             this.Name = currentUser.FirstName;
             this.LastName = currentUser.LastName;
@@ -1079,9 +1150,11 @@ namespace BabySiteApp.ViewModels
             this.City = this.SelectedCityItem;
             this.Street = this.SelectedStreetItem;
             this.HouseNum = currentUser.House;
-            
 
+            if (SetImageSourceEvent != null)
+                SetImageSourceEvent(currentUser.PhotoURL);
             IsRefreshing = false;
+
         }
         #endregion
 
@@ -1103,7 +1176,9 @@ namespace BabySiteApp.ViewModels
             this.City = this.SelectedCityItem;
             this.Street = this.SelectedStreetItem;
             this.HouseNum = currentUser.House;
-           
+            if (SetImageSourceEvent != null)
+                SetImageSourceEvent(currentUser.PhotoURL);
+
         }
         #endregion
         #region OnHome
@@ -1118,5 +1193,9 @@ namespace BabySiteApp.ViewModels
             //await App.Current.MainPage.Navigation.PushAsync(page);
         }
         #endregion
+
+
+      
+
     }
 }

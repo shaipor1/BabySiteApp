@@ -9,27 +9,37 @@
              FlowDirection="RightToLeft">
     <ContentPage.Content>
         <StackLayout>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Label Text="ניידות:" Grid.Row="0" Grid.Column="0"/>
-                <Switch IsToggled="{Binding HasCarFilter}" Grid.Column="0" Grid.Row="1"/>
-                <Label Text="דירוג מינימלי:" Grid.Row="0" Grid.Column="1"/>
-                <Slider   Minimum="0" Maximum="5" Grid.Row="1" Grid.Column="1" Value="{Binding MinRatingFilter}" MinimumTrackColor="DarkGray" MaximumTrackColor="LightGray" WidthRequest="300"/>
-                <Label  Text="{Binding MinRatingFilter}" Grid.Row="2" Grid.Column="1" />
-                <Label Text="שכר מקסימלי:" Grid.Row="0" Grid.Column="2"/>
-                <Slider   Minimum="0" Maximum="100" Grid.Row="1" Grid.Column="2" Value="{Binding MaxSalaryFilter }"/>
-                <Label  Text="{Binding MaxSalaryFilter}" Grid.Row="2" Grid.Column="2"/>
-                <Button Text="סנן" Command="{Binding FilterCommand}" Grid.Column="1" Grid.Row="2"/>
-            </Grid>
+
+
+            <Frame BackgroundColor="#aed9e0" Margin="30,2,30,30" Padding="15" CornerRadius="7" HasShadow="True">
+                    <StackLayout>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="50"/>
+
+                        </Grid.RowDefinitions>
+                        <Label Text="ניידות:" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" TextColor="Black"/>
+                        <Switch IsToggled="{Binding HasCarFilter}" Grid.Column="0" Grid.Row="1" HorizontalOptions="Center"/>
+                        <Label Text="דירוג מינימלי:" Grid.Row="0" Grid.Column="1"  HorizontalOptions="Center" TextColor="Black"/>
+                        <Slider   Minimum="0" Maximum="5" Grid.Row="1" Grid.Column="1" Value="{Binding MinRatingFilter}" MinimumTrackColor="DarkGray" ThumbColor="#fde2e4" MaximumTrackColor="LightGray" WidthRequest="300" HorizontalOptions="Center"/>
+                        <Label  Text="{Binding MinRatingFilter}" Grid.Row="2" Grid.Column="1"  HorizontalOptions="Center" TextColor="Black"/>
+                        <Label Text="שכר מקסימלי:" Grid.Row="0" Grid.Column="2"  HorizontalOptions="Center" TextColor="Black"/>
+                        <Slider   Minimum="0" Maximum="100" Grid.Row="1" Grid.Column="2" Value="{Binding MaxSalaryFilter }"  HorizontalOptions="Center" ThumbColor="#fde2e4"  MinimumTrackColor="DarkGray" MaximumTrackColor="LightGray" WidthRequest="300"/>
+                        <Label  Text="{Binding MaxSalaryFilter}" Grid.Row="2" Grid.Column="2" HorizontalOptions="Center" TextColor="Black"/>
+                        <Button Text="סנן" Command="{Binding FilterCommand}" Grid.Column="1" Grid.Row="3"  TextColor="Black" CornerRadius="5" BackgroundColor="#f4acb7"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+             
+            
             <RefreshView x:Name="refreshView"
              Command="{Binding RefreshCommand}"
              IsRefreshing="{Binding IsRefreshing}">

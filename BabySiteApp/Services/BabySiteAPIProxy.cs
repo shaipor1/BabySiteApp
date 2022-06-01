@@ -228,21 +228,24 @@ namespace BabySiteApp.Services
                 StringContent content = new StringContent(jsonObject, Encoding.UTF8, "application/json");
 
                 HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/PostReview", content);
+
                 if (response.IsSuccessStatusCode)
                 {
+                   jsonObject = await response.Content.ReadAsStringAsync();
+                    int a = JsonSerializer.Deserialize<int>(jsonObject, options);
 
 
-                    return true;
+                    return a;
                 }
                 else
                 {
-                    return false;
+                    return -1;
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return false;
+                return -1;
             }
         }
         public async Task<bool> LogOutAsync()
@@ -571,6 +574,37 @@ namespace BabySiteApp.Services
             {
                 Console.WriteLine(e.Message);
                 return null;
+            }
+        }
+        #endregion
+        #region delete job offer
+        public async Task<bool> DeleteJobOffer(Massage m)
+        {
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    PropertyNameCaseInsensitive = true
+                };
+                string json = JsonSerializer.Serialize<Massage>(m, options);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/DeleteJobOffer", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    string jsonContent = await response.Content.ReadAsStringAsync();
+                    bool success = JsonSerializer.Deserialize<bool>(jsonContent, options);
+                    return success;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
             }
         }
         #endregion

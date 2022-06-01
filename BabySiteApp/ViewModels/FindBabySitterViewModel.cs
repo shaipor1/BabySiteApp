@@ -186,7 +186,7 @@ namespace BabySiteApp.ViewModels
 
         private void ShowBabySittersPage(BabySitter obj)
         {
-            CurrentApp.MainPage.Navigation.PushAsync(new ShowBabySitter() { BindingContext = new ShowBabySitterViewModel(obj) });
+            CurrentApp.MainPage.Navigation.PushAsync(new ShowBabySitter(obj));
             //CurrentApp.MainPage.Navigation.PushAsync(new ShowBabySitter());
             //CurrentApp.MainPage.DisplayAlert("ללעמוד שמציג פרטים על הבייביסיטר", "baby sitter page", "אישור");
         }

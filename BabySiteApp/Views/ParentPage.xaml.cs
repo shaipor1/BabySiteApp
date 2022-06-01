@@ -1,4 +1,4 @@
-﻿using BabySiteApp.ViewModels;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using BabySiteApp.ViewModels;
 
 namespace BabySiteApp.Views
 {
@@ -15,8 +16,16 @@ namespace BabySiteApp.Views
     {
         public ParentPage()
         {
+           
+            ParentPageViewModels vm = new ParentPageViewModels();
+            this.BindingContext = vm;
+            vm.SetImageSourceEvent += OnSetImageSource;
             InitializeComponent();
-            BindingContext = new ParentPageViewModels();
+          
+        }
+        public void OnSetImageSource(ImageSource imageSource)
+        {
+            theImage.Source = imageSource;
         }
     }
 }

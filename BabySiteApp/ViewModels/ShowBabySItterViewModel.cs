@@ -169,7 +169,7 @@ namespace BabySiteApp.ViewModels
             get => rating;
             set
             {
-                salary = value;
+                rating = value;
                 OnPropertyChanged("Rating");
             }
         }
@@ -237,6 +237,7 @@ namespace BabySiteApp.ViewModels
                 OnPropertyChanged("ShowStar5");
             }
         }
+        private BabySitter babySitter;
         #endregion
 
         #region COMMANDS
@@ -246,11 +247,7 @@ namespace BabySiteApp.ViewModels
             get; protected set;
         }
        
-        public ICommand EmailBabySitterCommand
-        {
-            get; protected set;
-        }
-        public ICommand CallBabySitter
+        public ICommand CallBabySitterCommand
         {
             get; protected set;
         }
@@ -259,6 +256,8 @@ namespace BabySiteApp.ViewModels
 
         public ShowBabySitterViewModel(BabySitter b)
         {
+            babySitter = b;
+            this.UserImgSrc = b.User.PhotoURL;
             this.FirstName = b.User.FirstName;
             this.LastName = b.User.LastName;
             this.Gender = b.User.Gender;
@@ -316,24 +315,27 @@ namespace BabySiteApp.ViewModels
             else
                 this.ShowStar4 = false;
 
-            this.PostReviewCommand = new Command<BabySitter>(PostReview);
-            this.EmailBabySitterCommand = new Command(EmailBabySitter);
-            this.CallBabySitter = new Command<BabySitter>(OnCall);
+            this.PostReviewCommand = new Command(PostReview);
+            this.CallBabySitterCommand = new Command(OnCall);
             this.ServerStatus = string.Empty;
         }
-        private void OnCall(BabySitter b)
+
+     
+
+        private void OnCall()
         {
-            PhoneDialer.Open(b.User.PhoneNumber);
+            PhoneDialer.Open(this.babySitter.User.PhoneNumber);
         }
 
-        private async void PostReview(BabySitter baby)
+        private async void PostReview()
         {
+
             App a = (App)App.Current;
 
             Review newReview = new Review()
             {
                 Rating = this.Rating,
-                BabySitterId = baby.BabySitterId,
+                BabySitterId = babySitter.BabySitterId,
                 ParentId=a.CurrentParent.ParentId,
                 Decription=this.ReviewBody
 
@@ -341,14 +343,14 @@ namespace BabySiteApp.ViewModels
 
             
             BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
-            bool b = await proxy.PostReviewAsync(newReview);
+            int b = await proxy.PostReviewAsync(newReview);
             ServerStatus = "מעלה את ההצעה..";
             await App.Current.MainPage.Navigation.PushModalAsync(new Views.ServerStatusPage(this));
-            if (b)
+            if (b!=-1)
             {
-
+                babySitter.RatingAverage = b;
                 await App.Current.MainPage.DisplayAlert("בוצע", "הדירוג פורסם בהצלחה", "אישור", FlowDirection.RightToLeft);
-                await App.Current.MainPage.Navigation.PopAsync();
+                await App.Current.MainPage.Navigation.PopModalAsync();
                
 
             }

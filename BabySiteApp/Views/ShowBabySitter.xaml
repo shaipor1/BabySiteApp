@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BabySiteApp.Views.ShowBabySitter"  FlowDirection="RightToLeft">
     <ContentPage.Content>
-        <StackLayout>
+
+        <ScrollView>
+
             <StackLayout>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -70,10 +72,10 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <Label Text="Email:" Grid.Column="0" Grid.Row="0"></Label>
                     <Label Text="{Binding Email}" Grid.Column="1" Grid.Row="0" />
-                    <ImageButton Source="email.png" HorizontalOptions="End" BackgroundColor="White" Grid.Row="0" Grid.Column="2" Command="{Binding EmailBabySitterCommand }"/>
+                   
                 </Grid>
                 <!--age-->
                 <Grid >
@@ -125,8 +127,8 @@
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Text="Has a car" IsVisible="{Binding HasCar}"></Label>
                 </Grid>
-                
-                
+
+
                 <!--rating average-->
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -140,11 +142,11 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="150"/>
                     </Grid.RowDefinitions>
-                    <Image x:Name="ratingStar1" Source="{Binding RatingAveregePic}"  IsVisible="{Binding ShowStar1}" Grid.Column="0"  Grid.Row="0"/>
-                    <Image x:Name="ratingStar2" Source="{Binding RatingAveregePic}" IsVisible="{Binding ShowStar2}" Grid.Column="1" Grid.Row="0"/>
-                    <Image x:Name="ratingStar3" Source="{Binding RatingAveregePic}" IsVisible="{Binding ShowStar3}" Grid.Column="2"  Grid.Row="0"/>
-                    <Image x:Name="ratingStar4" Source="{Binding RatingAveregePic}" IsVisible="{Binding ShowStar4}" Grid.Column="3" Grid.Row="0"/>
-                    <Image x:Name="ratingStar5" Source="{Binding RatingAveregePic}" IsVisible="{Binding ShowStar5}" Grid.Column="4"  Grid.Row="0"/>
+                    <Image x:Name="ratingStar1" Source="star.png"  IsVisible="{Binding ShowStar1}" Grid.Column="0"  Grid.Row="0"/>
+                    <Image x:Name="ratingStar2" Source="star.png" IsVisible="{Binding ShowStar2}" Grid.Column="1" Grid.Row="0"/>
+                    <Image x:Name="ratingStar3" Source="star.png" IsVisible="{Binding ShowStar3}" Grid.Column="2"  Grid.Row="0"/>
+                    <Image x:Name="ratingStar4" Source="star.png" IsVisible="{Binding ShowStar4}" Grid.Column="3" Grid.Row="0"/>
+                    <Image x:Name="ratingStar5" Source="star.png" IsVisible="{Binding ShowStar5}" Grid.Column="4"  Grid.Row="0"/>
                 </Grid>
                 <!--rate-->
                 <Grid>
@@ -157,12 +159,12 @@
                     </Grid.RowDefinitions>
                     <Label Text="הוסף דירוג:" Grid.Column="0" Grid.Row="0"/>
 
-                    <Slider   Minimum="1" Maximum="5" Grid.Row="1" Grid.Column="0"  Value="{Binding Rating}" MinimumTrackColor="DarkGray" MaximumTrackColor="LightGray" WidthRequest="300"/>
+                    <Slider   Minimum="0" Maximum="5" Grid.Row="1" Grid.Column="0"  Value="{Binding Rating}" MinimumTrackColor="DarkGray" MaximumTrackColor="LightGray" WidthRequest="300"/>
                     <Label  Text="{Binding Rating}" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
                 </Grid>
                 <!--review-->
                 <Label Text="הוסף חוות דעת:"/>
-                
+
                 <!--תוכן המודעה-->
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -176,8 +178,11 @@
                     <Label Text="פרטים נוספים:" Grid.Column="1" Grid.Row="0"/>
                     <Entry Text="{Binding ReviewBody}" Grid.Column="0" Grid.Row="0"/>
                 </Grid>
+                <Button Text="שלח" Command="{Binding PostReviewCommand}"/>
             </StackLayout>
-            <Button Text="שלח" Command="{Binding PostReviewCommand}"/>
-        </StackLayout>
+
+
+        </ScrollView>
+        
     </ContentPage.Content>
 </ContentPage>
