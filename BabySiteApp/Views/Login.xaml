@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BabySiteApp.Views.Login">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" NavigationPage.HasNavigationBar="False"
+             x:Class="BabySiteApp.Views.Login" BackgroundImageSource="cloudBG.jpg
+">
              
     
     <ContentPage.Content>
@@ -19,8 +20,8 @@
                     
                     <!--<Label Text="התחברות" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Style="{StaticResource FormTitle}"></Label>-->
                 </Grid>
-                <Image  Source="LOGO.png" HeightRequest="200" WidthRequest="300" Margin="5" ></Image>
-                <Frame Style="{StaticResource logInSignUp}">
+                <Image  Source="LOGO.png" HeightRequest="200" WidthRequest="300" Margin="5"  ></Image>
+                    <Frame BackgroundColor="#eee4e1" CornerRadius="20">
                     <StackLayout>
                         <Entry x:Name="Email" MaxLength="30" Text="{Binding Email}" Placeholder="דואר אלקטרוני"   
                            Keyboard="Email"  
@@ -29,7 +30,7 @@
                            Style="{StaticResource entry}"/>
                     </StackLayout>
                 </Frame>
-                <Button Command="{Binding SubmitCommand}" Text="התחבר" Style="{StaticResource Button}" />
+                    <Button Command="{Binding SubmitCommand}" Text="התחבר" BackgroundColor="#b79492" CornerRadius="30"/>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>

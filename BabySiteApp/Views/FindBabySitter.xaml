@@ -6,13 +6,15 @@
              x:DataType="viewmodels:FindBabySitterViewModel"
              x:Class="BabySiteApp.Views.FindBabySitter"
              Title="מצא בייביסיטר"
-             FlowDirection="RightToLeft">
+             FlowDirection="RightToLeft" BackgroundImageSource="carBG.png">
     <ContentPage.Content>
         <StackLayout>
-
-
+            
+                <Label Text="מצא בייביסטר" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold"/>
+           
             <Frame BackgroundColor="#aed9e0" Margin="30,2,30,30" Padding="15" CornerRadius="7" HasShadow="True">
                     <StackLayout>
+                   
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -44,7 +46,7 @@
              Command="{Binding RefreshCommand}"
              IsRefreshing="{Binding IsRefreshing}">
                 
-                <CollectionView  x:Name="collectionName" ItemsSource="{Binding FilteredBabySitters}" SelectionMode="Single" BackgroundColor="White"
+                <CollectionView  x:Name="collectionName" ItemsSource="{Binding FilteredBabySitters}" SelectionMode="Single" BackgroundColor="Transparent"
                                SelectedItem="{Binding CurrentBabySitter}" SelectionChangedCommand="{Binding ShowBabySitter}" SelectionChangedCommandParameter="{Binding CurrentBabySitter}">
                     <CollectionView.EmptyView>
                         <StackLayout>

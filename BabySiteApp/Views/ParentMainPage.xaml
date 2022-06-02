@@ -4,7 +4,7 @@
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              xmlns:views="clr-namespace:BabySiteApp.Views"
              xmlns:local="clr-namespace:BabySiteApp.ViewModels"
-             x:Class="BabySiteApp.Views.ParentMainPage" android:TabbedPage.ToolbarPlacement="Bottom" Title="welcome">
+             x:Class="BabySiteApp.Views.ParentMainPage" android:TabbedPage.ToolbarPlacement="Bottom" >
     <views:FindBabySitter IconImageSource="tap.png" Title="מצא בייביסיטר">
 
 

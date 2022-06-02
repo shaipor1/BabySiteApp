@@ -2,19 +2,18 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BabySiteApp.Views.ParentPage"
-               FlowDirection="RightToLeft">
+               FlowDirection="RightToLeft" 
+NavigationPage.HasNavigationBar="True">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="התנתק" Order="Primary" Priority="1" IconImageSource="logoutIcon.png" Command="{Binding LogOutCommand}"></ToolbarItem>
     </ContentPage.ToolbarItems>
-    <ContentPage.Content>
+    <ContentPage.Content  >
         <StackLayout>
             <RefreshView x:Name="refreshView" Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
                 <ScrollView>
                     <StackLayout>
 
 
-
-                        <Frame Style="{StaticResource logInSignUp}">
                             <StackLayout>
                                 <!-- תמונה -->
                                 <Grid>
@@ -216,7 +215,7 @@
 
                                 </Grid>
                             </StackLayout>
-                        </Frame>
+                      
 
                         <Grid>
                             <Grid.ColumnDefinitions>
