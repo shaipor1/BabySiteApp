@@ -24,12 +24,13 @@
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="30" />
-                                        <RowDefinition Height="150" />
                                     </Grid.RowDefinitions>
-                                    <Image x:Name="theImage" Source="{Binding UserImgSrc}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
                                     <ImageButton Source="photogallery.png" HorizontalOptions="End" BackgroundColor="White" Grid.Column="0" Grid.Row="0" Command="{Binding PickImageCommand}"/>
                                     <ImageButton Source="camera.png" HorizontalOptions="Start" Grid.Column="1" Grid.Row="0" BackgroundColor="White" Command="{Binding CameraImageCommand}"/>
                                 </Grid>
+
+                                <Image x:Name="theImage" Source="{Binding UserImgSrc}" Aspect="AspectFit" HeightRequest="200" />
+
                                 <!-- Email-->
                                 <Grid>
                                     <Grid.ColumnDefinitions>

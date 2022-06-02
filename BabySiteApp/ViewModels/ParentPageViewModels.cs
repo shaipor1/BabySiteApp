@@ -113,7 +113,38 @@ namespace BabySiteApp.ViewModels
                 }
             }
         }
+        #region HasCar
 
+
+        private bool hasCar;
+        public bool HasCar
+        {
+            get => hasCar;
+            set
+            {
+                hasCar = value;
+
+                OnPropertyChanged("HasCar");
+            }
+        }
+
+        #endregion
+        #region Salary
+
+
+        private int salay;
+        public int Salary
+        {
+            get => salay;
+            set
+            {
+                salay = value;
+
+                OnPropertyChanged("Salary");
+            }
+        }
+
+        #endregion
         #region IsStreetEnabled
         private bool isStreetEnabled;
         public bool IsStreetEnabled
@@ -825,7 +856,20 @@ namespace BabySiteApp.ViewModels
             
             User currentUser = theApp.CurrentUser;
             Parent currentParent = theApp.CurrentParent;
-            
+            BabySitter currentBabySitter = theApp.CurrentBabySitter;
+            if(currentBabySitter!=null)
+            {
+                 this.HasCar = currentBabySitter.HasCar;
+                this.Salary = currentBabySitter.Salary;
+            }
+            else
+            {
+                this.MaxAge = currentParent.ChildrenMaxAge;
+                this.MinAge = currentParent.ChildrenMinAge;
+                this.ChildrenCount = currentParent.ChildrenCount;
+                this.HasDog = currentParent.HasDog;
+            }
+          
             this.SelectedCityItem = currentUser.City;
             this.Longitude = currentUser.Longitude;
             this.Latitude = currentUser.Latitude;
@@ -838,10 +882,7 @@ namespace BabySiteApp.ViewModels
             this.PhoneNum = currentUser.PhoneNumber;
             this.City = this.SelectedCityItem;
             this.HouseNum = currentUser.House;
-            this.MaxAge = currentParent.ChildrenMaxAge;
-            this.MinAge = currentParent.ChildrenMinAge;
-            this.ChildrenCount = currentParent.ChildrenCount;
-            this.HasDog = currentParent.HasDog;
+            
             Random r = new Random();
             this.UserImgSrc = currentUser.PhotoURL + $"?{r.Next()}";
             this.SelectedStreetItem =currentUser.Street;
@@ -900,9 +941,13 @@ namespace BabySiteApp.ViewModels
             ValidatePhoneNum();
             ValidateCity();
             ValidateStreet();
-            ValidateAge();
+            if(this.CurrentApp.CurrentUser.UserId==2)
+            {
+             ValidateAge();
             ValidateChildrenCount();
 
+            }
+          
 
             //check if any validation failed
             if (ShowPasswordError || ShowNameError || ShowLastNameError
@@ -916,45 +961,84 @@ namespace BabySiteApp.ViewModels
         #region SaveData
         private async void SaveData()
         {
+            User u = null;
             if (ValidateForm())
             {
                 ServerStatus = "מתחבר לשרת...";
                 await App.Current.MainPage.Navigation.PushModalAsync(new Views.ServerStatusPage(this));
 
                 App theApp = (App)App.Current;
-                Parent newParent = new Parent()
+                if (this.CurrentApp.CurrentUser.UserTypeId == 1)
                 {
-                    
-                    User = new User()
+                    Parent newParent = new Parent()
                     {
-                        UserId = theApp.CurrentUser.UserId,
-                        Email = this.Email,
-                        UserName = this.UserName,
-                        UserPswd = this.Password,
-                        FirstName = this.Name,
-                        LastName = this.LastName,
-                        BirthDate = this.BirthDate,
-                        PhoneNumber = this.PhoneNum,
-                        City = this.City,
-                        Street = this.Street,
-                        House = this.HouseNum,
-                        Gender= theApp.CurrentUser.Gender
-                    },
-                    ChildrenMaxAge = this.MaxAge,
-                    ChildrenMinAge = this.MinAge,
-                    ParentId = theApp.CurrentParent.ParentId,
-                ChildrenCount = this.ChildrenCount,
-                HasDog=this.HasDog,
-                UserId= theApp.CurrentUser.UserId
+
+                        User = new User()
+                        {
+                            UserId = theApp.CurrentUser.UserId,
+                            Email = this.Email,
+                            UserName = this.UserName,
+                            UserPswd = this.Password,
+                            FirstName = this.Name,
+                            LastName = this.LastName,
+                            BirthDate = this.BirthDate,
+                            PhoneNumber = this.PhoneNum,
+                            City = this.City,
+                            Street = this.Street,
+                            House = this.HouseNum,
+                            Gender = theApp.CurrentUser.Gender,
+
+                        },
+                        ChildrenMaxAge = this.MaxAge,
+                        ChildrenMinAge = this.MinAge,
+                        ParentId = theApp.CurrentParent.ParentId,
+                        ChildrenCount = this.ChildrenCount,
+                        HasDog = this.HasDog,
+                        UserId = theApp.CurrentUser.UserId
 
 
 
-                };
+                    };
 
-                BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
-                Parent parent = await proxy.UpdateParent(newParent);
+                    BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
+                    Parent parent = await proxy.UpdateParent(newParent);
+                    u = parent.User;
+                }
+                else
+                {
+                    BabySitter newBabySitter = new BabySitter()
+                    {
 
-                if (parent == null)
+                        User = new User()
+                        {
+                            UserId = theApp.CurrentUser.UserId,
+                            Email = this.Email,
+                            UserName = this.UserName,
+                            UserPswd = this.Password,
+                            FirstName = this.Name,
+                            LastName = this.LastName,
+                            BirthDate = this.BirthDate,
+                            PhoneNumber = this.PhoneNum,
+                            City = this.City,
+                            Street = this.Street,
+                            House = this.HouseNum,
+                            Gender = theApp.CurrentUser.Gender,
+
+                        },
+                        Salary = this.Salary,
+                        HasCar = this.HasCar,
+                       
+                        UserId = theApp.CurrentUser.UserId
+
+
+
+                    };
+
+                    BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
+                    BabySitter babySitter = await proxy.UpdateBabySitter(newBabySitter);
+                    u = babySitter.User;
+                }
+                if (u == null)
                 {
                     await App.Current.MainPage.Navigation.PopModalAsync();
                     await App.Current.MainPage.DisplayAlert("שגיאה", "העדכון נכשל", "אישור", FlowDirection.RightToLeft);
@@ -964,23 +1048,23 @@ namespace BabySiteApp.ViewModels
                     if (this.imageFileResult != null)
                     {
                         ServerStatus = "מעלה תמונה...";
-
+                        BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
                         bool success = await proxy.UploadImage(new Models.FileInfo()
                         {
                             Name = this.imageFileResult.FullPath
-                        }, $"{newParent.User.UserId}.jpg");
+                        }, $"{u.UserId}.jpg");
 
-                        //if (!success)
-                        //{
-                        //    if (SetImageSourceEvent != null)
-                        //        SetImageSourceEvent(theApp.CurrentUser.PhotoURL);
-                        //    await App.Current.MainPage.DisplayAlert("עדכון", "יש בעיה בהעלאת התמונה", "אישור", FlowDirection.RightToLeft);
-                        //}
+                        if (!success)
+                        {
+                            if (SetImageSourceEvent != null)
+                                SetImageSourceEvent(theApp.CurrentUser.PhotoURL);
+                            await App.Current.MainPage.DisplayAlert("עדכון", "יש בעיה בהעלאת התמונה", "אישור", FlowDirection.RightToLeft);
+                        }
                     }
 
                     ServerStatus = "שומר נתונים...";
 
-                    theApp.CurrentUser = parent.User;
+                    theApp.CurrentUser = u;
                     await App.Current.MainPage.Navigation.PopModalAsync();
 
                     Page page;
