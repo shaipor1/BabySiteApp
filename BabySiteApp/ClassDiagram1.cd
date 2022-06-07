@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BabySiteApp.Models.BabySitter" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAGAAAAIAAAAAgAAAAAgAAAAAAEAAAAAAABAAAAA=</HashCode>
+      <FileName>Models\BabySitter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BabySiteApp.Models.FileInfo" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\FileInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BabySiteApp.Models.Massage" Collapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAABQAAAAAAAAAAABAAgAAAAAAAAAAAAABBAAAAA=</HashCode>
+      <FileName>Models\Massage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BabySiteApp.Models.MassageType" Collapsed="true">
+    <Position X="7" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAIAAAAAAAAAAAAAEAAACAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Models\MassageType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BabySiteApp.Models.Parent" Collapsed="true">
+    <Position X="5.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAEAAACAAAAAAAAAAAAgAAAAAQAAAAwAAABAAIAA=</HashCode>
+      <FileName>Models\Parent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BabySiteApp.Models.Review" Collapsed="true">
+    <Position X="9" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAgAAAAAAAAAAAAAAQAAAAAAAAEEAEgAAAAAAAAA=</HashCode>
+      <FileName>Models\Review.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BabySiteApp.Models.User" Collapsed="true">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAEIAAGIAAACIAAAIQAwAEAAACAAAAQIAAgAIAAg=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BabySiteApp.Models.UserType" Collapsed="true">
+    <Position X="7" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACBAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\UserType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BabySiteApp.Services.BabySiteAPIProxy" Collapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AiAAAAAKQIABEAgCAIAAgghEUIQAEoAAAFAEhAEjEwA=</HashCode>
+      <FileName>Services\BabySiteAPIProxy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BabySiteApp.ViewModels.AddJobOfferViewModel" Collapsed="true">
+    <Position X="5.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAgAEAAIAAAACAAIAAgAAAAAAAAABAAAAA=</HashCode>
+      <FileName>ViewModels\AddJobOfferViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BabySiteApp.ViewModels.BabySitterPageViewModel" Collapsed="true">
+    <Position X="8.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gKGhonzBsSRuyIAu56iALMZxBQAmJxECo0YB6okgASk=</HashCode>
+      <FileName>ViewModels\BabySitterPageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BabySiteApp.ViewModels.BaseViewModels" Collapsed="true">
+    <Position X="14.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\BaseViewModels.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BabySiteApp.ViewModels.FindBabySitterViewModel" Collapsed="true">
+    <Position X="17.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AYAAAAAVAoJAAEAAwQBAAAAGAgBCAgQAAhAAABAAAAA=</HashCode>
+      <FileName>ViewModels\FindBabySitterViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BabySiteApp.ViewModels.FindJobViewModel" Collapsed="true">
+    <Position X="6" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAQAgAAEBAAgIAwQAAAFAAAAAAAARBAEAAgERAAAA=</HashCode>
+      <FileName>ViewModels\FindJobViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BabySiteApp.ViewModels.LoginViewModel" Collapsed="true">
+    <Position X="11.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAADCIgAAAgIAAAAAAAAAAAAAACAAAAAgAAAAA=</HashCode>
+      <FileName>ViewModels\LoginViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BabySiteApp.ViewModels.ParentPageViewModels" Collapsed="true">
+    <Position X="16" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>iKGh433RsWRu2IAv56iILcdxD2AmZxFCo0eB6okgEWk=</HashCode>
+      <FileName>ViewModels\ParentPageViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BabySiteApp.ViewModels.ShowBabySitterViewModel" Collapsed="true">
+    <Position X="19" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQAAGABACFwQICgsEAggAAAEUgAAIVIgAAACIAAAAo=</HashCode>
+      <FileName>ViewModels\ShowBabySItterViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BabySiteApp.ViewModels.ERROR_MESSAGES" Collapsed="true">
+    <Position X="12.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAIQABAAAIQABAAAAABAAAIAAQAAIA=</HashCode>
+      <FileName>ViewModels\SignUpViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BabySiteApp.ViewModels.SignUpViewModels" Collapsed="true">
+    <Position X="14" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>jKGpi33RsSBu2sCv56iArcVxD2AqdxFKq0+B6okgGUk=</HashCode>
+      <FileName>ViewModels\SignUpViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BabySiteApp.ViewModels.ViewJobOffersViewModel" Collapsed="true">
+    <Position X="19.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAhAAAAA4QAAAAAAAABAAAAAAAAADEAAAgA=</HashCode>
+      <FileName>ViewModels\ViewJobOffersViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BabySiteApp.ViewModels.ShowMessageViewModel" Collapsed="true">
+    <Position X="18.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAEEQACBgEAChIQABgQFAAUgAQARIAQQACIAAACg=</HashCode>
+      <FileName>ViewModels\ShowMessageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -5,14 +5,14 @@
              xmlns:modles="clr-namespace:BabySiteApp.Models"
              x:DataType="viewmodels:ViewJobOffersViewModel"
              x:Class="BabySiteApp.Views.ViewJobOffers"   Title="הצעות עבודה שפרסמת"
-             FlowDirection="RightToLeft">
+             FlowDirection="RightToLeft" BackgroundImageSource="flowerBG.jpg">
     <ContentPage.Content>
         <StackLayout>
             <RefreshView x:Name="refreshView"
              Command="{Binding RefreshCommand}"
              IsRefreshing="{Binding IsRefreshing}">
 
-                <CollectionView  x:Name="collectionName" ItemsSource="{Binding JobOffers}" SelectionMode="Single" BackgroundColor="White">
+                <CollectionView  x:Name="collectionName" ItemsSource="{Binding JobOffers}" SelectionMode="Single" BackgroundColor="Transparent">
                     <CollectionView.EmptyView>
                         <StackLayout>
                             <Grid>
@@ -33,7 +33,7 @@
                         <GridItemsLayout Span="1" Orientation="Vertical" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="modles:Massage">
+                        <DataTemplate x:DataType="modles:Massage" >
                             <SwipeView>
                                 <SwipeView.LeftItems>
                                     <SwipeItems>

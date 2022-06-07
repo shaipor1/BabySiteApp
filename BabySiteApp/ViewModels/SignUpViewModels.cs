@@ -1330,11 +1330,12 @@ namespace BabySiteApp.ViewModels
             allStreets = ((App)Application.Current).Streets;
             this.FilteredCities = new ObservableCollection<string>();
             this.FilteredStreets = new ObservableCollection<StreetDTO>();
-
+            this.ShowHouseNumError = false;
+            this.HouseNumError = ERROR_MESSAGES.BAD_HOUSE_NUM;
             GenderArray = new ObservableCollection<string>();
-            GenderArray.Add("Male");
-            GenderArray.Add("Female");
-            GenderArray.Add("Other");
+            GenderArray.Add("זכר");
+            GenderArray.Add("נקבה");
+            GenderArray.Add("אחר");
             //Setup default image photo
             this.UserImgSrc = DEFAULT_PHOTO_SRC;
             this.imageFileResult = null; //mark that no picture was chosen

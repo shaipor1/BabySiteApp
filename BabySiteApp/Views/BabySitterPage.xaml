@@ -3,187 +3,201 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BabySiteApp.Views.BabySitterPage"
              xmlns:viewmodels="clr-namespace:BabySiteApp.ViewModels"
-             x:DataType="viewmodels:BabySitterPageViewModel"
-             FlowDirection="RightToLeft">
+             x:DataType="viewmodels:ParentPageViewModels"
+             FlowDirection="RightToLeft"
+NavigationPage.HasNavigationBar="True">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="התנתק" Order="Primary" Priority="1" IconImageSource="logoutIcon.png" Command="{Binding LogOutCommand}"></ToolbarItem>
     </ContentPage.ToolbarItems>
-    <ContentPage.Content>
+    <ContentPage.Content  >
         <StackLayout>
             <RefreshView x:Name="refreshView" Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
                 <ScrollView>
                     <StackLayout>
 
 
+                        <StackLayout>
+                            <!-- תמונה -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                </Grid.RowDefinitions>
+                                <ImageButton Source="photogallery.png" HorizontalOptions="End" BackgroundColor="White" Grid.Column="0" Grid.Row="0" Command="{Binding PickImageCommand}"/>
+                                <ImageButton Source="camera.png" HorizontalOptions="Start" Grid.Column="1" Grid.Row="0" BackgroundColor="White" Command="{Binding CameraImageCommand}"/>
+                            </Grid>
 
-                        <Frame Style="{StaticResource logInSignUp}">
-                            <StackLayout>
-                                <!-- Email-->
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Label Text="אימייל" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
-                                    <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
-                                </Grid>
-                                <Label Text="{Binding Email}" Style="{StaticResource entry}"/>
+                            <Image x:Name="theImage" Source="{Binding UserImgSrc}" Aspect="AspectFit" HeightRequest="200" />
 
-                                <!-- User Name-->
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Label Text="שם משתמש" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
-                                    <Label Text="{Binding UserNameError}" IsVisible="{Binding ShowUserNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
-                                </Grid>
-                                <Label Text="{Binding UserName}" Style="{StaticResource entry}"/>
+                            <!-- Email-->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Text="אימייל" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
+                                <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
+                            </Grid>
+                            <Label Text="{Binding Email}" Style="{StaticResource entry}"/>
 
-                                <!-- Password-->
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Label Text="סיסמה" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
-                                    <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
-                                </Grid>
-                                <Entry Placeholder="סיסמה" MaxLength="30" IsPassword="True" Text="{Binding Password}" Style="{StaticResource entry}"/>
+                            <!-- User Name-->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Text="שם משתמש" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
+                                <Label Text="{Binding UserNameError}" IsVisible="{Binding ShowUserNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
+                            </Grid>
+                            <Label Text="{Binding UserName}" Style="{StaticResource entry}"/>
 
-                                <!-- First Name -->
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Label Text="שם פרטי" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
-                                    <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
-                                </Grid>
-                                <Entry Placeholder="שם פרטי" MaxLength="30" Text="{Binding Name}" Style="{StaticResource entry}"/>
+                            <!-- Password-->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Text="סיסמה" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
+                                <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
+                            </Grid>
+                            <Entry Placeholder="סיסמה" MaxLength="30" IsPassword="True" Text="{Binding Password}" Style="{StaticResource entry}"/>
 
-                                <!-- Last Name -->
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Label Text="שם משפחה" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
-                                    <Label Text="{Binding LastNameError}" IsVisible="{Binding ShowLastNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
-                                </Grid>
-                                <Entry Placeholder="שם משפחה" MaxLength="30" Text="{Binding LastName}" Style="{StaticResource entry}"/>
+                            <!-- First Name -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Text="שם פרטי" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
+                                <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
+                            </Grid>
+                            <Entry Placeholder="שם פרטי" MaxLength="30" Text="{Binding Name}" Style="{StaticResource entry}"/>
 
-                                <!-- Birth Date -->
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Label Text="תאריך לידה" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
-                                    <Label Text="{Binding BirthDateError}" IsVisible="{Binding ShowBirthDateError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
-                                </Grid>
-                                <DatePicker Date="{Binding BirthDate}" Style="{StaticResource entry}"/>
+                            <!-- Last Name -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Text="שם משפחה" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
+                                <Label Text="{Binding LastNameError}" IsVisible="{Binding ShowLastNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
+                            </Grid>
+                            <Entry Placeholder="שם משפחה" MaxLength="30" Text="{Binding LastName}" Style="{StaticResource entry}"/>
 
-                                <!-- Phone Number -->
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Label Text="טלפון" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
-                                    <Label Text="{Binding PhoneNumError}" IsVisible="{Binding ShowPhoneNumError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
-                                </Grid>
-                                <Entry Placeholder="טלפון" MaxLength="30" Text="{Binding PhoneNum}" Style="{StaticResource entry}"/>
+                            <!-- Birth Date -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Text="תאריך לידה" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
+                                <Label Text="{Binding BirthDateError}" IsVisible="{Binding ShowBirthDateError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
+                            </Grid>
+                            <DatePicker Date="{Binding BirthDate}" Style="{StaticResource entry}"/>
 
-                                <!-- City -->
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Label Text="עיר" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
-                                    <Label Text="{Binding CityError}" IsVisible="{Binding ShowCityError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
-                                </Grid>
-                                <SearchBar Placeholder="חפש עיר" Text="{Binding City}" Style="{StaticResource entry}"/>
-                                <CollectionView EmptyView="לא נמצאו ערים"  x:Name="cities" ItemsSource="{Binding FilteredCities}" SelectedItem="{Binding SelectedCityItem}" SelectionMode="Single"
+                            <!-- Phone Number -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Text="טלפון" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
+                                <Label Text="{Binding PhoneNumError}" IsVisible="{Binding ShowPhoneNumError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
+                            </Grid>
+                            <Entry Placeholder="טלפון" MaxLength="30" Text="{Binding PhoneNum}" Style="{StaticResource entry}"/>
+
+                            <!-- City -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Text="עיר" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
+                                <Label Text="{Binding CityError}" IsVisible="{Binding ShowCityError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
+                            </Grid>
+                            <SearchBar Placeholder="חפש עיר" Text="{Binding City}" Style="{StaticResource entry}"/>
+                            <CollectionView EmptyView="לא נמצאו ערים"  x:Name="cities" ItemsSource="{Binding FilteredCities}" SelectedItem="{Binding SelectedCityItem}" SelectionMode="Single"
                                    IsVisible="{Binding ShowCities}" SelectionChangedCommand="{Binding Source={x:Reference cities}, Path=BindingContext.SelectedCity}" SelectionChangedCommandParameter="{Binding Source={x:Reference cities}, Path=SelectedItem}"></CollectionView>
 
-                                <!-- Street -->
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Label Text="רחוב" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
-                                    <Label Text="{Binding StreetError}" IsVisible="{Binding ShowStreetError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
-                                </Grid>
-                                <SearchBar Placeholder="חפש רחוב" Text="{Binding Street}" IsEnabled="{Binding IsStreetEnabled}" Style="{StaticResource entry}"/>
-                                <CollectionView EmptyView="לא נמצאו רחובות"  x:Name="streets" ItemsSource="{Binding FilteredStreets}" SelectedItem="{Binding SelectedStreetItem}" SelectionMode="Single"
+                            <!-- Street -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Text="רחוב" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
+                                <Label Text="{Binding StreetError}" IsVisible="{Binding ShowStreetError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
+                            </Grid>
+                            <SearchBar Placeholder="חפש רחוב" Text="{Binding Street}" IsEnabled="{Binding IsStreetEnabled}" Style="{StaticResource entry}"/>
+                            <CollectionView EmptyView="לא נמצאו רחובות"  x:Name="streets" ItemsSource="{Binding FilteredStreets}" SelectedItem="{Binding SelectedStreetItem}" SelectionMode="Single"
                                    IsVisible="{Binding ShowStreets}" SelectionChangedCommand="{Binding Source={x:Reference streets}, Path=BindingContext.SelectedStreet}" SelectionChangedCommandParameter="{Binding Source={x:Reference streets}, Path=SelectedItem}"></CollectionView>
 
-                                <!-- HouseNumber -->
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Label Text="מספר בית" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
-                                    <Label Text="{Binding HouseNumError}" IsVisible="{Binding ShowHouseNumError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
-                                </Grid>
-                                <Entry Placeholder="מספר בית" MaxLength="30" Text="{Binding HouseNum}" Style="{StaticResource entry}"/>
-                                <!--have car-->
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <Label Grid.Row="0" Text="האם נייד?"></Label>
-                                </Grid>
-                                <Switch  IsToggled="{Binding HasCar}" Grid.Row="1" HorizontalOptions="Center"/>
-                                <!--change salary-->
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                   
-                                    <Label Grid.Row="0" Text="שכר לשעה:"></Label>
-                                    <Slider Minimum="0" Maximum="100" Grid.Row="1" HorizontalOptions="Fill" Value="{Binding Salary}" MinimumTrackColor="DarkGray" MaximumTrackColor="LightGray" WidthRequest="300"/>
-                                    <Label Text="{Binding Salary}" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
-                                </Grid>
-                              
-                            </StackLayout>
-                        </Frame>
+                            <!-- HouseNumber -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Text="מספר בית" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
+                                <Label Text="{Binding HouseNumError}" IsVisible="{Binding ShowHouseNumError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
+                            </Grid>
+                            <Entry Placeholder="מספר בית" MaxLength="30" Text="{Binding HouseNum}" Style="{StaticResource entry}"/>
+                            <!--has car-->
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Text="do you have a car?"></Label>
+                            </Grid>
+                            <Switch IsToggled="{Binding HasCar}" Grid.Row="1" HorizontalOptions="Center"/>
+                            <!--start salary-->
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Text="choose start salary:"></Label>
+                                <Slider   Minimum="0" Maximum="100" Grid.Row="1" HorizontalOptions="Fill" Value="{Binding Salary}" MinimumTrackColor="DarkGray" MaximumTrackColor="LightGray" WidthRequest="300"/>
+                                <Label  Text="{Binding Salary}" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+
+                            </Grid>
+
+                        </StackLayout>
+
 
                         <Grid>
                             <Grid.ColumnDefinitions>

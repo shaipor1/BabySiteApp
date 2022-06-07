@@ -136,6 +136,10 @@ namespace BabySiteApp.ViewModels
             AddJobOfferCommand = new Command(AddJobPage);
             FilteredBabySitters = new ObservableCollection<BabySitter>();
             InitBabySitters();
+            this.HasCarFilter = false;
+            this.MaxSalaryFilter = 100;
+            this.MinRatingFilter = 0;
+            this.IsRefreshing = false;
         }
 
         private async void InitBabySitters()
@@ -150,7 +154,7 @@ namespace BabySiteApp.ViewModels
         {
             AddJobOffer page = new AddJobOffer();
             await App.Current.MainPage.Navigation.PushAsync(page);
-            //CurrentApp.MainPage.DisplayAlert("מעבר לעמוד בו הורה יכול לפרסם הצעת עבודה", "baby sitter page", "אישור");
+          
         }
 
         private void OnCall(BabySitter b)
@@ -187,8 +191,7 @@ namespace BabySiteApp.ViewModels
         private void ShowBabySittersPage(BabySitter obj)
         {
             CurrentApp.MainPage.Navigation.PushAsync(new ShowBabySitter(obj));
-            //CurrentApp.MainPage.Navigation.PushAsync(new ShowBabySitter());
-            //CurrentApp.MainPage.DisplayAlert("ללעמוד שמציג פרטים על הבייביסיטר", "baby sitter page", "אישור");
+          
         }
     }
 }

@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BabySiteApp.Views.FindJob" 
+             xmlns:viewmodels="clr-namespace:BabySiteApp.ViewModels"
+             xmlns:modles="clr-namespace:BabySiteApp.Models"
+             x:DataType="viewmodels:FindJobViewModel"
+             Title="מצא עבודה"
+             FlowDirection="RightToLeft" BackgroundImageSource="carBG.png">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="מצא עבודה" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold"/>
+
+            <Frame BackgroundColor="#aed9e0" Margin="30,2,30,30" Padding="15" CornerRadius="7" HasShadow="True">
+                <StackLayout>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="50"/>
+
+                        </Grid.RowDefinitions>
+                        <Label Text="בלי כלב" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" TextColor="Black"/>
+                        <Switch IsToggled="{Binding HasNoDogFilter}" Grid.Column="0" Grid.Row="1" HorizontalOptions="Center"/>
+                        <Label Text="גיל ילד מינימלי:" Grid.Row="0" Grid.Column="1"  HorizontalOptions="Center" TextColor="Black"/>
+                        <Entry    Grid.Row="1" Grid.Column="1"   Placeholder="גיל מינימלי" Text="{Binding MinAgeFilter}"  HorizontalOptions="Center"/>
+                       
+                        <Label Text="מספר ילדים מקסימלי:" Grid.Row="0" Grid.Column="2"  HorizontalOptions="Center" TextColor="Black"/>
+                        <Entry    Grid.Row="1" Grid.Column="2"   Placeholder="מספר ילדים מקסימלי" Text="{Binding MaxCountFilter}"  HorizontalOptions="Center"/>
+                        <Label  Text="{Binding MaxCountFilter}" Grid.Row="2" Grid.Column="2" HorizontalOptions="Center" TextColor="Black"/>
+                        <Button Text="סנן" Command="{Binding FilterCommand}" Grid.Column="1" Grid.Row="3"  TextColor="Black" CornerRadius="5" BackgroundColor="#f4acb7"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+
+            <RefreshView x:Name="refreshView"
+             Command="{Binding RefreshCommand}"
+             IsRefreshing="{Binding IsRefreshing}">
+
+                <CollectionView  x:Name="collectionName" ItemsSource="{Binding FilteredMessages}" SelectionMode="Single" BackgroundColor="Transparent"
+                               SelectedItem="{Binding CurrentMessage}" SelectionChangedCommand="{Binding ShowMessage}" SelectionChangedCommandParameter="{Binding CurrentMessage}">
+                    <CollectionView.EmptyView>
+                        <StackLayout>
+                            <Label Text="לא פורסמו הצעות עבודה"/>
+                        </StackLayout>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Span="1" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="modles:Massage">
+                            <SwipeView>
+                                <SwipeView.LeftItems>
+                                    <SwipeItems>
+                                        <SwipeItem Text="התקשר"
+                                           IconImageSource="phone.png"
+                                           BackgroundColor="Aqua"
+                                           Command="{Binding Source={x:Reference collectionName}, Path=BindingContext.CallParent}"
+                                           CommandParameter="{Binding}" />
+                                    </SwipeItems>
+                                </SwipeView.LeftItems>
+
+                                <Grid Margin="7">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label Text="{Binding HeadLine}" HorizontalTextAlignment="Start" FontSize="Caption"  Grid.Row="0" Grid.Column="0"/>
+                                    <Label Text="{Binding Body}" HorizontalTextAlignment="Start" FontSize="Caption" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" Margin="0,0,5,0"/>
+                                    <Image Source="{Binding User.PhotoURL}" WidthRequest="100" Grid.Column="0" Grid.RowSpan="2" Grid.Row="0"/>
+                                    <!--<Image Source="{Binding RatingStarsImage}" Grid.Column="1" HorizontalOptions="Fill" Grid.Row="3"/>-->
+                                </Grid>
+
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+            </Grid>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

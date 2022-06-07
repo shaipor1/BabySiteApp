@@ -1,39 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:BabySiteApp.ViewModels" x:DataType="viewmodels:AddJobOfferViewModel"
-             x:Class="BabySiteApp.Views.AddJobOffer"  FlowDirection="RightToLeft">
+             x:Class="BabySiteApp.Views.AddJobOffer"  FlowDirection="RightToLeft" BackgroundImageSource="butterflyBG.jpg">
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout>
-                <!--כותרת-->
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        
-                    </Grid.RowDefinitions>
-                    <Label Text="כותרת:" Grid.Column="1" Grid.Row="0"/>
-                    <Entry Placeholder="כותרת המודעה" Text="{Binding MessageHeadLine}" Grid.Column="0" Grid.Row="0"/>
-                </Grid>
-                <!--תוכן המודעה-->
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+            <Frame BackgroundColor="#9a8c98" CornerRadius="20">
+                <StackLayout>
 
-                    </Grid.RowDefinitions>
-                    <Label Text="פרטים:" Grid.Column="1"  Grid.Row="0"/>
-                    <Entry Placeholder=" תאריך, שעות עבודה ועוד.." FontSize="Small" Text="{Binding MessageBody}" Grid.RowSpan="2" Grid.Column="0" Grid.Row="0"/>
-                </Grid>
-            </StackLayout>
-            <Button Text="פרסם" Command="{Binding PostMessageCommand}"/>
+                    <!--כותרת-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+
+                        </Grid.RowDefinitions>
+                        <Label Text="כותרת:" Grid.Column="0" Grid.Row="0"/>
+                        <Entry Placeholder="כותרת המודעה" Text="{Binding MessageHeadLine}" Grid.Column="1" Grid.Row="0"/>
+                    </Grid>
+                    <!--תוכן המודעה-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+
+                        </Grid.RowDefinitions>
+                        <Label Text="פרטים:" Grid.Column="0"  Grid.Row="0"/>
+                        <Entry Placeholder=" תאריך, שעות עבודה ועוד.." FontSize="Small" Text="{Binding MessageBody}" Grid.RowSpan="2" Grid.Column="1" Grid.Row="0"/>
+                    </Grid>
+
+                </StackLayout>
+            </Frame>
+
+            <Button CornerRadius="15" Text="פרסם" Command="{Binding PostMessageCommand}"/>
 
         </StackLayout>
     </ContentPage.Content>

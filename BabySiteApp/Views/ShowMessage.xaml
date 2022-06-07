@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BabySiteApp.Views.ShowMessage" FlowDirection="RightToLeft">
+    <ContentPage.Content>
+        <StackLayout>
+            <ScrollView>
+
+                <StackLayout>
+                    
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="150"/>
+                        </Grid.RowDefinitions>
+                        <Image x:Name="theImage" Source="{Binding UserImgSrc}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"/>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Text="{Binding HeadLine}" HorizontalTextAlignment="Start" FontSize="Caption"  Grid.Row="0" Grid.Column="0"/>
+                        <Label Text="{Binding Body}" HorizontalTextAlignment="Start" FontSize="Caption" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" Margin="0,0,5,0"/>
+
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Text="שם:" Grid.Row="0" Grid.Column="0"/>
+                        <Label Text="{Binding FirstName}" Grid.Row="0" Grid.Column="1"/>
+                        <Label Text="{Binding LastName}" Grid.Row="0" Grid.Column="2"/>
+
+                    </Grid>
+                    <!--gender-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="מגדר:" Grid.Column="0" Grid.Row="0"></Label>
+                        <Label Text="{Binding Gender}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"/>
+                    </Grid>
+                    <!--phone number-->
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="מספר טלפון:" Grid.Column="0" Grid.Row="0"></Label>
+                        <Label Text="{Binding PhoneNum }" Grid.Column="1" Grid.Row="0"></Label>
+                        <ImageButton Source="phone.png" HorizontalOptions="End" BackgroundColor="White" Grid.Row="0" Grid.Column="2" Command="{Binding CallParentCommand}"/>
+
+                    </Grid>
+
+
+                    <!--email-->
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="מייל:" Grid.Column="0" Grid.Row="0"></Label>
+                        <Label Text="{Binding Email}" Grid.Column="1" Grid.Row="0" />
+
+                    </Grid>
+                   
+                    <!--location-->
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="כתובת:" Grid.Column="0" Grid.Row="0"></Label>
+                        <Label Text="{Binding Adress}" Grid.Column="1" Grid.Row="0" />
+                    </Grid>
+                    
+                    <!--has dog-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Text="בעלי כלב" IsVisible="{Binding HasDog}"></Label>
+                    </Grid>
+
+                    <!--children info-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="כמה ילדים:" Grid.Column="0" Grid.Row="0"></Label>
+                        <Label Text="{Binding ChildrenCount}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"/>
+                        <Label Text="טווח גילאים:" Grid.Column="0" Grid.Row="0"></Label>
+                        <Label Text="{Binding MinAge}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"/>
+                        <Label Text="-" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"/>
+                        <Label Text="{Binding MaxAge}" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center"/>
+
+
+                    </Grid>
+
+
+
+                </StackLayout>
+
+
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

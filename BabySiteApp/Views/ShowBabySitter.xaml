@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BabySiteApp.Views.ShowBabySitter"  FlowDirection="RightToLeft">
+             x:Class="BabySiteApp.Views.ShowBabySitter"  FlowDirection="RightToLeft" BackgroundImageSource="starsBG.jpg">
     <ContentPage.Content>
 
         <ScrollView>
@@ -42,7 +42,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Text="Gender:" Grid.Column="0" Grid.Row="0"></Label>
+                    <Label Text="מגדר:" Grid.Column="0" Grid.Row="0"></Label>
                     <Label Text="{Binding Gender}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"/>
                 </Grid>
                 <!--phone number-->
@@ -55,7 +55,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Text="Phone Number:" Grid.Column="0" Grid.Row="0"></Label>
+                    <Label Text="מספר טלפון:" Grid.Column="0" Grid.Row="0"></Label>
                     <Label Text="{Binding PhoneNum }" Grid.Column="1" Grid.Row="0"></Label>
                     <ImageButton Source="phone.png" HorizontalOptions="End" BackgroundColor="White" Grid.Row="0" Grid.Column="2" Command="{Binding CallBabySitterCommand}"/>
 
@@ -73,7 +73,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Text="Email:" Grid.Column="0" Grid.Row="0"></Label>
+                    <Label Text="כתובת מייל:" Grid.Column="0" Grid.Row="0"></Label>
                     <Label Text="{Binding Email}" Grid.Column="1" Grid.Row="0" />
                    
                 </Grid>
@@ -85,9 +85,12 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+
                     </Grid.ColumnDefinitions>
-                    <Label Text="Age:" Grid.Column="0" Grid.Row="0"></Label>
+                    <Label Text="גיל:" Grid.Column="0" Grid.Row="0"></Label>
                     <Label Text="{Binding Age}" Grid.Column="1" Grid.Row="0" />
+                    <Label Text="שנים" Grid.Column="2" Grid.Row="0" />
                 </Grid>
                 <!--location-->
                 <Grid >
@@ -98,7 +101,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Text="Adress:" Grid.Column="0" Grid.Row="0"></Label>
+                    <Label Text="כתובת:" Grid.Column="0" Grid.Row="0"></Label>
                     <Label Text="{Binding Adress}" Grid.Column="1" Grid.Row="0" />
                 </Grid>
                 <!--salary-->
@@ -112,7 +115,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Text="Salary:"></Label>
+                    <Label Grid.Row="0" Text="שכר לשעה:"></Label>
                     <Label  Text="{Binding Salary}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
 
                 </Grid>
@@ -125,7 +128,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Text="Has a car" IsVisible="{Binding HasCar}"></Label>
+                    <Label Grid.Row="0" Text="נייד" IsVisible="{Binding HasCar}"></Label>
                 </Grid>
 
 

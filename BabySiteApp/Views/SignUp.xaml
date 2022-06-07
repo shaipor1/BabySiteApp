@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:BabySiteApp.ViewModels"
              x:DataType="local:SignUpViewModels"
              xmlns:modals="clr-namespace:BabySiteApp.DTO"
-             x:Class="BabySiteApp.Views.SignUp">
+             x:Class="BabySiteApp.Views.SignUp" FlowDirection="RightToLeft">
    
     <ContentPage.Content>
         <ScrollView>
@@ -34,11 +34,11 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Text="First Name:" Grid.Column="0" Grid.Row="0"></Label>
+                        <Label Text="שם פרטי:" Grid.Column="0" Grid.Row="0"></Label>
                         <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"></Label>
 
                     </Grid>
-                    <Entry Placeholder="First Name" Text="{Binding FirstName}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill"></Entry>
+                    <Entry Placeholder="שם פרטי" Text="{Binding FirstName}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill"></Entry>
 
                     <!--last name-->
                     <Grid >
@@ -49,11 +49,11 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Text="Last Name:" Grid.Column="0" Grid.Row="0"></Label>
+                        <Label Text="שם משפחה:" Grid.Column="0" Grid.Row="0"></Label>
                         <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"></Label>
 
                     </Grid>
-                    <Entry Placeholder="Last Name" Text="{Binding LastName}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill"></Entry>
+                    <Entry Placeholder="שם משפחה" Text="{Binding LastName}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill"></Entry>
                    <!--gender-->
                     <Grid>
                         <Grid.RowDefinitions>
@@ -65,32 +65,14 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Label Text="Gender:" Grid.Column="0" Grid.Row="0"></Label>
+                        <Label Text="מגדר:" Grid.Column="0" Grid.Row="0"></Label>
                         <Picker Grid.Row="1" Grid.Column="0" HorizontalOptions="Center"
-                            Title="Gender" SelectedItem="{Binding Gender}" ItemsSource="{Binding GenderArray}">
+                            Title="מגדר" SelectedItem="{Binding Gender}" ItemsSource="{Binding GenderArray}">
 
                         </Picker>
                     </Grid>
 
-                    <!--gender--><!--
-                    
-                    <Grid  RadioButtonGroup.GroupName="Gender" RadioButtonGroup.SelectedValue="{Binding Gender}">
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Label Text="Gender:" Grid.Column="0" Grid.Row="0"></Label>
-                        <RadioButton GroupName="Gender" IsChecked="True" Content="male" Value="Male" Grid.Column="1"/>
-                        <RadioButton GroupName="Gender" Content="female" Value="Female" Grid.Column="2"/>
-                        <RadioButton GroupName="Gender" Content="other" Value="Other"  Grid.Column="3"/>
-                    </Grid>-->
-
+                  
                     <!--phone number-->
                     <Grid >
                         <Grid.RowDefinitions>
@@ -100,11 +82,11 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Text="Phone Number:" Grid.Column="0" Grid.Row="0"></Label>
+                        <Label Text="מספר טלפון:" Grid.Column="0" Grid.Row="0"></Label>
                         <Label Text="{Binding PhoneNumError }" IsVisible="{Binding ShowPhoneNumError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"></Label>
 
                     </Grid>
-                    <Entry Placeholder="Phone number" Text="{Binding PhoneNum}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill"></Entry>
+                    <Entry Placeholder="מספר טלפון" Text="{Binding PhoneNum}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill"></Entry>
 
                     <!--email-->
                     <Grid >
@@ -115,11 +97,11 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Text="Email:" Grid.Column="0" Grid.Row="0"></Label>
+                        <Label Text="כתובת מייל:" Grid.Column="0" Grid.Row="0"></Label>
                         <Label Text="{Binding EmailError }" IsVisible="{Binding ShowEmailError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"></Label>
 
                     </Grid>
-                    <Entry Placeholder="Email" Text="{Binding Email}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill"></Entry>
+                    <Entry Placeholder="כתובת מייל" Text="{Binding Email}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill"></Entry>
 
 
                     <!--user name-->
@@ -131,11 +113,11 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Text="User Name:" Grid.Column="0" Grid.Row="0"></Label>
+                        <Label Text="שם משתמש:" Grid.Column="0" Grid.Row="0"></Label>
                         <Label Text="{Binding UserNameError }" IsVisible="{Binding ShowUserNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"></Label>
 
                     </Grid>
-                    <Entry Placeholder="User Name" Text="{Binding UserName}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill"></Entry>
+                    <Entry Placeholder="שם משתמש" Text="{Binding UserName}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill"></Entry>
 
                     <!--password-->
                     <Grid >
@@ -146,11 +128,11 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Text="Password:" Grid.Column="0" Grid.Row="0"></Label>
+                        <Label Text="סיסמה:" Grid.Column="0" Grid.Row="0"></Label>
                         <Label Text="{Binding PasswordError }" IsVisible="{Binding ShowPasswordError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"></Label>
 
                     </Grid>
-                    <Entry Placeholder="Password" Text="{Binding Password}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill" IsPassword="True"></Entry>
+                    <Entry Placeholder="סיסמה" Text="{Binding Password}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill" IsPassword="True"></Entry>
 
 
                     <!--date-->
@@ -162,7 +144,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Text="Birth Date:" Grid.Column="0" Grid.Row="0"></Label>
+                        <Label Text="תאריך לידה:" Grid.Column="0" Grid.Row="0"></Label>
                         <Label Text="{Binding BirthDateError }" IsVisible="{Binding ShowBirthDateError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"></Label>
 
                     </Grid>
@@ -230,7 +212,7 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Label Text="מספר בית" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
-                        <Label Text="{Binding StringHouseNumError}" IsVisible="{Binding ShowStringHouseNumError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
+                        <Label Text="{Binding HouseNumError}" IsVisible="{Binding ShowHouseNumError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
                     </Grid>
                     <Entry Placeholder="מספר בית" MaxLength="30" Text="{Binding HouseNum}" Style="{StaticResource entry}"/>
 
@@ -245,7 +227,7 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <Label Text="Are you parent or babysitter?" Grid.Column="0" Grid.Row="0"></Label>
+                        <Label Text="האם אתה הורה או בייביסיטר?" Grid.Column="0" Grid.Row="0"></Label>
                         <RadioButton Grid.Column="0" Grid.Row="1" Content="Parent" Value="Parent" IsChecked="True"/>
                         <RadioButton Grid.Column="1" Grid.Row="1" Content="Baby sitter" Value="BabySitter" HorizontalOptions="Fill"/>
                     </Grid>
@@ -261,7 +243,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Text="do you have a car?"></Label>
+                        <Label Grid.Row="0" Text="האם אתה נייד?"></Label>
                     </Grid>
                     <Switch IsToggled="{Binding HasCar}" Grid.Row="1" HorizontalOptions="Center"/>
                     <!--start salary-->
@@ -271,7 +253,7 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Text="choose start salary:"></Label>
+                        <Label Grid.Row="0" Text="בחר שכר התחלתי:"></Label>
                         <Slider   Minimum="0" Maximum="100" Grid.Row="1" HorizontalOptions="Fill" Value="{Binding Salary}" MinimumTrackColor="DarkGray" MaximumTrackColor="LightGray" WidthRequest="300"/>
                         <Label  Text="{Binding Salary}" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
 
@@ -287,7 +269,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Text="do you have a dog?"></Label>
+                        <Label Grid.Row="0" Text="האם יש בביתך כלב?"></Label>
                     </Grid>
                     <Switch  IsToggled="{Binding HasDog}" Grid.Row="1" HorizontalOptions="Center"/>
                     <!--children count-->

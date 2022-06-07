@@ -1027,7 +1027,7 @@ namespace BabySiteApp.ViewModels
                         },
                         Salary = this.Salary,
                         HasCar = this.HasCar,
-                       
+                        BabySitterId = theApp.CurrentBabySitter.BabySitterId,
                         UserId = theApp.CurrentUser.UserId
 
 
@@ -1069,12 +1069,14 @@ namespace BabySiteApp.ViewModels
 
                     Page page;
 
-                   
+                   if(u.UserTypeId==1)
                         page = new Views.ParentMainPage();
+                   else
+                        page = new Views.BabySitterPage();
 
-               
 
-                    page.Title = "שלום " + theApp.CurrentUser.UserName;
+
+                    page.Title = "שלום " + theApp.CurrentUser.FirstName;
                     App.Current.MainPage = new NavigationPage(page) { BarBackgroundColor = Color.FromHex("#81cfe0") };
                     await App.Current.MainPage.DisplayAlert("עדכון", "העדכון בוצע בהצלחה", "אישור", FlowDirection.RightToLeft);
                 }
