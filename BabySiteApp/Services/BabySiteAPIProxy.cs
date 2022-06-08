@@ -576,6 +576,69 @@ namespace BabySiteApp.Services
             }
         }
         #endregion
+        
+        #region GetReviewsBabySitter
+        public async Task<List<Review>> GetReviewsBabySitter()
+        {
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
+
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetReviewsBabySitter");
+                if (response.IsSuccessStatusCode)
+                {
+                    string jsonObject = await response.Content.ReadAsStringAsync();
+                    List<Review> ret = JsonSerializer.Deserialize<List<Review>>(jsonObject, options);
+                    return ret;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+        #endregion
+        #region GetReviewsParent
+        public async Task<List<Review>> GetReviewsParent()
+        {
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.Hebrew, UnicodeRanges.BasicLatin),
+                    PropertyNameCaseInsensitive = true
+                };
+
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetReviewsParent");
+                if (response.IsSuccessStatusCode)
+                {
+                    string jsonObject = await response.Content.ReadAsStringAsync();
+                    List<Review> ret = JsonSerializer.Deserialize<List<Review>>(jsonObject, options);
+                    return ret;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+        #endregion
         #region get messages
         public async Task<List<Massage>> GetMessages()
         {

@@ -48,10 +48,10 @@ namespace BabySiteApp.ViewModels
         private string headLine;
         public string HeadLine
         {
-            get => HeadLine;
+            get => headLine;
             set
             {
-                if (HeadLine != value)
+                if (headLine != value)
                 {
                    headLine = value;
                     OnPropertyChanged("HeadLine");
@@ -61,10 +61,10 @@ namespace BabySiteApp.ViewModels
         private string body;
         public string Body
         {
-            get => Body;
+            get => body;
             set
             {
-                if (Body != value)
+                if (body != value)
                 {
                     body = value;
                     OnPropertyChanged("Body");

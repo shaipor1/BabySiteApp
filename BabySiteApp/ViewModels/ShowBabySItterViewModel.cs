@@ -47,6 +47,33 @@ namespace BabySiteApp.ViewModels
             }
         }
         #endregion
+        private bool isRefreshing;
+        public bool IsRefreshing
+        {
+            get => isRefreshing;
+            set
+            {
+                if (isRefreshing != value)
+                {
+                    isRefreshing = value;
+                    OnPropertyChanged("IsRefreshing");
+                }
+            }
+        }
+        private Review currntReview;
+        public Review CurrentReview
+        {
+            get => currntReview;
+            set
+            {
+                if (currntReview != value)
+                {
+                    currntReview = value;
+                    OnPropertyChanged("CurrentReview");
+                }
+            }
+        }
+
         private string firstName;
 
         public string FirstName
@@ -251,7 +278,10 @@ namespace BabySiteApp.ViewModels
         {
             get; protected set;
         }
-       
+        public ICommand RefreshCommand
+        {
+            get; protected set;
+        }
         #endregion
 
         public ShowBabySitterViewModel(BabySitter b)

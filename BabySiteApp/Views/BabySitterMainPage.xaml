@@ -6,14 +6,19 @@
              xmlns:local="clr-namespace:BabySiteApp.ViewModels"
              x:Class="BabySiteApp.Views.BabySitterMainPage" android:TabbedPage.ToolbarPlacement="Bottom" Title="welcome"
             FlowDirection="RightToLeft">
-    <NavigationPage IconImageSource="tap.png" Title="Find job">
+    <NavigationPage IconImageSource="tap.png" Title="מצא עבודה">
         <x:Arguments>
             <views:FindJob Title="מצא עבודה"></views:FindJob>
         </x:Arguments>
     </NavigationPage>
-    <NavigationPage IconImageSource="babysitter.png" Title="User Page">
+    <NavigationPage IconImageSource="babysitter.png" Title="דף משתמש">
         <x:Arguments>
             <views:BabySitterPage Title="דף משתמש"></views:BabySitterPage>
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage IconImageSource="star.png" Title="ביקורות">
+        <x:Arguments>
+            <views:MyReviews Title="ביקורות עליך"></views:MyReviews>
         </x:Arguments>
     </NavigationPage>
 </TabbedPage>

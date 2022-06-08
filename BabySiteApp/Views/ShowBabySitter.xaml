@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BabySiteApp.Views.ShowBabySitter"  FlowDirection="RightToLeft" BackgroundImageSource="starsBG.jpg">
+             x:Class="BabySiteApp.Views.ShowBabySitter"  FlowDirection="RightToLeft" BackgroundImageSource="starsBG.jpg"   xmlns:viewmodels="clr-namespace:BabySiteApp.ViewModels"
+             xmlns:modles="clr-namespace:BabySiteApp.Models"
+              x:DataType="viewmodels:ShowBabySitterViewModel">
     <ContentPage.Content>
 
         <ScrollView>
@@ -182,10 +184,53 @@
                     <Entry Text="{Binding ReviewBody}" Grid.Column="0" Grid.Row="0"/>
                 </Grid>
                 <Button Text="שלח" Command="{Binding PostReviewCommand}"/>
+
+                <RefreshView x:Name="refreshView"
+             Command="{Binding RefreshCommand}"
+             IsRefreshing="{Binding IsRefreshing}">
+
+                    <CollectionView  x:Name="collectionName" ItemsSource="{Binding FilteredReviews}" SelectionMode="None" BackgroundColor="Transparent">
+                        <CollectionView.EmptyView>
+                            <StackLayout>
+                                <Label Text="לא פורסמו ביקורות"/>
+                            </StackLayout>
+                        </CollectionView.EmptyView>
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Span="1" Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="modles:Review">
+
+
+                                <Grid Margin="7">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label Text="{Binding Rating}" HorizontalTextAlignment="Start" FontSize="Caption"  Grid.Row="0" Grid.Column="0"/>
+                                    <Label Text="{Binding Decription}" HorizontalTextAlignment="Start" FontSize="Caption" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" Margin="0,0,5,0"/>
+                                    <Image x:Name="ratingStar1" Source="star.png"  IsVisible="{Binding ShowStar1}" Grid.Column="0"  Grid.Row="0"/>
+                                    <Image x:Name="ratingStar2" Source="star.png" IsVisible="{Binding ShowStar2}" Grid.Column="1" Grid.Row="0"/>
+                                    <Image x:Name="ratingStar3" Source="star.png" IsVisible="{Binding ShowStar3}" Grid.Column="2"  Grid.Row="0"/>
+                                    <Image x:Name="ratingStar4" Source="star.png" IsVisible="{Binding ShowStar4}" Grid.Column="3" Grid.Row="0"/>
+                                    <Image x:Name="ratingStar5" Source="star.png" IsVisible="{Binding ShowStar5}" Grid.Column="4"  Grid.Row="0"/>
+                                </Grid>
+
+
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
             </StackLayout>
 
 
         </ScrollView>
         
+         
     </ContentPage.Content>
 </ContentPage>
