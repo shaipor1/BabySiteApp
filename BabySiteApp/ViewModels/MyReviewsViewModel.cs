@@ -76,7 +76,7 @@ namespace BabySiteApp.ViewModels
         {
             get; protected set;
         }
-        public ICommand CallParent
+        public ICommand ShowParent
         {
             get; protected set;
         }
@@ -84,12 +84,17 @@ namespace BabySiteApp.ViewModels
         #endregion
         public MyReviewsViewModel()
         {
-           
+            ShowParent = new Command<Review>(OnShowParent);
             FilterCommand = new Command(FilterReviews);
             RefreshCommand = new Command(OnRefresh);
             FilteredReviews = new ObservableCollection<Review>();
             InitReviews();
             this.IsRefreshing = false;
+        }
+        private async void OnShowParent(Review m)
+        {
+            await App.Current.MainPage.DisplayAlert(" נכתב על ידי"+m.Parent.User.FirstName+" " + m.Parent.User.LastName, m.Parent.User.PhoneNumber, "אישור", FlowDirection.RightToLeft);
+
         }
         private async void InitReviews()
         {

@@ -767,8 +767,8 @@ namespace BabySiteApp.ViewModels
             this.HouseNum = currentUser.House;
             this.HasCar = currentBabySitter.HasCar;
             this.salay = currentBabySitter.Salary;
-           
-            
+            this.UserImgSrc = currentUser.PhotoURL;
+
             this.SelectedStreetItem = currentUser.Street;
             this.Street = this.SelectedStreetItem;
             this.IsStreetEnabled = true;

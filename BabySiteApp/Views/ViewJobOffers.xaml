@@ -12,9 +12,10 @@
              Command="{Binding RefreshCommand}"
              IsRefreshing="{Binding IsRefreshing}">
 
-                <CollectionView  x:Name="collectionName" ItemsSource="{Binding JobOffers}" SelectionMode="Single" BackgroundColor="Transparent">
+                <CollectionView  x:Name="collectionName" ItemsSource="{Binding JobOffers}"  SelectionMode="Single" BackgroundColor="Transparent">
                     <CollectionView.EmptyView>
-                        <StackLayout>
+
+                      
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
@@ -22,42 +23,40 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                                </Grid.ColumnDefinitions>  
+                               
                                     <Label Text="לא פרסמת הצעות עבודה" Grid.Column="0" Grid.Row="0"/>
-                                <Button Command="{Binding AddJobOffer}" Text="פרסם הצעת עבודה" Grid.Column="1" Grid.Row="0"/>
+                                <Button Command="{Binding AddJobOffer}" Text="פרסם הצעת עבודה" Grid.Column="1" Grid.Row="0"/> 
+                       
                             </Grid>
                           
-                        </StackLayout>
+                      
                     </CollectionView.EmptyView>
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Span="1" Orientation="Vertical" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="modles:Massage" >
-                            <SwipeView>
-                                <SwipeView.LeftItems>
-                                    <SwipeItems>
-                                        <SwipeItem Text="מחק"
-                                           IconImageSource="delet.png"
-                                           BackgroundColor="Red"
-                                           Command="{Binding Source={x:Reference collectionName}, Path=BindingContext.DeleteJobOffer}"
-                                           CommandParameter="{Binding}" />
-                                    </SwipeItems>
-                                </SwipeView.LeftItems>
+                        
+                              
+                                <Frame BackgroundColor="#457b9d" CornerRadius="20" Margin="20" HeightRequest="40">
                                 <Grid Margin="7">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="18"/>
+                                        <RowDefinition Height="18"/>
                                     </Grid.RowDefinitions>
                                     <Label Text="{Binding HeadLine}" HorizontalTextAlignment="Start" FontSize="Caption"  Grid.Row="0" Grid.Column="0" FontAttributes="Bold"/>
                                     <Label Text="{Binding Body}" HorizontalTextAlignment="Start" FontSize="Caption" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" Margin="0,0,5,0"/>
-                                    
-                                    <!--<Image Source="{Binding RatingStarsImage}" Grid.Column="1" HorizontalOptions="Fill" Grid.Row="3"/>-->
+                                    <ImageButton Command="{ Binding Source={x:Reference collectionName},Path=BindingContext.DeleteJobOffer}" CommandParameter="{Binding}" BackgroundColor="Transparent" Source="delete.png" Grid.Row="0" Grid.Column="1" />
+                                    <Button Command="{ Binding Source={x:Reference collectionName},Path=BindingContext.DeleteJobOffer}" CommandParameter="{Binding}" TextColor="Black" BackgroundColor="Transparent" Text="מחק" Grid.Row="1" Grid.Column="1" />
+                                  
                                 </Grid>
-                            </SwipeView>
+                                </Frame>
+                          
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

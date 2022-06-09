@@ -15,7 +15,7 @@
              Command="{Binding RefreshCommand}"
              IsRefreshing="{Binding IsRefreshing}">
 
-                <CollectionView  x:Name="collectionName" ItemsSource="{Binding FilteredReviews}" SelectionMode="None" BackgroundColor="Transparent">
+                <CollectionView  x:Name="collectionName" ItemsSource="{Binding FilteredReviews}" SelectionMode="Single" SelectedItem="{Binding CurrentReview}" SelectionChangedCommand="{Binding ShowParent}" SelectionChangedCommandParameter="{Binding CurrentReview}" BackgroundColor="Transparent">
                     <CollectionView.EmptyView>
                         <StackLayout>
                             <Label Text="לא פורסמו ביקורות"/>

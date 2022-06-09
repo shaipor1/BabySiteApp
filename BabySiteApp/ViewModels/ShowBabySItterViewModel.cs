@@ -339,7 +339,7 @@ namespace BabySiteApp.ViewModels
             this.Email = b.User.Email;
             TimeSpan timeSpan = DateTime.Now - b.User.BirthDate;
             this.Age = timeSpan.Days / 365;
-            this.Adress = b.User.City + b.User.Street + b.User.House;
+            this.Adress = b.User.City+" " + b.User.Street + " " + b.User.House;
             this.salary = b.Salary;
             this.HasCar = b.HasCar;
             if (b.RatingAverage == 1)
