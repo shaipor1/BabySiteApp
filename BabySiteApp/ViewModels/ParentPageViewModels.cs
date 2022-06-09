@@ -1029,7 +1029,7 @@ namespace BabySiteApp.ViewModels
                             City = this.City,
                             Street = this.Street,
                             House = this.HouseNum,
-                            Gender = theApp.CurrentUser.Gender,
+                            Gender = theApp.CurrentUser.Gender
 
                         },
                         Salary = this.Salary,
@@ -1076,10 +1076,9 @@ namespace BabySiteApp.ViewModels
 
                     Page page;
 
-                   if(u.UserTypeId==1)
+                
                         page = new Views.ParentMainPage();
-                   else
-                        page = new Views.BabySitterPage();
+                  
 
 
 

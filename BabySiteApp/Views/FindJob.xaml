@@ -19,6 +19,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40"/>
@@ -34,7 +35,8 @@
                        
                         <Label Text="מספר ילדים מקסימלי:" Grid.Row="0" Grid.Column="2"  HorizontalOptions="Center" TextColor="Black"/>
                         <Entry    Grid.Row="1" Grid.Column="2"   Placeholder="מספר ילדים מקסימלי" Text="{Binding MaxCountFilter}"  HorizontalOptions="Center"/>
-                      
+                        <Label Text="מרחק מקסימלי:" Grid.Row="0" Grid.Column="3"  HorizontalOptions="Center" TextColor="Black"/>
+                        <Entry    Grid.Row="1" Grid.Column="3"   Placeholder="מרחק מקסימלי" Text="{Binding RadiusFilter}"  HorizontalOptions="Center"/>
                         <Button Text="סנן" Command="{Binding FilterCommand}" Grid.Column="1" Grid.Row="3"  TextColor="Black" CornerRadius="5" BackgroundColor="#f4acb7"/>
                     </Grid>
                 </StackLayout>

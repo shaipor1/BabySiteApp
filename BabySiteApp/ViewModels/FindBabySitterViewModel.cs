@@ -160,6 +160,7 @@ namespace BabySiteApp.ViewModels
         private void OnCall(BabySitter b)
         {
             PhoneDialer.Open(b.User.PhoneNumber);
+            Location.CalculateDistance(42, 34, 45, 34, DistanceUnits.Kilometers);
         }
 
         private void OnRefresh(object obj)
@@ -172,9 +173,12 @@ namespace BabySiteApp.ViewModels
         {
             foreach(BabySitter b in this.babySitters)
             {
-                if ((HasCarFilter && b.HasCar || !HasCarFilter) &&
+                double distance = Location.CalculateDistance((double)b.User.Latitude, (double)b.User.Longitude, (double)CurrentApp.CurrentUser.Latitude, (double)CurrentApp.CurrentUser.Longitude, DistanceUnits.Kilometers);
+                if (
+                    ((HasCarFilter && b.HasCar) || !HasCarFilter) &&
                     (b.RatingAverage >= MinRatingFilter) &&
-                    (b.Salary <= MaxSalaryFilter ))
+                    (b.Salary <= MaxSalaryFilter )&&((b.HasCar && distance<=10)|| (!b.HasCar && distance<= 1))
+                    )
                 {
                     if (!this.FilteredBabySitters.Contains(b))
                         this.FilteredBabySitters.Add(b);

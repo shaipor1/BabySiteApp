@@ -19,8 +19,8 @@ namespace BabySiteApp
             InitializeComponent();
 
             Page p = new Login();
-            MainPage = new NavigationPage(p) 
-            { BarBackgroundColor = Color.Black };
+            MainPage = p; 
+            //{ BarBackgroundColor = Color.Black };
 
         }
 

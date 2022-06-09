@@ -422,13 +422,13 @@ namespace BabySiteApp.ViewModels
         #region Salary
 
 
-        private int salay;
+        private int salary;
         public int Salary
         {
-            get => salay;
+            get => salary;
             set
             {
-                salay = value;
+                salary = value;
 
                 OnPropertyChanged("Salary");
             }
@@ -766,7 +766,7 @@ namespace BabySiteApp.ViewModels
             this.City = this.SelectedCityItem;
             this.HouseNum = currentUser.House;
             this.HasCar = currentBabySitter.HasCar;
-            this.salay = currentBabySitter.Salary;
+            this.Salary = currentBabySitter.Salary;
             this.UserImgSrc = currentUser.PhotoURL;
 
             this.SelectedStreetItem = currentUser.Street;
@@ -870,12 +870,14 @@ namespace BabySiteApp.ViewModels
                         House = this.HouseNum,
                         Gender = theApp.CurrentUser.Gender,
                           Longitude = position.Longitude,
-                        Latitude = position.Latitude
+                        Latitude = position.Latitude, UserTypeId=2
 
                     },
                    
                     BabySitterId = theApp.CurrentBabySitter.BabySitterId,
-                   
+                   HasCar=this.HasCar,
+                    Salary=this.Salary,
+                
                     UserId = theApp.CurrentUser.UserId
 
 

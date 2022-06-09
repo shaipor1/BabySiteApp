@@ -75,6 +75,21 @@ namespace BabySiteApp.ViewModels
             }
         }
 
+        private double radiusFilter;
+        public double RadiusFilter
+        {
+            get => radiusFilter;
+
+            set
+            {
+                if (radiusFilter != value)
+                {
+                    radiusFilter = value;
+                    OnPropertyChanged("RadiusFilter");
+                }
+            }
+        }
+
         private ObservableCollection<Massage> filteredMessages;
         public ObservableCollection<Massage> FilteredMessages
         {
@@ -140,6 +155,7 @@ namespace BabySiteApp.ViewModels
             this.MinAgeFilter = 0;
             this.MaxCountFilter = 10;
             this.HasNoDogFilter = false;
+            this.RadiusFilter = 100;
             
         }
         private async void InitMessages()
@@ -166,10 +182,12 @@ namespace BabySiteApp.ViewModels
         {
             foreach (Massage b in this.messages)
             {
+                double distance = Location.CalculateDistance((double)b.User.Latitude, (double)b.User.Longitude, (double)CurrentApp.CurrentUser.Latitude, (double)CurrentApp.CurrentUser.Longitude, DistanceUnits.Kilometers);
+
                 if (
                     ((HasNoDogFilter && !b.User.Parents.Where( p=>p.UserId==b.UserId ).FirstOrDefault().HasDog ) || !HasNoDogFilter) &&
                     (b.User.Parents.Where(p => p.UserId == b.UserId).FirstOrDefault().ChildrenMinAge >= MinAgeFilter) &&
-                    (b.User.Parents.Where(p => p.UserId == b.UserId).FirstOrDefault().ChildrenCount <= MaxCountFilter)
+                    (b.User.Parents.Where(p => p.UserId == b.UserId).FirstOrDefault().ChildrenCount <= MaxCountFilter)&&(distance<=RadiusFilter)
                     )
                 {
                     if (!this.FilteredMessages.Contains(b))
@@ -186,7 +204,8 @@ namespace BabySiteApp.ViewModels
 
         private void ShowMessagePage(Massage obj)
         {
-            CurrentApp.MainPage.Navigation.PushAsync(new Views.ShowMessage(obj));
+            CurrentApp.MainPage=new Views.ShowMessage(obj);
+            //CurrentMessage = null;
             //CurrentApp.MainPage.Navigation.PushAsync(new ShowBabySitter());
             //CurrentApp.MainPage.DisplayAlert("ללעמוד שמציג פרטים על הבייביסיטר", "baby sitter page", "אישור");
         }

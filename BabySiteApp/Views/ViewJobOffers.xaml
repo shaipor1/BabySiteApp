@@ -5,14 +5,14 @@
              xmlns:modles="clr-namespace:BabySiteApp.Models"
              x:DataType="viewmodels:ViewJobOffersViewModel"
              x:Class="BabySiteApp.Views.ViewJobOffers"   Title="הצעות עבודה שפרסמת"
-             FlowDirection="RightToLeft" BackgroundImageSource="flowerBG.jpg">
+             FlowDirection="RightToLeft" BackgroundImageSource="PINKBG.jpg">
     <ContentPage.Content>
         <StackLayout>
             <RefreshView x:Name="refreshView"
              Command="{Binding RefreshCommand}"
              IsRefreshing="{Binding IsRefreshing}">
 
-                <CollectionView  x:Name="collectionName" ItemsSource="{Binding JobOffers}"  SelectionMode="Single" BackgroundColor="Transparent">
+                <CollectionView  x:Name="collectionName" ItemsSource="{Binding JobOffers}" SelectionMode="Single" BackgroundColor="Transparent">
                     <CollectionView.EmptyView>
 
                       
@@ -37,9 +37,9 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="modles:Massage" >
-                        
-                              
-                                <Frame BackgroundColor="#457b9d" CornerRadius="20" Margin="20" HeightRequest="40">
+
+
+                            <Frame BackgroundColor="#ddbea9" CornerRadius="20" Margin="2" HeightRequest="30">
                                 <Grid Margin="7">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
@@ -52,7 +52,7 @@
                                     <Label Text="{Binding HeadLine}" HorizontalTextAlignment="Start" FontSize="Caption"  Grid.Row="0" Grid.Column="0" FontAttributes="Bold"/>
                                     <Label Text="{Binding Body}" HorizontalTextAlignment="Start" FontSize="Caption" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" Margin="0,0,5,0"/>
                                     <ImageButton Command="{ Binding Source={x:Reference collectionName},Path=BindingContext.DeleteJobOffer}" CommandParameter="{Binding}" BackgroundColor="Transparent" Source="delete.png" Grid.Row="0" Grid.Column="1" />
-                                    <Button Command="{ Binding Source={x:Reference collectionName},Path=BindingContext.DeleteJobOffer}" CommandParameter="{Binding}" TextColor="Black" BackgroundColor="Transparent" Text="מחק" Grid.Row="1" Grid.Column="1" />
+                                    <Button Text="מחק" Command="{ Binding Source={x:Reference collectionName},Path=BindingContext.DeleteJobOffer}" CommandParameter="{Binding}" TextColor="Black" FontSize="Caption" BackgroundColor="Transparent"  Grid.Row="1" Grid.Column="1" />
                                   
                                 </Grid>
                                 </Frame>
