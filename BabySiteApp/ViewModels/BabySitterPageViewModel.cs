@@ -16,11 +16,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Collections.ObjectModel;
 using BabySiteApp.DTO;
+using Xamarin.Forms.Maps;
 
 namespace BabySiteApp.ViewModels
 {
     class BabySitterPageViewModel:BaseViewModels
     {
+
         private List<string> allCities;
         private ObservableCollection<string> filteredCities;
         public ObservableCollection<string> FilteredCities
@@ -58,6 +60,61 @@ namespace BabySiteApp.ViewModels
                 }
             }
         }
+        #region מקור התמונה
+        private string userImgSrc;
+
+        public string UserImgSrc
+        {
+            get => userImgSrc;
+            set
+            {
+                userImgSrc = value;
+                OnPropertyChanged("UserImgSrc");
+            }
+        }
+        private const string DEFAULT_PHOTO_SRC = "defaultphoto.png";
+        #endregion
+        ///The following command handle the pick photo button
+        FileResult imageFileResult;
+        public event Action<ImageSource> SetImageSourceEvent;
+        public ICommand PickImageCommand => new Command(OnPickImage);
+        public async void OnPickImage()
+        {
+            FileResult result = await MediaPicker.PickPhotoAsync(new MediaPickerOptions()
+            {
+                Title = "בחר תמונה"
+            });
+
+            if (result != null)
+            {
+                this.imageFileResult = result;
+
+                var stream = await result.OpenReadAsync();
+                ImageSource imgSource = ImageSource.FromStream(() => stream);
+                if (SetImageSourceEvent != null)
+                    SetImageSourceEvent(imgSource);
+            }
+        }
+
+        ///The following command handle the take photo button
+        public ICommand CameraImageCommand => new Command(OnCameraImage);
+        public async void OnCameraImage()
+        {
+            var result = await MediaPicker.CapturePhotoAsync(new MediaPickerOptions()
+            {
+                Title = "צלם תמונה"
+            });
+
+            if (result != null)
+            {
+                this.imageFileResult = result;
+                var stream = await result.OpenReadAsync();
+                ImageSource imgSource = ImageSource.FromStream(() => stream);
+                if (SetImageSourceEvent != null)
+                    SetImageSourceEvent(imgSource);
+            }
+        }
+
 
         #region IsStreetEnabled
         private bool isStreetEnabled;
@@ -573,6 +630,29 @@ namespace BabySiteApp.ViewModels
                 this.StreetError = ERROR_MESSAGES.REQUIRED_FIELD;
         }
         #endregion
+        #region adress
+        private double? longitude;
+        public double? Longitude
+        {
+            get => longitude;
+            set
+            {
+                longitude = value;
+                OnPropertyChanged("Longitude");
+            }
+        }
+
+        private double? latitude;
+        public double? Latitude
+        {
+            get => latitude;
+            set
+            {
+                latitude = value;
+                OnPropertyChanged("Latitude");
+            }
+        }
+        #endregion
         #region HouseNum
         private bool showHouseNumError;
         public bool ShowHouseNumError
@@ -652,110 +732,7 @@ namespace BabySiteApp.ViewModels
             }
         }
         #endregion
-        //#region Age
-        //private int minAge;
-        //public int MinAge
-        //{
-        //    get => minAge;
-        //    set
-        //    {
-        //        minAge = value;
-        //        OnPropertyChanged("MinAge");
-        //    }
-        //}
-        //private int maxAge;
-        //public int MaxAge
-        //{
-        //    get => maxAge;
-        //    set
-        //    {
-        //        maxAge = value;
-        //        OnPropertyChanged("MaxAge");
-        //    }
-        //}
-        //private bool showAgeError;
-        //public bool ShowAgeError
-        //{
-        //    get => showAgeError;
-        //    set
-        //    {
-        //        showAgeError = value;
-        //        OnPropertyChanged("ShowAgeError");
-        //    }
-        //}
-        //private string ageError;
-        //public string AgeError
-        //{
-        //    get => ageError;
-        //    set
-        //    {
-        //        ageError = value;
-        //        OnPropertyChanged("AgeError");
-        //    }
-        //}
-        //private void ValidateAge()
-        //{
-        //    if (string.IsNullOrEmpty(ChildrenCount.ToString()) || MinAge < 1 || MinAge > 18 || MaxAge < 1 || MaxAge > 18 || MinAge > MaxAge)
-        //        this.showAgeError = false;
-        //    else
-        //        this.showAgeError = true;
-        //}
-        //#endregion
-        //#region children count
-        //private int childrenCount;
-        //public int ChildrenCount
-        //{
-        //    get => childrenCount;
-        //    set
-        //    {
-        //        childrenCount = value;
-        //        OnPropertyChanged("ChildrenCount");
-        //    }
-        //}
-        //private bool showChildrenCountError;
-        //public bool ShowChildrenCountError
-        //{
-        //    get => showChildrenCountError;
-        //    set
-        //    {
-        //        showChildrenCountError = value;
-        //        OnPropertyChanged("ShowChildrenCountError");
-        //    }
-        //}
-        //private string childrenCountError;
-        //public string ChildrenCountError
-        //{
-        //    get => childrenCountError;
-        //    set
-        //    {
-        //        childrenCountError = value;
-        //        OnPropertyChanged("ChildrenCountError");
-        //    }
-        //}
-        //private void ValidateChildrenCount()
-        //{
-        //    if (string.IsNullOrEmpty(ChildrenCount.ToString()) || ChildrenCount < 1 || ChildrenCount > 10)
-        //        this.showChildrenCountError = false;
-        //    else
-        //        this.showChildrenCountError = true;
-        //}
-        //#endregion
-        //#region HasDog
-
-
-        //private bool hasDog;
-        //public bool HasDog
-        //{
-        //    get => hasDog;
-        //    set
-        //    {
-        //        hasDog = value;
-
-        //        OnPropertyChanged("HasDog");
-        //    }
-        //}
-
-        //#endregion 
+       
         public Command SaveDataCommand { protected set; get; }
         public ICommand ClearCommand { protected set; get; }
         public ICommand HomePageCommand { protected set; get; }
@@ -775,8 +752,10 @@ namespace BabySiteApp.ViewModels
             User currentUser = theApp.CurrentUser;
             BabySitter currentBabySitter = theApp.CurrentBabySitter;
 
+            
             this.SelectedCityItem = currentUser.City;
-
+            this.Longitude = currentUser.Longitude;
+            this.Latitude = currentUser.Latitude;
             this.Email = currentUser.Email;
             this.UserName = currentUser.UserName;
             this.Password = currentUser.UserPswd;
@@ -789,7 +768,7 @@ namespace BabySiteApp.ViewModels
             this.HasCar = currentBabySitter.HasCar;
             this.salay = currentBabySitter.Salary;
            
-
+            
             this.SelectedStreetItem = currentUser.Street;
             this.Street = this.SelectedStreetItem;
             this.IsStreetEnabled = true;
@@ -868,6 +847,11 @@ namespace BabySiteApp.ViewModels
                 await App.Current.MainPage.Navigation.PushModalAsync(new Views.ServerStatusPage(this));
 
                 App theApp = (App)App.Current;
+                //first extract the position of the address
+                Geocoder geoCoder = new Geocoder();
+
+                IEnumerable<Position> approximateLocations = await geoCoder.GetPositionsForAddressAsync($"{this.Street}, {this.HouseNum}, {this.City}");
+                Position position = approximateLocations.FirstOrDefault();
                 BabySitter newBabySitter = new BabySitter()
                 {
 
@@ -884,13 +868,14 @@ namespace BabySiteApp.ViewModels
                         City = this.City,
                         Street = this.Street,
                         House = this.HouseNum,
-                        Gender = theApp.CurrentUser.Gender
+                        Gender = theApp.CurrentUser.Gender,
+                          Longitude = position.Longitude,
+                        Latitude = position.Latitude
+
                     },
-                    //ChildrenMaxAge = this.MaxAge,
-                    //ChildrenMinAge = this.MinAge,
+                   
                     BabySitterId = theApp.CurrentBabySitter.BabySitterId,
-                    //ChildrenCount = this.ChildrenCount,
-                    //HasDog = this.HasDog,
+                   
                     UserId = theApp.CurrentUser.UserId
 
 

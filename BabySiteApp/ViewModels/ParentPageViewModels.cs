@@ -16,6 +16,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Collections.ObjectModel;
 using BabySiteApp.DTO;
+using Xamarin.Forms.Maps;
 
 
 namespace BabySiteApp.ViewModels
@@ -966,7 +967,11 @@ namespace BabySiteApp.ViewModels
             {
                 ServerStatus = "מתחבר לשרת...";
                 await App.Current.MainPage.Navigation.PushModalAsync(new Views.ServerStatusPage(this));
+                //first extract the position of the address
+                Geocoder geoCoder = new Geocoder();
 
+                IEnumerable<Position> approximateLocations = await geoCoder.GetPositionsForAddressAsync($"{this.Street}, {this.HouseNum}, {this.City}");
+                Position position = approximateLocations.FirstOrDefault();
                 App theApp = (App)App.Current;
                 if (this.CurrentApp.CurrentUser.UserTypeId == 1)
                 {
@@ -987,6 +992,8 @@ namespace BabySiteApp.ViewModels
                             Street = this.Street,
                             House = this.HouseNum,
                             Gender = theApp.CurrentUser.Gender,
+                            Longitude = position.Longitude,
+                            Latitude = position.Latitude
 
                         },
                         ChildrenMaxAge = this.MaxAge,

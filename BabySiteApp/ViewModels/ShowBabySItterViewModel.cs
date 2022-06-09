@@ -47,6 +47,32 @@ namespace BabySiteApp.ViewModels
             }
         }
         #endregion
+        private bool showReviewError;
+        public bool ShowReviewError
+        {
+            get => showReviewError;
+            set
+            {
+                showReviewError = value;
+                OnPropertyChanged("ShowReviewError");
+            }
+        }
+        private string reviewError;
+
+        public string ReviewError
+        {
+            get => reviewError;
+            set
+            {
+                reviewError = value;
+                OnPropertyChanged("ReviewError");
+            }
+        }
+        private void ValidateReview()
+        {
+            this.ShowReviewError = string.IsNullOrEmpty(ReviewBody);
+        }
+
         private bool isRefreshing;
         public bool IsRefreshing
         {
@@ -209,6 +235,7 @@ namespace BabySiteApp.ViewModels
             set
             {
                 reviewBody = value;
+                ValidateReview();
                 OnPropertyChanged("ReviewBody");
             }
         }
@@ -360,14 +387,19 @@ namespace BabySiteApp.ViewModels
             }
 
             else
-                this.ShowStar4 = false;
+                this.ShowStar5 = false;
 
             this.PostReviewCommand = new Command(PostReview);
             this.CallBabySitterCommand = new Command(OnCall);
+            this.RefreshCommand = new Command(OnRefresh);
             this.ServerStatus = string.Empty;
             FilteredReviews = new ObservableCollection<Review>();
             InitReviews();
             this.IsRefreshing = false;
+            this.Rating = 1;
+            this.ReviewError = BabySiteApp.ViewModels.ERROR_MESSAGES.BAD_REVIEW;
+            this.ShowReviewError = false;
+            
         }
 
 
@@ -383,7 +415,55 @@ namespace BabySiteApp.ViewModels
         private void OnRefresh(object obj)
         {
             this.IsRefreshing = true;
+            if (babySitter.RatingAverage == 1)
+                this.ShowStar1 = true;
+            else
+                this.ShowStar1 = false;
+            if (babySitter.RatingAverage == 2)
+            {
+                this.ShowStar1 = true;
+                this.ShowStar2 = true;
+            }
+
+            else
+                this.ShowStar2 = false;
+            if (babySitter.RatingAverage == 3)
+            {
+                this.ShowStar1 = true;
+                this.ShowStar2 = true;
+
+                this.ShowStar3 = true;
+            }
+
+            else
+                this.ShowStar3 = false;
+
+            if (babySitter.RatingAverage == 4)
+            {
+                this.ShowStar1 = true;
+                this.ShowStar2 = true;
+                this.ShowStar3 = true;
+                this.ShowStar4 = true;
+
+            }
+
+            else
+                this.ShowStar4 = false;
+            if (babySitter.RatingAverage == 5)
+            {
+                this.ShowStar1 = true;
+                this.ShowStar2 = true;
+                this.ShowStar3 = true;
+                this.ShowStar4 = true;
+                this.ShowStar5 = true;
+
+            }
+
+            else
+                this.ShowStar5 = false;
             InitReviews();
+
+           
         }
         private void FilterReviews()
         {
@@ -410,33 +490,39 @@ namespace BabySiteApp.ViewModels
         {
 
             App a = (App)App.Current;
-
-            Review newReview = new Review()
+            if (!ShowReviewError)
             {
-                Rating = this.Rating,
-                BabySitterId = babySitter.BabySitterId,
-                ParentId=a.CurrentParent.ParentId,
-                Decription=this.ReviewBody
+                Review newReview = new Review()
+                {
+                    Rating = this.Rating,
+                    BabySitterId = babySitter.BabySitterId,
+                    ParentId = a.CurrentParent.ParentId,
+                    Decription = this.ReviewBody
 
-            };
+                };
 
-            
-            BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
-            int b = await proxy.PostReviewAsync(newReview);
-            ServerStatus = "מעלה את ההצעה..";
-            await App.Current.MainPage.Navigation.PushModalAsync(new Views.ServerStatusPage(this));
-            if (b!=-1)
-            {
-                babySitter.RatingAverage = b;
-                await App.Current.MainPage.DisplayAlert("בוצע", "הדירוג פורסם בהצלחה", "אישור", FlowDirection.RightToLeft);
-                await App.Current.MainPage.Navigation.PopModalAsync();
-               
 
+                BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
+                int b = await proxy.PostReviewAsync(newReview);
+                ServerStatus = "מעלה את ההצעה..";
+                await App.Current.MainPage.Navigation.PushModalAsync(new Views.ServerStatusPage(this));
+                if (b != -1)
+                {
+                    babySitter.RatingAverage = b;
+                    await App.Current.MainPage.DisplayAlert("בוצע", "הדירוג פורסם בהצלחה", "אישור", FlowDirection.RightToLeft);
+                    await App.Current.MainPage.Navigation.PopModalAsync();
+
+
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("שגיאה", "היתה תקלה בפרסום ההצעה, נסה שוב", "אישור", FlowDirection.RightToLeft);
+                }
             }
             else
-            {
                 await App.Current.MainPage.DisplayAlert("שגיאה", "היתה תקלה בפרסום ההצעה, נסה שוב", "אישור", FlowDirection.RightToLeft);
-            }
+
+
 
         }
     }

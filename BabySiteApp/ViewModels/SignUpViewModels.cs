@@ -30,6 +30,7 @@ namespace BabySiteApp.ViewModels
         public const string BAD_STREET = "רחוב לא תקין";
         public const string BAD_AGE = "גיל הילדים יכול להיות מספר בין 1 ל 18";
         public const string BAD_COUNT = "מספר הילדים צריך להיות בין 1 ל 10";
+        public const string BAD_REVIEW = "יש להוסיף חוות דעת";
 
 
     }

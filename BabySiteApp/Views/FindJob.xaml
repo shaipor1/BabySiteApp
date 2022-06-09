@@ -11,7 +11,7 @@
         <StackLayout>
             <Label Text="מצא עבודה" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold"/>
 
-            <Frame BackgroundColor="#aed9e0" Margin="30,2,30,30" Padding="15" CornerRadius="7" HasShadow="True">
+            <Frame BackgroundColor="#aed9e0" HeightRequest="250" Margin="30,2,30,30" Padding="15"  CornerRadius="7" HasShadow="True" >
                 <StackLayout>
 
                     <Grid>
@@ -21,9 +21,9 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
                             <RowDefinition Height="50"/>
 
                         </Grid.RowDefinitions>
@@ -34,7 +34,7 @@
                        
                         <Label Text="מספר ילדים מקסימלי:" Grid.Row="0" Grid.Column="2"  HorizontalOptions="Center" TextColor="Black"/>
                         <Entry    Grid.Row="1" Grid.Column="2"   Placeholder="מספר ילדים מקסימלי" Text="{Binding MaxCountFilter}"  HorizontalOptions="Center"/>
-                        <Label  Text="{Binding MaxCountFilter}" Grid.Row="2" Grid.Column="2" HorizontalOptions="Center" TextColor="Black"/>
+                      
                         <Button Text="סנן" Command="{Binding FilterCommand}" Grid.Column="1" Grid.Row="3"  TextColor="Black" CornerRadius="5" BackgroundColor="#f4acb7"/>
                     </Grid>
                 </StackLayout>

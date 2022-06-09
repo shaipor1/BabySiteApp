@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BabySiteApp.Views.BabySitterPage"
              xmlns:viewmodels="clr-namespace:BabySiteApp.ViewModels"
-             x:DataType="viewmodels:ParentPageViewModels"
+             x:DataType="viewmodels:BabySitterPageViewModel"
              FlowDirection="RightToLeft"
 NavigationPage.HasNavigationBar="True">
     <ContentPage.ToolbarItems>

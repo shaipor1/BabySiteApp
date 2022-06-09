@@ -5,8 +5,10 @@
              xmlns:modles="clr-namespace:BabySiteApp.Models"
               x:DataType="viewmodels:ShowBabySitterViewModel">
     <ContentPage.Content>
-
-        <ScrollView>
+        <RefreshView x:Name="refreshView"
+             Command="{Binding RefreshCommand}"
+             IsRefreshing="{Binding IsRefreshing}">
+            <ScrollView>
 
             <StackLayout>
                 <Grid>
@@ -168,7 +170,7 @@
                     <Label  Text="{Binding Rating}" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
                 </Grid>
                 <!--review-->
-                <Label Text="הוסף חוות דעת:"/>
+
 
                 <!--תוכן המודעה-->
                 <Grid>
@@ -178,16 +180,15 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Label Text="פרטים נוספים:" Grid.Column="1" Grid.Row="0"/>
-                    <Entry Text="{Binding ReviewBody}" Grid.Column="0" Grid.Row="0"/>
+                    <Label Text="פרטים נוספים:" Grid.Column="0" Grid.Row="0"/>
+                    <Entry Text="{Binding ReviewBody}" Grid.Column="1" Grid.Row="0"/>
+                    <Label Text="{Binding ReviewError}" IsVisible="{Binding ShowReviewError}" Grid.Column="0" Grid.Row="1" Style="{StaticResource labelErrorStyle}"></Label>
                 </Grid>
                 <Button Text="שלח" Command="{Binding PostReviewCommand}"/>
 
-                <RefreshView x:Name="refreshView"
-             Command="{Binding RefreshCommand}"
-             IsRefreshing="{Binding IsRefreshing}">
+                
 
                     <CollectionView  x:Name="collectionName" ItemsSource="{Binding FilteredReviews}" SelectionMode="None" BackgroundColor="Transparent">
                         <CollectionView.EmptyView>
@@ -225,12 +226,12 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                </RefreshView>
+              
             </StackLayout>
 
 
         </ScrollView>
-        
+          </RefreshView>
          
     </ContentPage.Content>
 </ContentPage>

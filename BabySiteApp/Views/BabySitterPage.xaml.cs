@@ -14,7 +14,7 @@ namespace BabySiteApp.Views
     {
         public BabySitterPage()
         {
-            BindingContext = new ParentPageViewModels();
+            BindingContext = new BabySitterPageViewModel();
 
             InitializeComponent();
         }

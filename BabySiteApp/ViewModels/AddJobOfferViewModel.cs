@@ -15,6 +15,32 @@ namespace BabySiteApp.ViewModels
     public class AddJobOfferViewModel : BaseViewModels
     {
         #region properties
+        private bool showHeadLineError;
+        public bool ShowHeadLineError
+        {
+            get => showHeadLineError;
+            set
+            {
+                showHeadLineError = value;
+                OnPropertyChanged("ShowHeadLineError");
+            }
+        }
+        private string headLineError;
+
+        public string HeadLineError
+        {
+            get => headLineError;
+            set
+            {
+                headLineError = value;
+                OnPropertyChanged("HeadLineError");
+            }
+        }
+        private void ValidateHeadLine()
+        {
+            this.ShowHeadLineError = string.IsNullOrEmpty(MessageHeadLine);
+        }
+
         private string messageHeadLine;
         public string MessageHeadLine
         {
@@ -24,9 +50,36 @@ namespace BabySiteApp.ViewModels
                 if(messageHeadLine!=value)
                 {
                     messageHeadLine = value;
+                    ValidateHeadLine();
                     OnPropertyChanged("MessageHeadLine");
                 }
             }
+        }
+        //
+        private bool showBodyError;
+        public bool ShowBodyError
+        {
+            get => showBodyError;
+            set
+            {
+                showBodyError = value;
+                OnPropertyChanged("ShowBodyError");
+            }
+        }
+        private string bodyError;
+
+        public string BodyError
+        {
+            get => bodyError;
+            set
+            {
+                bodyError = value;
+                OnPropertyChanged("BodyError");
+            }
+        }
+        private void ValidateBody()
+        {
+            this.ShowBodyError = string.IsNullOrEmpty(MessageBody);
         }
         private string messageBody;
         public string MessageBody
@@ -37,6 +90,7 @@ namespace BabySiteApp.ViewModels
                 if (messageBody != value)
                 {
                     messageBody = value;
+                    ValidateBody();
                     OnPropertyChanged("MessageBody");
                 }
             }
@@ -69,7 +123,8 @@ namespace BabySiteApp.ViewModels
         private async void PostMessage()
         {
             App a = (App)App.Current;
-
+            if(!ShowBodyError&&!ShowHeadLineError)
+            { 
             Massage newMassage = new Massage()
             {
                 MassageTypeId = 1,
@@ -92,6 +147,11 @@ namespace BabySiteApp.ViewModels
                 await App.Current.MainPage.Navigation.PopModalAsync();
 
 
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("שגיאה", "היתה תקלה בפרסום ההצעה, נסה שוב", "אישור", FlowDirection.RightToLeft);
+            }
             }
             else
             {

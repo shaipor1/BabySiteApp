@@ -30,16 +30,19 @@
 
                                 <Grid Margin="7">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55" />
+                                        <ColumnDefinition Width="55" />
+                                    <ColumnDefinition Width="55" />
+                                </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <Label Text="{Binding Rating}" HorizontalTextAlignment="Start" FontSize="Caption"  Grid.Row="0" Grid.Column="0"/>
-                                    <Label Text="{Binding Decription}" HorizontalTextAlignment="Start" FontSize="Caption" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" Margin="0,0,5,0"/>
+                                <Label Text="דירוג:" HorizontalTextAlignment="Start" FontSize="Body"  Grid.Row="0" Grid.Column="0" />
+                                <Label Text="{Binding Rating}" HorizontalTextAlignment="Start" FontSize="Body"  Grid.Row="0" Grid.Column="1"/>
+                                <Label Text="מתוך 5" HorizontalTextAlignment="Start" FontSize="Body"  Grid.Row="0" Grid.Column="2" />
+                                <Label Text="{Binding Decription}" Grid.ColumnSpan="3" HorizontalTextAlignment="Start" FontSize="Body" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" Margin="0,0,5,0"/>
                                    
                                 </Grid>
 
