@@ -265,6 +265,23 @@ namespace BabySiteApp.ViewModels
             }
         }
         private BabySitter babySitter;
+       
+
+        private List<Review> reviews;
+
+        private ObservableCollection<Review> filteredReviews;
+        public ObservableCollection<Review> FilteredReviews
+        {
+            get => filteredReviews;
+            set
+            {
+                if (filteredReviews != value)
+                {
+                    filteredReviews = value;
+                    OnPropertyChanged("FilteredMessages");
+                }
+            }
+        }
         #endregion
 
         #region COMMANDS
@@ -348,9 +365,41 @@ namespace BabySiteApp.ViewModels
             this.PostReviewCommand = new Command(PostReview);
             this.CallBabySitterCommand = new Command(OnCall);
             this.ServerStatus = string.Empty;
+            FilteredReviews = new ObservableCollection<Review>();
+            InitReviews();
+            this.IsRefreshing = false;
         }
 
-     
+
+        private async void InitReviews()
+        {
+            BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
+            this.reviews = await proxy.GetReviewsParent();
+            FilteredReviews.Clear();
+            FilterReviews();
+            this.IsRefreshing = false;
+
+        }
+        private void OnRefresh(object obj)
+        {
+            this.IsRefreshing = true;
+            InitReviews();
+        }
+        private void FilterReviews()
+        {
+            foreach (Review b in this.reviews)
+            {
+                if (b.BabySitterId==babySitter.BabySitterId && !this.FilteredReviews.Contains(b))
+                    this.FilteredReviews.Add(b);
+
+                else
+                {
+                    if (this.FilteredReviews.Contains(b))
+                        this.FilteredReviews.Remove(b);
+                }
+            }
+            IsRefreshing = false;
+        }
 
         private void OnCall()
         {

@@ -64,6 +64,7 @@ namespace BabySiteApp.ViewModels
             }
         }
 
+        #endregion
         #region COMMANDS
 
         public ICommand FilterCommand
@@ -122,6 +123,5 @@ namespace BabySiteApp.ViewModels
 
        
 
-        #endregion
     }
 }

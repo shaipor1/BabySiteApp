@@ -214,11 +214,11 @@
                                     </Grid.RowDefinitions>
                                     <Label Text="{Binding Rating}" HorizontalTextAlignment="Start" FontSize="Caption"  Grid.Row="0" Grid.Column="0"/>
                                     <Label Text="{Binding Decription}" HorizontalTextAlignment="Start" FontSize="Caption" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" Margin="0,0,5,0"/>
-                                    <Image x:Name="ratingStar1" Source="star.png"  IsVisible="{Binding ShowStar1}" Grid.Column="0"  Grid.Row="0"/>
+                                    <!--<Image x:Name="ratingStar1" Source="star.png"  IsVisible="{Binding ShowStar1}" Grid.Column="0"  Grid.Row="0"/>
                                     <Image x:Name="ratingStar2" Source="star.png" IsVisible="{Binding ShowStar2}" Grid.Column="1" Grid.Row="0"/>
                                     <Image x:Name="ratingStar3" Source="star.png" IsVisible="{Binding ShowStar3}" Grid.Column="2"  Grid.Row="0"/>
                                     <Image x:Name="ratingStar4" Source="star.png" IsVisible="{Binding ShowStar4}" Grid.Column="3" Grid.Row="0"/>
-                                    <Image x:Name="ratingStar5" Source="star.png" IsVisible="{Binding ShowStar5}" Grid.Column="4"  Grid.Row="0"/>
+                                    <Image x:Name="ratingStar5" Source="star.png" IsVisible="{Binding ShowStar5}" Grid.Column="4"  Grid.Row="0"/>-->
                                 </Grid>
 
 
