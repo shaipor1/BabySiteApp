@@ -195,7 +195,7 @@ namespace BabySiteApp.ViewModels
         private void ShowBabySittersPage(BabySitter obj)
         {
             CurrentApp.MainPage.Navigation.PushAsync(new ShowBabySitter(obj));
-            CurrentBabySitter = null;
+            //CurrentBabySitter = null;
         }
     }
 }

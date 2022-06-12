@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BabySiteApp.Views.MyReviews"  FlowDirection="RightToLeft"  xmlns:viewmodels="clr-namespace:BabySiteApp.ViewModels"
              xmlns:modles="clr-namespace:BabySiteApp.Models"
-             x:DataType="viewmodels:MyReviewsViewModel">
+             x:DataType="viewmodels:MyReviewsViewModel" BackgroundImageSource="cuteBG.jpg">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="צפה בביקורות עליך" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold"/>
+            <Label Text="צפה בביקורות עליך" HorizontalOptions="Center" FontSize="Title" TextColor="Black" FontAttributes="Bold"/>
 
            
 
@@ -16,6 +16,7 @@
              IsRefreshing="{Binding IsRefreshing}">
 
                 <CollectionView  x:Name="collectionName" ItemsSource="{Binding FilteredReviews}" SelectionMode="Single" SelectedItem="{Binding CurrentReview}" SelectionChangedCommand="{Binding ShowParent}" SelectionChangedCommandParameter="{Binding CurrentReview}" BackgroundColor="Transparent">
+                   
                     <CollectionView.EmptyView>
                         <StackLayout>
                             <Label Text="לא פורסמו ביקורות"/>
@@ -24,10 +25,12 @@
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Span="1" Orientation="Vertical" />
                     </CollectionView.ItemsLayout>
+                    
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="modles:Review">
-                           
+                            
 
+                            <Frame BackgroundColor="#e9edc9" HeightRequest="80" CornerRadius="50">
                                 <Grid Margin="7">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="55" />
@@ -45,8 +48,9 @@
                                 <Label Text="{Binding Decription}" Grid.ColumnSpan="3" HorizontalTextAlignment="Start" FontSize="Body" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" Margin="0,0,5,0"/>
                                    
                                 </Grid>
+                            </Frame>
 
-                           
+
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

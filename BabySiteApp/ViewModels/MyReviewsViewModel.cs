@@ -93,7 +93,7 @@ namespace BabySiteApp.ViewModels
         }
         private async void OnShowParent(Review m)
         {
-            await App.Current.MainPage.DisplayAlert(" נכתב על ידי"+m.Parent.User.FirstName+" " + m.Parent.User.LastName, m.Parent.User.PhoneNumber, "אישור", FlowDirection.RightToLeft);
+            await App.Current.MainPage.DisplayAlert(" נכתב על ידי"+" "+m.Parent.User.FirstName+" " + m.Parent.User.LastName, m.Parent.User.PhoneNumber, "אישור", FlowDirection.RightToLeft);
 
         }
         private async void InitReviews()

@@ -142,6 +142,11 @@ namespace BabySiteApp.ViewModels
         ///The following command handle the pick photo button
         FileResult imageFileResult;
         public event Action<ImageSource> SetImageSourceEvent;
+        public ICommand BackToSignUp => new Command(OnBackToSignUp);
+        public void OnBackToSignUp()
+        {
+            App.Current.MainPage = new Login();
+        }
         public ICommand PickImageCommand => new Command(OnPickImage);
         public async void OnPickImage()
         {

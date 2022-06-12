@@ -898,6 +898,7 @@ namespace BabySiteApp.ViewModels
                     ServerStatus = "שומר נתונים...";
 
                     theApp.CurrentUser = babySitter.User;
+                    theApp.CurrentBabySitter = babySitter;
                     await App.Current.MainPage.Navigation.PopModalAsync();
 
                     Page page;
@@ -1067,7 +1068,8 @@ namespace BabySiteApp.ViewModels
             this.City = this.SelectedCityItem;
             this.Street = this.SelectedStreetItem;
             this.HouseNum = currentUser.House;
-
+            this.HasCar = CurrentApp.CurrentBabySitter.HasCar;
+            this.Salary = CurrentApp.CurrentBabySitter.Salary;
 
             IsRefreshing = false;
         }

@@ -11,6 +11,7 @@
             <StackLayout>
 
                 <StackLayout>
+                    <ImageButton Source="arrowright.png" BackgroundColor="Transparent" WidthRequest="40" HorizontalOptions="Start" Command="{Binding BackToSignUp}"/>
                     <!-- תמונה -->
                     <Grid>
                         <Grid.ColumnDefinitions>

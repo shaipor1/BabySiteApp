@@ -45,10 +45,11 @@ namespace BabySiteApp.ViewModels
             GoToSignUp = new Command(OnTap);
         }
 
-        public async void OnTap()
+        public void OnTap()
         {
-            SignUp page = new SignUp();
-            await App.Current.MainPage.Navigation.PushAsync(page);
+            App.Current.MainPage = new SignUp();
+            //SignUp page = new SignUp();
+            //await App.Current.MainPage.Navigation.PushAsync(page);
         }
         private string serverStatus;
         public string ServerStatus
@@ -85,14 +86,14 @@ namespace BabySiteApp.ViewModels
                 {
                     theApp.CurrentParent = user.Parents.Where(pr => pr.UserId == user.UserId).FirstOrDefault();
                     theApp.CurrentBabySitter = null;
-                    Page p = new Views.ParentMainPage();
+                    Page p = new NavigationPage(new Views.ParentMainPage());
                     App.Current.MainPage = p;
                 }
                 else
                 {
                     theApp.CurrentBabySitter = user.BabySitters.Where(pr => pr.UserId == user.UserId).FirstOrDefault();
                     theApp.CurrentParent = null;
-                    Page p = new Views.BabySitterMainPage();
+                    Page p = new NavigationPage(new Views.BabySitterMainPage());
                     App.Current.MainPage = p;
                 }
                 //Page p = new NavigationPage(new Views.HomePage());

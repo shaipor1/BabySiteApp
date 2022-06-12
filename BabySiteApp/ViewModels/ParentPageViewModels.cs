@@ -963,6 +963,7 @@ namespace BabySiteApp.ViewModels
         private async void SaveData()
         {
             User u = null;
+            Parent p = null;
             if (ValidateForm())
             {
                 ServerStatus = "מתחבר לשרת...";
@@ -1008,8 +1009,8 @@ namespace BabySiteApp.ViewModels
                     };
 
                     BabySiteAPIProxy proxy = BabySiteAPIProxy.CreateProxy();
-                    Parent parent = await proxy.UpdateParent(newParent);
-                    u = parent.User;
+                     p = await proxy.UpdateParent(newParent);
+                    u = p.User;
                 }
                 else
                 {
@@ -1072,6 +1073,7 @@ namespace BabySiteApp.ViewModels
                     ServerStatus = "שומר נתונים...";
 
                     theApp.CurrentUser = u;
+                    theApp.CurrentParent = p;
                     await App.Current.MainPage.Navigation.PopModalAsync();
 
                     Page page;
@@ -1242,7 +1244,10 @@ namespace BabySiteApp.ViewModels
             this.City = this.SelectedCityItem;
             this.Street = this.SelectedStreetItem;
             this.HouseNum = currentUser.House;
-
+            this.HasDog = CurrentApp.CurrentParent.HasDog;
+            this.MaxAge = CurrentApp.CurrentParent.ChildrenMaxAge;
+            this.MinAge = CurrentApp.CurrentParent.ChildrenMaxAge;
+            this.ChildrenCount = CurrentApp.CurrentParent.ChildrenCount;
             if (SetImageSourceEvent != null)
                 SetImageSourceEvent(currentUser.PhotoURL);
             IsRefreshing = false;

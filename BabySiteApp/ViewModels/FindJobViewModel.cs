@@ -204,10 +204,8 @@ namespace BabySiteApp.ViewModels
 
         private void ShowMessagePage(Massage obj)
         {
-            CurrentApp.MainPage=new Views.ShowMessage(obj);
-            //CurrentMessage = null;
-            //CurrentApp.MainPage.Navigation.PushAsync(new ShowBabySitter());
-            //CurrentApp.MainPage.DisplayAlert("ללעמוד שמציג פרטים על הבייביסיטר", "baby sitter page", "אישור");
+            CurrentApp.MainPage.Navigation.PushAsync(new ShowMessage(obj));
+
         }
     }
 }

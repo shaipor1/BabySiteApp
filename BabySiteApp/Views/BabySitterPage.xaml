@@ -7,7 +7,7 @@
              FlowDirection="RightToLeft"
 NavigationPage.HasNavigationBar="True">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="התנתק" Order="Primary" Priority="1" IconImageSource="logoutIcon.png" Command="{Binding LogOutCommand}"></ToolbarItem>
+        <ToolbarItem IconImageSource="logout.png" Command="{Binding LogOutCommand}"></ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content  >
         <StackLayout>
